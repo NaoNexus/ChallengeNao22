@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable-v24/button_bg.xml" value="0.23796296296296296" />
+        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/camera_button_image.xml" value="0.23796296296296296" />
+        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/ic_launcher_background.xml" value="0.23703703703703705" />
+        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/activity_main.xml" value="0.2667572463768116" />
+        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/activity_nao_buttons.xml" value="0.22" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

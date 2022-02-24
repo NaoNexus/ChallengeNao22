@@ -1,50 +1,54 @@
 import socket
 
+HOST = socket.gethostbyname(socket.gethostname())
+APP = socket.gethostbyname('')  # Add device name in order to get his IP
+ARD = socket.gethostbyname('')  # Add device name in order to get his IP
 
-class MyClass(GeneratedClass):
-    def __init__(self):
-        GeneratedClass.__init__(self)
 
-    def onLoad(self):
-        pass
+def initServer():
+    host = ''
+    port = 5050
 
-    def onUnload(self):
-        pass
+    print('Server started')
+    print(f'Port: {port}\n')
 
-    def onInput_onStart(self):
-        self.initServer()
-        pass
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind((host, port))
+    s.listen(5)
 
-    def onInput_onStop(self):
-        self.onUnload()  # it is recommended to reuse the clean-up as the box is stopped
-        self.onStopped()  # activate the output of the box
+    print('| DEVICE | IP')
+    print(f'|  NAO   | {HOST}')
+    print(F'|  APP   | {APP}')
+    print(F'|ARDUINO | {ARD}')
 
-    def initServer(self):
-        host = ''
-        port = 5050
+    startServer(s)
 
-        print('Server started')
 
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((host, port))
-        s.listen(5)
+def startServer(s):
+    msg = ['', '']
 
-        self.startServer(s)
+    while True:
+        c, addr = s.accept()
+        msg = on_new_client(c, msg)
+        c.close()
 
-    def startServer(self, s):
-        msg = ['', '']
 
-        while True:
-            c, addr = s.accept()
-            msg = self.on_new_client(c, msg)
-            c.close()
+def on_new_client(clientSocket, msg):
+    message = clientSocket.recv(1024).decode('utf-8')
+    message = message.split('_')
 
-    def on_new_client(self, clientSocket, msg):
-        message = clientSocket.recv(1024).decode('utf-8')
-        message = message.split('_')
+    if 'app' in message:
+        msg = message
+        print('Recieve from app: ', msg[0])
+    return msg
 
-        if 'app' in message:
-            if (msg[0] != ''):
-                msg[0] = message[0]
-                print('Recieve from app: ', message)
-            msg = ['', '']
+
+def send(data, ip, port):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((ip, port))
+    s.send(data.encode())
+    s.close()
+
+
+if __name__ == '__main__':
+    initServer()

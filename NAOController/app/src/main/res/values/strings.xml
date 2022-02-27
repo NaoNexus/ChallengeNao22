@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">NAOController</string>
+    <string name="bottone_camera">bottone_camera</string>
+    <string name="btn_opera_1">opera 1</string>
+    <string name="btn_opera_2">opera 2</string>
+    <string name="btn_opera_3">opera 3</string>
+    <string name="btn_opera_4">opera 4</string>
+    <string name="btn_opera_5">opera 5</string>
+    <string name="btn_opera_6">opera 6</string>
+    <string name="logo">logo</string>
+    <string name="indirizzo_ip">Indirizzo IP</string>
+    <string name="logo_name">NaoNexus team®</string>
 </resources>

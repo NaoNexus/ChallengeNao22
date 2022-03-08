@@ -15,13 +15,11 @@
       <BehaviorLayer name="behavior_layer1">
         <BehaviorKeyframe name="keyframe1" index="1">
           <Diagram scale="100">
-            <Box name="Python server" id="1" localization="8" tooltip="A python server that communicates with the app and arduino" x="579" y="121">
+            <Box name="Python server" id="1" localization="8" tooltip="A python server that communicates with the app and arduino" x="282" y="108">
               <bitmap>media/images/box/box-python-script.png</bitmap>
               <script language="4">
                 <content>
-                  <![CDATA[import socket
-
-class MyClass(GeneratedClass):
+                  <![CDATA[class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
 
@@ -30,187 +28,206 @@ class MyClass(GeneratedClass):
         pass
 
     def onUnload(self):
-        #put clean-up code here
         pass
 
     def onInput_onStart(self):
+        import socket
+
+        self.loop = True
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.initServer()
         pass
 
     def onInput_onStop(self):
+        self.loop = False
+        time.sleep(10)
+        self.s.shutdown(1)
+        self.s.close()
         self.onUnload() #it is recommended to reuse the clean-up as the box is stopped
         self.onStopped() #activate the output of the box
 
-    def onInput_IP_Message(self, p):
-        pass
+    def onInput_sendMessage(self, p):
+        # List passed: [name, message]
+        message = 'nao_' + p[1] + '_' + p[0]
+        self.send(message)
 
     def initServer(self):
-        host = ''
+        host = '192.168.0.198'
         port = 5050
 
         print('Server started')
 
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((host, port))
-        s.listen(5)
+        self.s.bind((host, port))
+        self.s.listen(5)
 
-        self.startServer(s)
+        self.startServer()
 
-    def startServer(self, s):
+    def startServer(self):
         msg = ['', '']
 
-        while True:
-            c, addr = s.accept()
+        while self.loop:
+            c, addr = self.s.accept()
             msg = self.on_new_client(c, msg)
             c.close()
+            time.sleep(1)
 
     def on_new_client(self, clientSocket, msg):
         message = clientSocket.recv(1024).decode('utf-8')
         message = message.split('_')
 
-        if 'app' in message:
-            msg = message
-            print('Recieve from app: ', msg[0])
+        if message[2] == 'nao':
+            if message[0] == 'app':
+                msg = message
+                self.onRecievedMessage(str(msg[1]))
+                print('Recieve from app:', msg[1])
+            else:
+                msg = ['', '', '']
         return msg
 
-    def send(data, ip, port):
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((ip, port))
-        s.send(data.encode())
-        s.close()]]>
+    def send(self, message):
+        self.s.send(message.encode())]]>
                 </content>
               </script>
               <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
               <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
               <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
-              <Input name="IP_Message" type="3" type_size="1" nature="1" inner="0" tooltip="IP of the target of the message and message to be sent with socket&#x0A;" id="4" />
+              <Input name="sendMessage" type="0" type_size="1" nature="1" inner="0" tooltip="IP of the target of the message and message to be sent with socket.&#x0A;A list needs to be passed: [name,  message]" id="4" />
               <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="5" />
+              <Output name="onRecievedMessage" type="3" type_size="1" nature="2" inner="0" tooltip="It returns the message recieved as a string." id="6" />
             </Box>
-            <Box name="IP Getter" id="2" localization="8" tooltip="This box is empty and should be used to create any box diagram you would like." x="212" y="114">
-              <bitmap>media/images/box/box-diagram.png</bitmap>
+            <Box name="Switch Case" id="2" localization="8" tooltip="Test input value and stimulate the output matching to this value. If there is no&#x0A;matching output, the default output (onDefault) is stimulated.&#x0A;&#x0A;You can edit a case by left double-clicking on the line. You can add a&#x0A;case by right clicking on a line and selecting &apos;Insert a row&apos;. You can delete&#x0A;a case by right clicking on a line and selecting &apos;Remove a row&apos;." plugin="dispatcher_plugin" x="759" y="92">
+              <bitmap>media/images/box/interaction/choice.png</bitmap>
               <script language="4">
                 <content>
-                  <![CDATA[]]>
+                  <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		try: # disable autoBind
+		  GeneratedClass.__init__(self, False)
+		except TypeError: # if NAOqi < 1.14
+		  GeneratedClass.__init__( self )
+
+	def onInput_onStart(self, p):
+		p = self.typeConversion(p)
+		if(p == self.typeConversion("1")):
+			self.output_1(p)
+		elif(p == self.typeConversion("2")):
+			self.output_2(p)
+		elif(p == self.typeConversion("3")):
+			self.output_3(p)
+		elif(p == self.typeConversion("4")):
+			self.output_4(p)
+		elif(p == self.typeConversion("5")):
+			self.output_5(p)
+		elif(p == self.typeConversion("6")):
+			self.output_6(p)
+		elif(p == self.typeConversion("7")):
+			self.output_7(p)
+		elif(p == self.typeConversion("8")):
+			self.output_8(p)
+		else:
+			self.onDefault()
+
+	def typeConversion(self, p):
+		try:
+			p = float(p)
+			pint = int(p)
+			if( p == pint ):
+				p = pint
+		except:
+			p = str(p)
+		return p]]>
                 </content>
               </script>
+              <pluginContent>
+                <keywords>
+                  <keyword>&quot;1&quot;</keyword>
+                  <keyword>&quot;2&quot;</keyword>
+                  <keyword>&quot;3&quot;</keyword>
+                  <keyword>&quot;4&quot;</keyword>
+                  <keyword>&quot;5&quot;</keyword>
+                  <keyword>&quot;6&quot;</keyword>
+                  <keyword>&quot;7&quot;</keyword>
+                  <keyword>&quot;8&quot;</keyword>
+                  <keyword></keyword>
+                </keywords>
+              </pluginContent>
               <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
-              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
-              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
-              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
-              <Timeline enable="0">
-                <BehaviorLayer name="behavior_layer1">
-                  <BehaviorKeyframe name="keyframe1" index="1">
-                    <Diagram>
-                      <Box name="IP getter" id="1" localization="8" tooltip="It gets IP of the app and arduino connected to the network and stores them" x="410" y="181">
-                        <bitmap>media/images/box/box-python-script.png</bitmap>
-                        <script language="4">
-                          <content>
-                            <![CDATA[import socket
-
+              <Input name="onStart" type="0" type_size="1" nature="1" inner="0" tooltip="Value to test." id="2" />
+              <Output name="onDefault" type="1" type_size="1" nature="2" inner="0" tooltip="If the input value does not match any value set on the box." id="3" />
+              <Output name="output_1" type="0" type_size="1" nature="2" inner="0" tooltip="This IO has been automatically added by box. Read box tooltip for more information." id="4" />
+              <Output name="output_2" type="0" type_size="1" nature="2" inner="0" tooltip="This IO has been automatically added by box. Read box tooltip for more information." id="5" />
+              <Output name="output_3" type="0" type_size="1" nature="2" inner="0" tooltip="This IO has been automatically added by box. Read box tooltip for more information." id="6" />
+              <Output name="output_4" type="0" type_size="1" nature="2" inner="0" tooltip="This IO has been automatically added by box. Read box tooltip for more information." id="7" />
+              <Output name="output_5" type="0" type_size="1" nature="2" inner="0" tooltip="This IO has been automatically added by box. Read box tooltip for more information." id="8" />
+              <Output name="output_6" type="0" type_size="1" nature="2" inner="0" tooltip="This IO has been automatically added by box. Read box tooltip for more information." id="9" />
+              <Output name="output_7" type="0" type_size="1" nature="2" inner="0" tooltip="This IO has been automatically added by box. Read box tooltip for more information." id="10" />
+              <Output name="output_8" type="0" type_size="1" nature="2" inner="0" tooltip="This IO has been automatically added by box. Read box tooltip for more information." id="11" />
+            </Box>
+            <Box name="Move To" id="4" localization="8" tooltip="Make the robot move to a configured point relative to its current location." x="551" y="22">
+              <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[
 class MyClass(GeneratedClass):
     def __init__(self):
-        GeneratedClass.__init__(self)
+        GeneratedClass.__init__(self, False)
+        self.positionErrorThresholdPos = 0.01
+        self.positionErrorThresholdAng = 0.03
 
     def onLoad(self):
-        #put initialization code here
-        pass
+        self.motion = self.session().service("ALMotion")
 
     def onUnload(self):
-        #put clean-up code here
-        pass
+        self.motion.moveToward(0.0, 0.0, 0.0)
 
     def onInput_onStart(self):
-        appIP = socket.gethostbyname('')
-        ardIP = socket.gethostbyname('') #Add device name
+        import almath
+        # The command position estimation will be set to the sensor position
+        # when the robot starts moving, so we use sensors first and commands later.
+        initPosition = almath.Pose2D(self.motion.getRobotPosition(True))
+        targetDistance = almath.Pose2D(self.getParameter("Distance X (m)"),
+            self.getParameter("Distance Y (m)"),
+            self.getParameter("Theta (deg)") * almath.PI / 180)
+        expectedEndPosition = initPosition * targetDistance
+        enableArms = self.getParameter("Arms movement enabled")
+        self.motion.setMoveArmsEnabled(enableArms, enableArms)
+        self.motion.moveTo(self.getParameter("Distance X (m)"),
+            self.getParameter("Distance Y (m)"),
+            self.getParameter("Theta (deg)") * almath.PI / 180)
 
-        # Used to set directly IP of devices
-        # appIP = ''
-        # ardIP = ''
-
-        self.appIP(appIP)
-        self.ardIP(ardIP)
-
-        pass
-
-    def onInput_onStop(self):
-        self.onUnload() #it is recommended to reuse the clean-up as the box is stopped
-        self.onStopped() #activate the output of the box]]>
-                          </content>
-                        </script>
-                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
-                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
-                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
-                        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
-                        <Output name="App_IP" type="3" type_size="1" nature="2" inner="0" tooltip="IP adress of the app" id="5" />
-                        <Output name="Ard_IP" type="3" type_size="1" nature="2" inner="0" tooltip="IP address of the arduino." id="6" />
-                      </Box>
-                      <Box name="Insert Data" id="2" localization="8" tooltip="Stores in NAOqi&apos;s shared memory the given value at the given key." x="681" y="117">
-                        <bitmap>media/images/box/sensors/STM.png</bitmap>
-                        <script language="4">
-                          <content>
-                            <![CDATA[class MyClass(GeneratedClass):
-    def __init__(self):
-        GeneratedClass.__init__(self)
-        pass
-
-    def onLoad(self):
-        self.memory = self.session().service("ALMemory")
-
-    def onUnload(self):
-        self.memory = None
-
-    def onInput_onStart(self, p):
-        self.memory.insertData(self.getParameter("key"), p)
-        self.onStopped(p)
+        # The move is finished so output
+        realEndPosition = almath.Pose2D(self.motion.getRobotPosition(False))
+        positionError = realEndPosition.diff(expectedEndPosition)
+        positionError.theta = almath.modulo2PI(positionError.theta)
+        if (abs(positionError.x) < self.positionErrorThresholdPos
+            and abs(positionError.y) < self.positionErrorThresholdPos
+            and abs(positionError.theta) < self.positionErrorThresholdAng):
+            self.onArrivedAtDestination()
+        else:
+            self.onStoppedBeforeArriving(positionError.toVector())
 
     def onInput_onStop(self):
-        self.onUnload() #~ it is recommended to call onUnload of this box in a onStop method, as the code written in onUnload is used to stop the box as well
-        pass]]>
-                          </content>
-                        </script>
-                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
-                        <Input name="onStart" type="0" type_size="1" nature="2" inner="0" tooltip="Receives the value to be inserted in ALMemory." id="2" />
-                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
-                        <Output name="onStopped" type="0" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished. It contains the inserted value in ALMemory." id="4" />
-                        <Output name="onError" type="3" type_size="1" nature="1" inner="0" tooltip="Output when error is raised by the behavior. Contains the error message." id="5" />
-                        <Parameter name="key" inherits_from_parent="0" content_type="3" value="NAOProject/appIP" default_value="MyApplication/MyData" custom_choice="0" tooltip="" id="6" />
-                      </Box>
-                      <Box name="Insert Data (1)" id="3" localization="8" tooltip="Stores in NAOqi&apos;s shared memory the given value at the given key." x="681" y="248">
-                        <bitmap>media/images/box/sensors/STM.png</bitmap>
-                        <script language="4">
-                          <content>
-                            <![CDATA[class MyClass(GeneratedClass):
-    def __init__(self):
-        GeneratedClass.__init__(self)
-        pass
-
-    def onLoad(self):
-        self.memory = self.session().service("ALMemory")
-
-    def onUnload(self):
-        self.memory = None
-
-    def onInput_onStart(self, p):
-        self.memory.insertData(self.getParameter("key"), p)
-        self.onStopped(p)
-
-    def onInput_onStop(self):
-        self.onUnload() #~ it is recommended to call onUnload of this box in a onStop method, as the code written in onUnload is used to stop the box as well
-        pass]]>
-                          </content>
-                        </script>
-                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
-                        <Input name="onStart" type="0" type_size="1" nature="2" inner="0" tooltip="Receives the value to be inserted in ALMemory." id="2" />
-                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
-                        <Output name="onStopped" type="0" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished. It contains the inserted value in ALMemory." id="4" />
-                        <Output name="onError" type="3" type_size="1" nature="1" inner="0" tooltip="Output when error is raised by the behavior. Contains the error message." id="5" />
-                        <Parameter name="key" inherits_from_parent="0" content_type="3" value="NAOProject/ardIP" default_value="MyApplication/MyData" custom_choice="0" tooltip="" id="6" />
-                      </Box>
-                      <Box name="Log" id="4" localization="8" tooltip="Prompt the message in the debug window. You can set a prefix and a priority&#x0A;for the message in the parameters." x="976" y="167">
-                        <bitmap>media/images/box/print.png</bitmap>
-                        <script language="4">
-                          <content>
-                            <![CDATA[class MyClass(GeneratedClass):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onArrivedAtDestination" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when the robot arrives at its destination." id="4" />
+              <Output name="onStoppedBeforeArriving" type="0" type_size="1" nature="1" inner="0" tooltip="Signal sent when the robot stops before arriving to its destination. Returns a vector [x (m), y (m), theta(rad)] with the remaining distance up to the destination. This distance is expressed in the ROBOT frame." id="5" />
+              <Parameter name="Distance X (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0.2" min="-5" max="10" tooltip="The distance in meters for forward/backward motion. Positive value&#x0A;means forward, negative value means backward." id="6" />
+              <Parameter name="Distance Y (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-5" max="5" tooltip="The distance in meters for lateral motion. Positive value means left, negative&#x0A;value means right." id="7" />
+              <Parameter name="Theta (deg)" inherits_from_parent="0" content_type="2" value="180" default_value="0" min="-180" max="180" tooltip="The orientation in degrees for final rotation. Positive value means anticlockwise,&#x0A;negative value means clockwise." id="8" />
+              <Parameter name="Arms movement enabled" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="Enables natural motion of the arms." id="9" />
+              <Resource name="Legs" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Log" id="3" localization="8" tooltip="Prompt the message in the debug window. You can set a prefix and a priority&#x0A;for the message in the parameters." x="691" y="339">
+              <bitmap>media/images/box/print.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self, False)
 
@@ -240,35 +257,23 @@ class MyClass(GeneratedClass):
         elif( sPriority == "Debug" ):
             self.logger.debug( sMessage )
         self.onDone()]]>
-                          </content>
-                        </script>
-                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
-                        <Input name="message" type="0" type_size="1" nature="1" inner="0" tooltip='The message to print or a &quot;Bang&quot; to only print the message set as parameter.' id="2" />
-                        <Output name="onDone" type="1" type_size="1" nature="2" inner="0" tooltip="Signal sent when box behavior is finished." id="3" />
-                        <Parameter name="Message prefix" inherits_from_parent="0" content_type="3" value="Error on saving ip" default_value="Message text" custom_choice="0" tooltip="Enter the text you want to print before the input message." id="4" />
-                        <Parameter name="Priority" inherits_from_parent="0" content_type="3" value="Error" default_value="Info" custom_choice="0" tooltip="Enter the priority of your message. If you select error, the box will get red when it will be stimulated." id="5">
-                          <Choice value="Fatal" />
-                          <Choice value="Error" />
-                          <Choice value="Warning" />
-                          <Choice value="Info" />
-                          <Choice value="Debug" />
-                        </Parameter>
-                      </Box>
-                      <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" />
-                      <Link inputowner="2" indexofinput="2" outputowner="1" indexofoutput="5" />
-                      <Link inputowner="3" indexofinput="2" outputowner="1" indexofoutput="6" />
-                      <Link inputowner="0" indexofinput="4" outputowner="3" indexofoutput="4" />
-                      <Link inputowner="0" indexofinput="4" outputowner="2" indexofoutput="4" />
-                      <Link inputowner="4" indexofinput="2" outputowner="2" indexofoutput="5" />
-                      <Link inputowner="4" indexofinput="2" outputowner="3" indexofoutput="5" />
-                      <Link inputowner="0" indexofinput="4" outputowner="4" indexofoutput="3" />
-                    </Diagram>
-                  </BehaviorKeyframe>
-                </BehaviorLayer>
-              </Timeline>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="message" type="0" type_size="1" nature="1" inner="0" tooltip='The message to print or a &quot;Bang&quot; to only print the message set as parameter.' id="2" />
+              <Output name="onDone" type="1" type_size="1" nature="2" inner="0" tooltip="Signal sent when box behavior is finished." id="3" />
+              <Parameter name="Message prefix" inherits_from_parent="0" content_type="3" value="Message text" default_value="Message text" custom_choice="0" tooltip="Enter the text you want to print before the input message." id="4" />
+              <Parameter name="Priority" inherits_from_parent="0" content_type="3" value="Info" default_value="Info" custom_choice="0" tooltip="Enter the priority of your message. If you select error, the box will get red when it will be stimulated." id="5">
+                <Choice value="Fatal" />
+                <Choice value="Error" />
+                <Choice value="Warning" />
+                <Choice value="Info" />
+                <Choice value="Debug" />
+              </Parameter>
             </Box>
             <Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" />
-            <Link inputowner="2" indexofinput="2" outputowner="0" indexofoutput="2" />
+            <Link inputowner="2" indexofinput="2" outputowner="1" indexofoutput="6" />
+            <Link inputowner="3" indexofinput="2" outputowner="1" indexofoutput="6" />
           </Diagram>
         </BehaviorKeyframe>
       </BehaviorLayer>

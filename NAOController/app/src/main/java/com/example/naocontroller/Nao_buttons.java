@@ -1,6 +1,9 @@
 package com.example.naocontroller;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -12,14 +15,17 @@ import java.util.Objects;
 
 public class Nao_buttons extends AppCompatActivity {
 
-    Button btn_opera_1,
+    CardView btn_opera_1,
             btn_opera_2,
             btn_opera_3,
             btn_opera_4,
             btn_opera_5,
             btn_opera_6;
 
+    Button btn_settings;
+
     TextInputEditText ip_text;
+
 
 
     @Override
@@ -41,13 +47,19 @@ public class Nao_buttons extends AppCompatActivity {
         btn_opera_4 = findViewById(R.id.btn_4);
         btn_opera_5 = findViewById(R.id.btn_5);
         btn_opera_6 = findViewById(R.id.btn_6);
-        ip_text = findViewById(R.id.ip_text_input);
+        btn_settings = findViewById(R.id.btn_settings);
 
+
+
+        btn_settings.setOnClickListener(view -> {
+            Intent intent = new Intent(Nao_buttons.this, Settings_activity.class);
+            startActivity(intent);
+            finish();
+        });
 
         btn_opera_1.setOnClickListener(v ->
                 data_sender("app_1_nao", Objects.requireNonNull(ip_text.getText()).toString())
         );
-
         btn_opera_2.setOnClickListener(v ->
                 data_sender("app_2_nao", Objects.requireNonNull(ip_text.getText()).toString())
         );

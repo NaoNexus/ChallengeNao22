@@ -15,7 +15,7 @@ public class Message_sender extends AsyncTask<String, Void, Void> {
 
             Socket socket = new Socket(ip, 5050);
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-            writer.println(strings[0]);
+            writer.print(strings[0]);
 
             writer.close();
             socket.close();

@@ -7,9 +7,13 @@
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/background_layout_buttons.xml" value="0.3158974358974359" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/buttons_activity_background.xml" value="0.3158974358974359" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/camera_button_image.xml" value="0.23796296296296296" />
+        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.171" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/ic_launcher_background.xml" value="0.23703703703703705" />
+        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout-land/activity_nao_buttons.xml" value="0.14666666666666667" />
+        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout-sw600dp/activity_nao_buttons.xml" value="0.16666666666666666" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/activity_main.xml" value="0.2667572463768116" />
-        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/activity_nao_buttons.xml" value="0.22" />
+        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/activity_nao_buttons.xml" value="0.16666666666666666" />
+        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/activity_settings.xml" value="0.22" />
       </map>
     </option>
   </component>

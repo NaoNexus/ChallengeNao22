@@ -10,4 +10,8 @@
     <string name="logo">logo</string>
     <string name="indirizzo_ip">Indirizzo IP</string>
     <string name="logo_name">NaoNexus team®</string>
+    <string name="opera_7">opera 7</string>
+    <string name="opera_8">opera 8</string>
+    <string name="bottone_impostazioni">bottone_impostazioni</string>
+    <string name="image">image</string>
 </resources>

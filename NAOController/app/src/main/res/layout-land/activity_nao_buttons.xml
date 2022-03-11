@@ -16,7 +16,7 @@
         app:backgroundTint="@null"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintHorizontal_bias=".95"
+        app:layout_constraintHorizontal_bias=".05"
         app:layout_constraintVertical_bias=".05"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +33,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintVertical_bias=".05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,8 +48,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".9" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0" />
 
 
         <androidx.cardview.widget.CardView
@@ -62,8 +63,8 @@
             android:clickable="true"
             app:cardCornerRadius="20dp"
             android:backgroundTint="@color/purple_200"
-            app:layout_constraintVertical_bias=".2"
-            app:layout_constraintHorizontal_bias=".1"
+            app:layout_constraintVertical_bias=".3"
+            app:layout_constraintHorizontal_bias=".05"
             android:focusable="true">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -72,17 +73,19 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="130dp"
+                    android:layout_width="250dp"
+                    android:layout_height="180dp"
+                    android:contentDescription="@string/image"
                     android:src="@drawable/ic_baseline_wifi_24"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ciao"
-                    android:layout_gravity="center_horizontal" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="OPERA 1"
+                        android:textSize="30sp"
+                        android:background="#EC3344" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -96,8 +99,8 @@
         android:clickable="true"
         app:cardCornerRadius="20dp"
         android:backgroundTint="@color/purple_200"
-        app:layout_constraintVertical_bias=".2"
-        app:layout_constraintHorizontal_bias=".3"
+        app:layout_constraintVertical_bias=".3"
+        app:layout_constraintHorizontal_bias=".35"
         android:focusable="true">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -106,15 +109,18 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="130dp"
+                android:contentDescription="@string/image"
+                android:layout_width="250dp"
+                android:layout_height="180dp"
                 android:src="@drawable/ic_baseline_wifi_24"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ciao"
-                android:layout_gravity="center_horizontal" />
+                android:textAlignment="center"
+                android:text="OPERA 1"
+                android:textSize="30sp"
+                android:background="#EC3344"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
@@ -130,8 +136,8 @@
         android:clickable="true"
         app:cardCornerRadius="20dp"
         android:backgroundTint="@color/purple_200"
-        app:layout_constraintVertical_bias=".2"
-        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintVertical_bias=".3"
+        app:layout_constraintHorizontal_bias=".65"
         android:focusable="true">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -140,15 +146,18 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="130dp"
+                android:layout_width="250dp"
+                android:layout_height="180dp"
+                android:contentDescription="@string/image"
                 android:src="@drawable/ic_baseline_wifi_24"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ciao"
-                android:layout_gravity="center_horizontal" />
+                android:textAlignment="center"
+                android:text="OPERA 1"
+                android:textSize="30sp"
+                android:background="#EC3344"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
@@ -164,8 +173,8 @@
         android:clickable="true"
         app:cardCornerRadius="20dp"
         android:backgroundTint="@color/purple_200"
-        app:layout_constraintVertical_bias=".2"
-        app:layout_constraintHorizontal_bias=".7"
+        app:layout_constraintVertical_bias=".3"
+        app:layout_constraintHorizontal_bias=".95"
         android:focusable="true">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -174,15 +183,18 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="130dp"
+                android:layout_width="250dp"
+                android:layout_height="180dp"
+                android:contentDescription="@string/image"
                 android:src="@drawable/ic_baseline_wifi_24"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ciao"
-                android:layout_gravity="center_horizontal" />
+                android:textAlignment="center"
+                android:text="OPERA 1"
+                android:textSize="30sp"
+                android:background="#EC3344"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
@@ -198,8 +210,8 @@
         android:clickable="true"
         app:cardCornerRadius="20dp"
         android:backgroundTint="@color/purple_200"
-        app:layout_constraintVertical_bias=".6"
-        app:layout_constraintHorizontal_bias=".1"
+        app:layout_constraintVertical_bias=".75"
+        app:layout_constraintHorizontal_bias=".05"
         android:focusable="true">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -208,15 +220,18 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="130dp"
+                android:layout_width="250dp"
+                android:layout_height="180dp"
+                android:contentDescription="@string/image"
                 android:src="@drawable/ic_baseline_wifi_24"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ciao"
-                android:layout_gravity="center_horizontal" />
+                android:textAlignment="center"
+                android:text="OPERA 1"
+                android:textSize="30sp"
+                android:background="#EC3344"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
@@ -232,8 +247,8 @@
         android:clickable="true"
         app:cardCornerRadius="20dp"
         android:backgroundTint="@color/purple_200"
-        app:layout_constraintVertical_bias=".6"
-        app:layout_constraintHorizontal_bias=".3"
+        app:layout_constraintVertical_bias=".75"
+        app:layout_constraintHorizontal_bias=".35"
         android:focusable="true">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -242,15 +257,18 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="130dp"
+                android:layout_width="250dp"
+                android:layout_height="180dp"
+                android:contentDescription="@string/image"
                 android:src="@drawable/ic_baseline_wifi_24"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ciao"
-                android:layout_gravity="center_horizontal" />
+                android:textAlignment="center"
+                android:text="OPERA 1"
+                android:textSize="30sp"
+                android:background="#EC3344"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
@@ -266,8 +284,8 @@
         android:clickable="true"
         app:cardCornerRadius="20dp"
         android:backgroundTint="@color/purple_200"
-        app:layout_constraintVertical_bias=".6"
-        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintVertical_bias=".75"
+        app:layout_constraintHorizontal_bias=".65"
         android:focusable="true">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -276,15 +294,18 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="130dp"
+                android:layout_width="250dp"
+                android:layout_height="180dp"
+                android:contentDescription="@string/image"
                 android:src="@drawable/ic_baseline_wifi_24"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ciao"
-                android:layout_gravity="center_horizontal" />
+                android:textAlignment="center"
+                android:text="OPERA 1"
+                android:textSize="30sp"
+                android:background="#EC3344"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
@@ -300,8 +321,8 @@
         android:clickable="true"
         app:cardCornerRadius="20dp"
         android:backgroundTint="@color/purple_200"
-        app:layout_constraintVertical_bias=".6"
-        app:layout_constraintHorizontal_bias=".7"
+        app:layout_constraintVertical_bias=".75"
+        app:layout_constraintHorizontal_bias=".95"
         android:focusable="true">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -310,15 +331,18 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="130dp"
+                android:layout_width="250dp"
+                android:layout_height="180dp"
+                android:contentDescription="@string/image"
                 android:src="@drawable/ic_baseline_wifi_24"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ciao"
-                android:layout_gravity="center_horizontal" />
+                android:textAlignment="center"
+                android:text="OPERA 1"
+                android:textSize="30sp"
+                android:background="#EC3344"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
@@ -335,7 +359,7 @@
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias=".93"
+            app:layout_constraintHorizontal_bias=".95"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias=".96"

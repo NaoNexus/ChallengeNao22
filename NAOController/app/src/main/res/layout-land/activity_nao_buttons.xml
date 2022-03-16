@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,22 +8,39 @@
     tools:context=".Nao_buttons"
     android:background="@drawable/buttons_activity_background">
 
-    <Button
+    <androidx.cardview.widget.CardView
         android:id="@+id/btn_settings"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/ic_baseline_settings_24"
-        android:backgroundTint="@color/white"
-        app:backgroundTint="@null"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintHorizontal_bias=".05"
-        app:layout_constraintVertical_bias=".05"
+        style="@style/ButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/bottone_impostazioni"/>
+        app:layout_constraintHorizontal_bias=".042"
+        app:layout_constraintVertical_bias=".05">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/btn_settings"
+            android:src="@drawable/ic_settings"
+            android:layout_gravity="center"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_camera"
+        style="@style/ButtonStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias=".957"
+        app:layout_constraintVertical_bias=".95">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/btn_camera"
+            android:src="@drawable/ic_camera"
+            android:layout_gravity="center"/>
+    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/imageView"
@@ -39,12 +57,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logo_name"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
+        style="@style/TeamTextStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -54,18 +67,13 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/PaintingButtonStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:clickable="true"
-            app:cardCornerRadius="20dp"
-            android:backgroundTint="@color/purple_200"
             app:layout_constraintVertical_bias=".3"
-            app:layout_constraintHorizontal_bias=".05"
-            android:focusable="true">
+            app:layout_constraintHorizontal_bias=".05">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -73,35 +81,26 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="250dp"
+                    android:layout_width="260dp"
                     android:layout_height="180dp"
-                    android:contentDescription="@string/image"
-                    android:src="@drawable/ic_baseline_wifi_24"/>
+                    android:contentDescription="@string/title_painting_1"
+                    android:src="@drawable/ic_wifi"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:text="OPERA 1"
-                        android:textSize="30sp"
-                        android:background="#EC3344" />
+                <TextView
+                    android:text="@string/title_painting_8"
+                    style="@style/PaintingButtonTextStyle"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/PaintingButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        app:cardCornerRadius="20dp"
-        android:backgroundTint="@color/purple_200"
         app:layout_constraintVertical_bias=".3"
-        app:layout_constraintHorizontal_bias=".35"
-        android:focusable="true">
+        app:layout_constraintHorizontal_bias=".35">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -109,36 +108,27 @@
             android:orientation="vertical">
 
             <ImageView
-                android:contentDescription="@string/image"
-                android:layout_width="250dp"
+                android:contentDescription="@string/title_painting_2"
+                android:layout_width="260dp"
                 android:layout_height="180dp"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="OPERA 1"
-                android:textSize="30sp"
-                android:background="#EC3344"/>
+                android:text="@string/title_painting_8"
+                style="@style/PaintingButtonTextStyle"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/PaintingButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        app:cardCornerRadius="20dp"
-        android:backgroundTint="@color/purple_200"
         app:layout_constraintVertical_bias=".3"
-        app:layout_constraintHorizontal_bias=".65"
-        android:focusable="true">
+        app:layout_constraintHorizontal_bias=".65">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -146,36 +136,27 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="250dp"
+                android:layout_width="260dp"
                 android:layout_height="180dp"
-                android:contentDescription="@string/image"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:contentDescription="@string/title_painting_3"
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="OPERA 1"
-                android:textSize="30sp"
-                android:background="#EC3344"/>
+                android:text="@string/title_painting_8"
+                style="@style/PaintingButtonTextStyle"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/PaintingButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        app:cardCornerRadius="20dp"
-        android:backgroundTint="@color/purple_200"
         app:layout_constraintVertical_bias=".3"
-        app:layout_constraintHorizontal_bias=".95"
-        android:focusable="true">
+        app:layout_constraintHorizontal_bias=".95">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -183,36 +164,27 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="250dp"
+                android:layout_width="260dp"
                 android:layout_height="180dp"
-                android:contentDescription="@string/image"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:contentDescription="@string/title_painting_4"
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="OPERA 1"
-                android:textSize="30sp"
-                android:background="#EC3344"/>
+                android:text="@string/title_painting_8"
+                style="@style/PaintingButtonTextStyle"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/PaintingButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        app:cardCornerRadius="20dp"
-        android:backgroundTint="@color/purple_200"
         app:layout_constraintVertical_bias=".75"
-        app:layout_constraintHorizontal_bias=".05"
-        android:focusable="true">
+        app:layout_constraintHorizontal_bias=".05">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -220,36 +192,27 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="250dp"
+                android:layout_width="260dp"
                 android:layout_height="180dp"
-                android:contentDescription="@string/image"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:contentDescription="@string/title_painting_5"
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="OPERA 1"
-                android:textSize="30sp"
-                android:background="#EC3344"/>
+                android:text="@string/title_painting_8"
+                style="@style/PaintingButtonTextStyle"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/PaintingButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        app:cardCornerRadius="20dp"
-        android:backgroundTint="@color/purple_200"
         app:layout_constraintVertical_bias=".75"
-        app:layout_constraintHorizontal_bias=".35"
-        android:focusable="true">
+        app:layout_constraintHorizontal_bias=".35">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -257,36 +220,27 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="250dp"
+                android:layout_width="260dp"
                 android:layout_height="180dp"
-                android:contentDescription="@string/image"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:contentDescription="@string/title_painting_6"
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="OPERA 1"
-                android:textSize="30sp"
-                android:background="#EC3344"/>
+                android:text="@string/title_painting_8"
+                style="@style/PaintingButtonTextStyle"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/PaintingButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        app:cardCornerRadius="20dp"
-        android:backgroundTint="@color/purple_200"
         app:layout_constraintVertical_bias=".75"
-        app:layout_constraintHorizontal_bias=".65"
-        android:focusable="true">
+        app:layout_constraintHorizontal_bias=".65">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -294,36 +248,27 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="250dp"
+                android:layout_width="260dp"
                 android:layout_height="180dp"
-                android:contentDescription="@string/image"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:contentDescription="@string/title_painting_7"
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="OPERA 1"
-                android:textSize="30sp"
-                android:background="#EC3344"/>
+                android:text="@string/title_painting_8"
+                style="@style/PaintingButtonTextStyle"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/PaintingButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        app:cardCornerRadius="20dp"
-        android:backgroundTint="@color/purple_200"
         app:layout_constraintVertical_bias=".75"
-        app:layout_constraintHorizontal_bias=".95"
-        android:focusable="true">
+        app:layout_constraintHorizontal_bias=".95">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -331,39 +276,17 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="250dp"
+                android:layout_width="260dp"
                 android:layout_height="180dp"
-                android:contentDescription="@string/image"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:contentDescription="@string/title_painting_8"
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="OPERA 1"
-                android:textSize="30sp"
-                android:background="#EC3344"/>
+                android:text="@string/title_painting_8"
+                style="@style/PaintingButtonTextStyle"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
 
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#EC3344"
-            android:contentDescription="@string/bottone_camera"
-            android:elevation="10dp"
-            android:src="@drawable/camera_button_image"
-            app:borderWidth="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias=".95"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".96"
-            app:tint="@null" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 

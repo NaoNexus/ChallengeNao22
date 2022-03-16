@@ -1,17 +1,49 @@
 <resources>
     <string name="app_name">NAOController</string>
-    <string name="bottone_camera">bottone_camera</string>
-    <string name="btn_opera_1">opera 1</string>
-    <string name="btn_opera_2">opera 2</string>
-    <string name="btn_opera_3">opera 3</string>
-    <string name="btn_opera_4">opera 4</string>
-    <string name="btn_opera_5">opera 5</string>
-    <string name="btn_opera_6">opera 6</string>
+    <string name="btn_camera">Fotocamera</string>
+    <!-- Paintings -->
+    <string name="title_painting_1">OPERA 1</string>
+    <string name="author_painting_1">AUTORE 1</string>
+    <string name="song_painting_1">CANTO OPERA 1</string>
+    <string name="description_painting_1">DESCRIZIONE OPERA 1</string>
+
+    <string name="title_painting_2">OPERA 2</string>
+    <string name="author_painting_2">AUTORE 2</string>
+    <string name="song_painting_2">CANTO OPERA 2</string>
+    <string name="description_painting_2">DESCRIZIONE OPERA 2</string>
+
+    <string name="title_painting_3">OPERA 3</string>
+    <string name="author_painting_3">AUTORE 3</string>
+    <string name="song_painting_3">CANTO OPERA 3</string>
+    <string name="description_painting_3">DESCRIZIONE OPERA 3</string>
+
+    <string name="title_painting_4">OPERA 4</string>
+    <string name="author_painting_4">AUTORE 4</string>
+    <string name="song_painting_4">CANTO OPERA 4</string>
+    <string name="description_painting_4">DESCRIZIONE OPERA 4</string>
+
+    <string name="title_painting_5">OPERA 5</string>
+    <string name="author_painting_5">AUTORE 5</string>
+    <string name="song_painting_5">CANTO OPERA 5</string>
+    <string name="description_painting_5">DESCRIZIONE OPERA 5</string>
+
+    <string name="title_painting_6">OPERA 6</string>
+    <string name="author_painting_6">AUTORE 6</string>
+    <string name="song_painting_6">CANTO OPERA 6</string>
+    <string name="description_painting_6">DESCRIZIONE OPERA 6</string>
+
+    <string name="title_painting_7">OPERA 7</string>
+    <string name="author_painting_7">AUTORE 7</string>
+    <string name="song_painting_7">CANTO OPERA 7</string>
+    <string name="description_painting_7">DESCRIZIONE OPERA 7</string>
+
+    <string name="title_painting_8">OPERA 8</string>
+    <string name="author_painting_8">AUTORE 8</string>
+    <string name="song_painting_8">CANTO OPERA 8</string>
+    <string name="description_painting_8">DESCRIZIONE OPERA 8</string>
+
+    <string name="hint_ip">Indirizzo IP</string>
     <string name="logo">logo</string>
-    <string name="indirizzo_ip">Indirizzo IP</string>
     <string name="logo_name">NaoNexus team®</string>
-    <string name="opera_7">opera 7</string>
-    <string name="opera_8">opera 8</string>
-    <string name="bottone_impostazioni">bottone_impostazioni</string>
-    <string name="image">image</string>
+    <string name="btn_settings">Impostazioni</string>
 </resources>

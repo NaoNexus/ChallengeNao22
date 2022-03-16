@@ -16,11 +16,11 @@ import java.util.Objects;
 public class Nao_buttons extends AppCompatActivity {
 
     CardView btn_opera_1,
-            btn_opera_2,
-            btn_opera_3,
-            btn_opera_4,
-            btn_opera_5,
-            btn_opera_6;
+             btn_opera_2,
+             btn_opera_3,
+             btn_opera_4,
+             btn_opera_5,
+             btn_opera_6,btn_opera_7, btn_opera_8;
 
     Button btn_settings;
 
@@ -47,9 +47,9 @@ public class Nao_buttons extends AppCompatActivity {
         btn_opera_4 = findViewById(R.id.btn_4);
         btn_opera_5 = findViewById(R.id.btn_5);
         btn_opera_6 = findViewById(R.id.btn_6);
+        btn_opera_7 = findViewById(R.id.btn_7);
+        btn_opera_8 = findViewById(R.id.btn_8);
         btn_settings = findViewById(R.id.btn_settings);
-
-
 
         btn_settings.setOnClickListener(view -> {
             Intent intent = new Intent(Nao_buttons.this, Settings_activity.class);
@@ -75,12 +75,21 @@ public class Nao_buttons extends AppCompatActivity {
         btn_opera_6.setOnClickListener(v ->
                 data_sender("app_6_nao", Objects.requireNonNull(ip_text.getText()).toString())
         );
+        btn_opera_7.setOnClickListener(v ->
+                data_sender("app_7_nao", Objects.requireNonNull(ip_text.getText()).toString())
+        );
+        btn_opera_7.setOnClickListener(v ->
+                data_sender("app_8_nao", Objects.requireNonNull(ip_text.getText()).toString())
+        );
     }
 
 
     private void data_sender(String message, String ip) {
-
         Message_sender bg_void = new Message_sender();
         bg_void.execute(message, ip);
+
+        Intent intent = new Intent(Nao_buttons.this, Nao_description.class);
+        startActivity(intent);
+        finish();
     }
 }

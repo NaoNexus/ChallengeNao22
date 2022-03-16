@@ -19,9 +19,6 @@ public class Settings_activity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         Objects.requireNonNull(getSupportActionBar()).hide();
         //ACTION BAR CUSTOMISATION\\
-
         setContentView(R.layout.activity_settings);
-
-
     }
 }

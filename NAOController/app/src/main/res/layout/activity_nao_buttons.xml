@@ -11,7 +11,7 @@
         android:id="@+id/btn_settings"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/ic_baseline_settings_24"
+        android:background="@drawable/ic_settings"
         android:backgroundTint="@color/white"
         app:backgroundTint="@null"
         android:clickable="true"
@@ -74,7 +74,7 @@
                 <ImageView
                     android:layout_width="200dp"
                     android:layout_height="130dp"
-                    android:src="@drawable/ic_baseline_wifi_24"/>
+                    android:src="@drawable/ic_wifi"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="130dp"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="130dp"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -176,7 +176,7 @@
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="130dp"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -210,7 +210,7 @@
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="130dp"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -244,7 +244,7 @@
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="130dp"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -278,7 +278,7 @@
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="130dp"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -312,7 +312,7 @@
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="130dp"
-                android:src="@drawable/ic_baseline_wifi_24"/>
+                android:src="@drawable/ic_wifi"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -331,7 +331,7 @@
             android:backgroundTint="#EC3344"
             android:contentDescription="@string/bottone_camera"
             android:elevation="10dp"
-            android:src="@drawable/camera_button_image"
+            android:src="@drawable/ic_camera"
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

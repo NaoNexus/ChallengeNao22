@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -58,37 +59,38 @@ public class Nao_buttons extends AppCompatActivity {
         });
 
         btn_opera_1.setOnClickListener(v ->
-                data_sender("app_1_nao", Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(1, Objects.requireNonNull(ip_text.getText()).toString())
         );
         btn_opera_2.setOnClickListener(v ->
-                data_sender("app_2_nao", Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(2, Objects.requireNonNull(ip_text.getText()).toString())
         );
         btn_opera_3.setOnClickListener(v ->
-                data_sender("app_3_nao", Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(3, Objects.requireNonNull(ip_text.getText()).toString())
         );
         btn_opera_4.setOnClickListener(v ->
-                data_sender("app_4_nao", Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(4, Objects.requireNonNull(ip_text.getText()).toString())
         );
         btn_opera_5.setOnClickListener(v ->
-                data_sender("app_5_nao", Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(5, Objects.requireNonNull(ip_text.getText()).toString())
         );
         btn_opera_6.setOnClickListener(v ->
-                data_sender("app_6_nao", Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(6, Objects.requireNonNull(ip_text.getText()).toString())
         );
         btn_opera_7.setOnClickListener(v ->
-                data_sender("app_7_nao", Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(7, Objects.requireNonNull(ip_text.getText()).toString())
         );
         btn_opera_7.setOnClickListener(v ->
-                data_sender("app_8_nao", Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(8, Objects.requireNonNull(ip_text.getText()).toString())
         );
     }
 
 
-    private void data_sender(String message, String ip) {
+    private void data_sender(int paintingIndex, String ip) {
         Message_sender bg_void = new Message_sender();
-        bg_void.execute(message, ip);
+        bg_void.execute(String.format(Locale.ITALIAN, "app_%d_nao", paintingIndex), ip);
 
         Intent intent = new Intent(Nao_buttons.this, Nao_description.class);
+        intent.putExtra("painting", paintingIndex);
         startActivity(intent);
         finish();
     }

@@ -16,13 +16,12 @@ public class Nao_description extends Activity {
 
     int paintingNumber;
 
-    public Nao_description (int paintingNumber) {
-        this.paintingNumber = paintingNumber;
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle b = getIntent().getExtras();
+        paintingNumber = b.getInt("painting");
+
         setContentView(R.layout.activity_nao_description);
 
         titleText = findViewById(R.id.txt_painting_title);

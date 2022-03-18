@@ -342,7 +342,7 @@ class MyClass(GeneratedClass):
               <Parameter name="Arms movement enabled" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="Enables natural motion of the arms." id="9" />
               <Resource name="Legs" type="Lock" timeout="0" />
             </Box>
-            <Box name="LandMark Tracker" id="8" localization="-1" tooltip="This box makes the robot track a landmark with different modes." x="568" y="360">
+            <Box name="LandMark Tracker" id="8" localization="-1" tooltip="This box makes the robot track a landmark with different modes." x="590" y="341">
               <bitmap>media/images/box/tracker/tracker.png</bitmap>
               <script language="4">
                 <content>
@@ -516,7 +516,7 @@ class MyClass(GeneratedClass):
               <Parameter name="Theta (rad)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-3.14" max="3.14" tooltip="Wz angle of the vector robot-target the robot will try to maintain in move modes." id="15" />
               <Parameter name="Threshold Theta (rad)" inherits_from_parent="0" content_type="2" value="0.3" default_value="0.3" min="0" max="3.14" tooltip="Threshold of the angle of the vector robot-target above which the robot will move to track its target in move modes." id="16" />
             </Box>
-            <Box name="Move To (3)" id="9" localization="8" tooltip="Make the robot move to a configured point relative to its current location." x="739" y="360">
+            <Box name="Move To (3)" id="9" localization="8" tooltip="Make the robot move to a configured point relative to its current location." x="932" y="339">
               <bitmap>media/images/box/movement/walk_forward.png</bitmap>
               <script language="4">
                 <content>
@@ -574,12 +574,61 @@ class MyClass(GeneratedClass):
               <Parameter name="Arms movement enabled" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="Enables natural motion of the arms." id="9" />
               <Resource name="Legs" type="Lock" timeout="0" />
             </Box>
+            <Box name="Delay" id="14" localization="8" tooltip="Wait a moment before triggering the output. &#x0A;Can be stopped anytime. &#x0A;Multiple inputs will trigger multiple outputs." x="771" y="340">
+              <bitmap>media/images/box/wait.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.delayed = []
+
+    def onUnload(self):
+        self.cancelDelays()
+
+    def cancelDelays(self):
+        cancel_list = list(self.delayed)
+        for d in cancel_list:
+            d.cancel()
+
+    def cleanDelay(self, fut, fut_ref):
+        self.delayed.remove(fut)
+
+    def triggerOutput(self):
+        self.timerOutput()
+
+    def onInput_onStart(self):
+        import qi
+        import functools
+        delay_future = qi.async(self.triggerOutput, delay=int(self.getParameter("Timeout (s)") * 1000 * 1000))
+        # keep the async operation in an array for cancel
+        # and remove it when it is finished in the callback
+        self.delayed.append(delay_future)
+        bound_clean = functools.partial(self.cleanDelay, delay_future)
+        delay_future.addCallback(bound_clean)
+
+    def onInput_onStop(self):
+        if self.getParameter("Trigger timerOutput if cancelled") and self.delayed:
+            self.timerOutput()
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Start the Delay box with the configured timeout value." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Stop the wait and stimulate the output." id="3" />
+              <Output name="timerOutput" type="1" type_size="1" nature="1" inner="0" tooltip="Send a bang once delay set in parameters is elapsed, or if the box is stopped and the appropriate parameter is set." id="4" />
+              <Parameter name="Timeout (s)" inherits_from_parent="0" content_type="2" value="1" default_value="1" min="0" max="5000" tooltip="Duration the box waits before stimulating the output." id="5" />
+              <Parameter name="Trigger timerOutput if cancelled" inherits_from_parent="0" content_type="0" value="0" default_value="1" tooltip="If the box is currently delaying at least one signal and cancelled, output will be stimulated." id="6" />
+            </Box>
             <Link inputowner="2" indexofinput="2" outputowner="1" indexofoutput="6" />
             <Link inputowner="3" indexofinput="2" outputowner="1" indexofoutput="6" />
             <Link inputowner="7" indexofinput="2" outputowner="6" indexofoutput="4" />
             <Link inputowner="8" indexofinput="2" outputowner="7" indexofoutput="4" />
-            <Link inputowner="9" indexofinput="2" outputowner="8" indexofoutput="7" />
             <Link inputowner="8" indexofinput="3" outputowner="8" indexofoutput="7" />
+            <Link inputowner="14" indexofinput="2" outputowner="8" indexofoutput="7" />
+            <Link inputowner="9" indexofinput="2" outputowner="14" indexofoutput="4" />
           </Diagram>
         </BehaviorKeyframe>
       </BehaviorLayer>

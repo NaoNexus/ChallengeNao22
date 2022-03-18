@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        style="@style/TeamTextStyle"
+        style="@style/SmallTextStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -42,7 +42,7 @@
 
         <TextView
             android:id="@+id/txt_painting_description"
-            android:text="@string/test_description"
+            android:text="@string/description_painting_1"
             style="@style/PaintingDescriptionButtonTextStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        style="@style/PaintingDetailsButtonStyle"
+        style="@style/NotClickableButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,8 +79,8 @@
 
                 <TextView
                     android:id="@+id/txt_painting_title"
-                    android:text="@string/test_painting_title"
-                    style="@style/PaintingDetailsButtonTitleTextStyle"
+                    android:text="@string/title_painting_1"
+                    style="@style/TitleTextStyle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -90,8 +90,8 @@
 
                 <TextView
                     android:id="@+id/txt_painting_author"
-                    android:text="@string/test_author"
-                    style="@style/PaintingDetailsButtonTextStyle"
+                    android:text="@string/author_painting_1"
+                    style="@style/TextStyle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -102,8 +102,8 @@
 
                 <TextView
                     android:id="@+id/txt_painting_song"
-                    android:text="@string/test_song"
-                    style="@style/PaintingDetailsButtonTextStyle"
+                    android:text="@string/song_painting_1"
+                    style="@style/TextStyle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

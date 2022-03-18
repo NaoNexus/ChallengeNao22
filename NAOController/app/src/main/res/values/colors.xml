@@ -11,9 +11,9 @@
     <!--Custom colors-->
     <color name="background_gradient_start">#FF368DB3</color>
     <color name="background_gradient_end">#FF1A2B50</color>
-    <color name="button_background">#FFD9413D</color>
+    <color name="main_color">#FFD9413D</color>
     <color name="description_card_background">#66000000</color>
     <color name="transparent">#00000000</color>
 
-    <color name="mtrl_textinput_default_box_stroke_color">#1589FF</color>
+    <color name="mtrl_textinput_default_box_stroke_color">@color/main_color</color>
 </resources>

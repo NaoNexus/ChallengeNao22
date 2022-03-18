@@ -1,0 +1,2270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ChoregrapheProject xmlns="http://www.ald.softbankrobotics.com/schema/choregraphe/project.xsd" xar_version="3">
+  <Box name="root" id="-1" localization="8" tooltip="Root box of Choregraphe&apos;s behavior. Highest level possible." x="0" y="0">
+    <bitmap>media/images/box/root.png</bitmap>
+    <script language="4">
+      <content>
+        <![CDATA[]]>
+      </content>
+    </script>
+    <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+    <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+    <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+    <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+    <Timeline enable="0">
+      <BehaviorLayer name="behavior_layer1">
+        <BehaviorKeyframe name="keyframe1" index="1">
+          <Diagram scale="84.0896">
+            <Box name="Compass Move To" id="2" localization="8" tooltip="Make the robot move to a configured point relative to its current location using camera to correct deviation.&#x0A;&#x0A;V1.1.0" x="85" y="44">
+              <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+              <Output name="failure" type="1" type_size="1" nature="1" inner="0" tooltip="Triggered when the move fails (e.g. the robot falls)." id="5" />
+              <Parameter name="Distance X (m)" inherits_from_parent="0" content_type="2" value="2.5" default_value="0" min="-10" max="10" tooltip="Distance to travel along the robot X axis." id="6" />
+              <Parameter name="Distance Y (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="Distance to travel along the robot Y axis." id="7" />
+              <Parameter name="Theta (rad)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-3.14" max="3.14" tooltip="Angle to travel around the robot Z axis." id="8" />
+              <Timeline enable="0">
+                <BehaviorLayer name="behavior_layer1">
+                  <BehaviorKeyframe name="keyframe1" index="1">
+                    <Diagram>
+                      <Box name="Move To" id="2" localization="8" tooltip="Make the robot move to a configured point relative to its current location." x="532" y="110">
+                        <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        try :
+            self.compass = self.session().service("ALVisualCompass")
+        except Exception as e:
+            self.compass = None
+            self.logger.error(e)
+
+    def onUnload(self):
+        if self.compass:
+            self.compass.moveTo(0.0, 0.0, 0.0)
+
+    def onInput_onStart(self):
+        if self.compass:
+            self.compass.moveTo(self.getParameter("Distance X (m)"), self.getParameter("Distance Y (m)"), self.getParameter("Theta (rad)"))
+        # The move is finished so output
+        self.onStopped() #~ activate output of the box
+
+    def onInput_onStop(self):
+        self.onUnload()
+        self.failure()]]>
+                          </content>
+                        </script>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished or stopped." id="4" />
+                        <Output name="failure" type="1" type_size="1" nature="2" inner="0" tooltip="" id="5" />
+                        <Parameter name="Distance X (m)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="The distance in meters for forward/backward motion. Positive value&#x0A;means forward, negative value means backward." id="6" />
+                        <Parameter name="Distance Y (m)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="The distance in meters for lateral motion. Positive value means left, negative&#x0A;value means right." id="7" />
+                        <Parameter name="Theta (rad)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-3.14" max="3.14" tooltip="The orientation in radians for final rotation. Positive value means anticlockwise,&#x0A;negative value means clockwise." id="8" />
+                        <Resource name="Legs" type="Lock" timeout="0" />
+                      </Box>
+                      <Box name="Fall Detector" id="3" localization="8" tooltip='Detect if the the robot has fallen and has activated the fall manager process. &#x0A;&#x0A;Note : The output &quot;robotHasFallen&quot; is stimulated 0.5s after the fall is detected to give the robot time to fall.' x="200" y="216">
+                        <bitmap>media/images/box/sensors/fall_manager.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.bIsRunning = False
+
+    def onUnload(self):
+        self.bIsRunning = False
+
+    def onInput_onStart(self):
+        self.bIsRunning = True
+
+    def onInput_onStop(self):
+        if( self.bIsRunning ):
+            self.onUnload()
+            self.onStopped()]]>
+                          </content>
+                        </script>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                        <Input name="memory_robotHasFallen" type="0" type_size="1" nature="4" stm_value_name="robotHasFallen" inner="1" tooltip="Connected to ALMemory. Will be stimulated every time the value subscribed to changes, respecting the refresh period." id="4" />
+                        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is stopped." id="5" />
+                        <Output name="robotHasFallen" type="1" type_size="1" nature="2" inner="0" tooltip="This output is stimulated when the robot has fallen." id="6" />
+                        <Timeline enable="0">
+                          <BehaviorLayer name="behavior_layer1">
+                            <BehaviorKeyframe name="keyframe1" index="1">
+                              <Diagram>
+                                <Box name="Wait" id="6" localization="8" tooltip="Wait a moment before sending a signal on the output. &#x0A;Can be stopped anytime. &#x0A;Stimulating the input again before output is activated restarts the waiting period.&#x0A;" x="206" y="93">
+                                  <bitmap>media/images/box/wait.png</bitmap>
+                                  <script language="4">
+                                    <content>
+                                      <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.waiting = None
+
+    def onUnload(self):
+        self.cancelWaiting()
+
+    def triggerOutput(self):
+        self.timerOutput()
+
+    def cancelWaiting(self):
+        if self.waiting:
+            self.waiting.cancel()
+        self.waiting = None
+
+    def onInput_onStart(self):
+        self.cancelWaiting()
+        import qi
+        self.waiting = qi.async(self.triggerOutput, delay=int(self.getParameter("Timeout (s)") * 1000 * 1000))
+
+    def onInput_onStop(self):
+        if self.getParameter("Trigger timerOutput if cancelled") and self.waiting and self.waiting.isRunning():
+            self.timerOutput()
+        self.onUnload()]]>
+                                    </content>
+                                  </script>
+                                  <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                  <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Start the Wait box with the configured timeout value." id="2" />
+                                  <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Stop the wait and stimulate the output." id="3" />
+                                  <Output name="timerOutput" type="1" type_size="1" nature="1" inner="0" tooltip="Send a bang once time set in parameters is elapsed, or if the box is stopped." id="4" />
+                                  <Parameter name="Timeout (s)" inherits_from_parent="0" content_type="2" value="0.5" default_value="1" min="0" max="5000" tooltip="Duration the box waits before stimulating the output." id="5" />
+                                  <Parameter name="Trigger timerOutput if cancelled" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="If the box is currently waiting and cancelled, output will be stimulated." id="6" />
+                                </Box>
+                                <Link inputowner="6" indexofinput="2" outputowner="0" indexofoutput="4" />
+                                <Link inputowner="0" indexofinput="6" outputowner="6" indexofoutput="4" />
+                              </Diagram>
+                            </BehaviorKeyframe>
+                          </BehaviorLayer>
+                        </Timeline>
+                      </Box>
+                      <Link inputowner="2" indexofinput="2" outputowner="0" indexofoutput="2" />
+                      <Link inputowner="0" indexofinput="4" outputowner="2" indexofoutput="4" />
+                      <Link inputowner="0" indexofinput="5" outputowner="2" indexofoutput="5" />
+                      <Link inputowner="3" indexofinput="2" outputowner="0" indexofoutput="2" />
+                      <Link inputowner="2" indexofinput="3" outputowner="3" indexofoutput="6" />
+                    </Diagram>
+                  </BehaviorKeyframe>
+                </BehaviorLayer>
+              </Timeline>
+              <Resource name="Legs" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Move To" id="1" localization="8" tooltip="Make the robot move to a configured point relative to its current location." x="234" y="203">
+              <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+        self.positionErrorThresholdPos = 0.01
+        self.positionErrorThresholdAng = 0.03
+
+    def onLoad(self):
+        self.motion = self.session().service("ALMotion")
+
+    def onUnload(self):
+        self.motion.moveToward(0.0, 0.0, 0.0)
+
+    def onInput_onStart(self):
+        import almath
+        # The command position estimation will be set to the sensor position
+        # when the robot starts moving, so we use sensors first and commands later.
+        initPosition = almath.Pose2D(self.motion.getRobotPosition(True))
+        targetDistance = almath.Pose2D(self.getParameter("Distance X (m)"),
+            self.getParameter("Distance Y (m)"),
+            self.getParameter("Theta (deg)") * almath.PI / 180)
+        expectedEndPosition = initPosition * targetDistance
+        enableArms = self.getParameter("Arms movement enabled")
+        self.motion.setMoveArmsEnabled(enableArms, enableArms)
+        self.motion.moveTo(self.getParameter("Distance X (m)"),
+            self.getParameter("Distance Y (m)"),
+            self.getParameter("Theta (deg)") * almath.PI / 180)
+
+        # The move is finished so output
+        realEndPosition = almath.Pose2D(self.motion.getRobotPosition(False))
+        positionError = realEndPosition.diff(expectedEndPosition)
+        positionError.theta = almath.modulo2PI(positionError.theta)
+        if (abs(positionError.x) < self.positionErrorThresholdPos
+            and abs(positionError.y) < self.positionErrorThresholdPos
+            and abs(positionError.theta) < self.positionErrorThresholdAng):
+            self.onArrivedAtDestination()
+        else:
+            self.onStoppedBeforeArriving(positionError.toVector())
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onArrivedAtDestination" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when the robot arrives at its destination." id="4" />
+              <Output name="onStoppedBeforeArriving" type="0" type_size="1" nature="1" inner="0" tooltip="Signal sent when the robot stops before arriving to its destination. Returns a vector [x (m), y (m), theta(rad)] with the remaining distance up to the destination. This distance is expressed in the ROBOT frame." id="5" />
+              <Parameter name="Distance X (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0.2" min="-5" max="10" tooltip="The distance in meters for forward/backward motion. Positive value&#x0A;means forward, negative value means backward." id="6" />
+              <Parameter name="Distance Y (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-5" max="5" tooltip="The distance in meters for lateral motion. Positive value means left, negative&#x0A;value means right." id="7" />
+              <Parameter name="Theta (deg)" inherits_from_parent="0" content_type="2" value="90" default_value="0" min="-180" max="180" tooltip="The orientation in degrees for final rotation. Positive value means anticlockwise,&#x0A;negative value means clockwise." id="8" />
+              <Parameter name="Arms movement enabled" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="Enables natural motion of the arms." id="9" />
+              <Resource name="Legs" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Compass Move To (1)" id="3" localization="8" tooltip="Make the robot move to a configured point relative to its current location using camera to correct deviation.&#x0A;&#x0A;V1.1.0" x="94" y="205">
+              <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+              <Output name="failure" type="1" type_size="1" nature="1" inner="0" tooltip="Triggered when the move fails (e.g. the robot falls)." id="5" />
+              <Parameter name="Distance X (m)" inherits_from_parent="0" content_type="2" value="2.5" default_value="0" min="-10" max="10" tooltip="Distance to travel along the robot X axis." id="6" />
+              <Parameter name="Distance Y (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="Distance to travel along the robot Y axis." id="7" />
+              <Parameter name="Theta (rad)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-3.14" max="3.14" tooltip="Angle to travel around the robot Z axis." id="8" />
+              <Timeline enable="0">
+                <BehaviorLayer name="behavior_layer1">
+                  <BehaviorKeyframe name="keyframe1" index="1">
+                    <Diagram>
+                      <Box name="Move To" id="2" localization="8" tooltip="Make the robot move to a configured point relative to its current location." x="532" y="110">
+                        <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        try :
+            self.compass = self.session().service("ALVisualCompass")
+        except Exception as e:
+            self.compass = None
+            self.logger.error(e)
+
+    def onUnload(self):
+        if self.compass:
+            self.compass.moveTo(0.0, 0.0, 0.0)
+
+    def onInput_onStart(self):
+        if self.compass:
+            self.compass.moveTo(self.getParameter("Distance X (m)"), self.getParameter("Distance Y (m)"), self.getParameter("Theta (rad)"))
+        # The move is finished so output
+        self.onStopped() #~ activate output of the box
+
+    def onInput_onStop(self):
+        self.onUnload()
+        self.failure()]]>
+                          </content>
+                        </script>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished or stopped." id="4" />
+                        <Output name="failure" type="1" type_size="1" nature="2" inner="0" tooltip="" id="5" />
+                        <Parameter name="Distance X (m)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="The distance in meters for forward/backward motion. Positive value&#x0A;means forward, negative value means backward." id="6" />
+                        <Parameter name="Distance Y (m)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="The distance in meters for lateral motion. Positive value means left, negative&#x0A;value means right." id="7" />
+                        <Parameter name="Theta (rad)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-3.14" max="3.14" tooltip="The orientation in radians for final rotation. Positive value means anticlockwise,&#x0A;negative value means clockwise." id="8" />
+                        <Resource name="Legs" type="Lock" timeout="0" />
+                      </Box>
+                      <Box name="Fall Detector" id="3" localization="8" tooltip='Detect if the the robot has fallen and has activated the fall manager process. &#x0A;&#x0A;Note : The output &quot;robotHasFallen&quot; is stimulated 0.5s after the fall is detected to give the robot time to fall.' x="200" y="216">
+                        <bitmap>media/images/box/sensors/fall_manager.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.bIsRunning = False
+
+    def onUnload(self):
+        self.bIsRunning = False
+
+    def onInput_onStart(self):
+        self.bIsRunning = True
+
+    def onInput_onStop(self):
+        if( self.bIsRunning ):
+            self.onUnload()
+            self.onStopped()]]>
+                          </content>
+                        </script>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                        <Input name="memory_robotHasFallen" type="0" type_size="1" nature="4" stm_value_name="robotHasFallen" inner="1" tooltip="Connected to ALMemory. Will be stimulated every time the value subscribed to changes, respecting the refresh period." id="4" />
+                        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is stopped." id="5" />
+                        <Output name="robotHasFallen" type="1" type_size="1" nature="2" inner="0" tooltip="This output is stimulated when the robot has fallen." id="6" />
+                        <Timeline enable="0">
+                          <BehaviorLayer name="behavior_layer1">
+                            <BehaviorKeyframe name="keyframe1" index="1">
+                              <Diagram>
+                                <Box name="Wait" id="6" localization="8" tooltip="Wait a moment before sending a signal on the output. &#x0A;Can be stopped anytime. &#x0A;Stimulating the input again before output is activated restarts the waiting period.&#x0A;" x="206" y="93">
+                                  <bitmap>media/images/box/wait.png</bitmap>
+                                  <script language="4">
+                                    <content>
+                                      <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.waiting = None
+
+    def onUnload(self):
+        self.cancelWaiting()
+
+    def triggerOutput(self):
+        self.timerOutput()
+
+    def cancelWaiting(self):
+        if self.waiting:
+            self.waiting.cancel()
+        self.waiting = None
+
+    def onInput_onStart(self):
+        self.cancelWaiting()
+        import qi
+        self.waiting = qi.async(self.triggerOutput, delay=int(self.getParameter("Timeout (s)") * 1000 * 1000))
+
+    def onInput_onStop(self):
+        if self.getParameter("Trigger timerOutput if cancelled") and self.waiting and self.waiting.isRunning():
+            self.timerOutput()
+        self.onUnload()]]>
+                                    </content>
+                                  </script>
+                                  <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                  <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Start the Wait box with the configured timeout value." id="2" />
+                                  <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Stop the wait and stimulate the output." id="3" />
+                                  <Output name="timerOutput" type="1" type_size="1" nature="1" inner="0" tooltip="Send a bang once time set in parameters is elapsed, or if the box is stopped." id="4" />
+                                  <Parameter name="Timeout (s)" inherits_from_parent="0" content_type="2" value="0.5" default_value="1" min="0" max="5000" tooltip="Duration the box waits before stimulating the output." id="5" />
+                                  <Parameter name="Trigger timerOutput if cancelled" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="If the box is currently waiting and cancelled, output will be stimulated." id="6" />
+                                </Box>
+                                <Link inputowner="6" indexofinput="2" outputowner="0" indexofoutput="4" />
+                                <Link inputowner="0" indexofinput="6" outputowner="6" indexofoutput="4" />
+                              </Diagram>
+                            </BehaviorKeyframe>
+                          </BehaviorLayer>
+                        </Timeline>
+                      </Box>
+                      <Link inputowner="2" indexofinput="2" outputowner="0" indexofoutput="2" />
+                      <Link inputowner="0" indexofinput="4" outputowner="2" indexofoutput="4" />
+                      <Link inputowner="0" indexofinput="5" outputowner="2" indexofoutput="5" />
+                      <Link inputowner="3" indexofinput="2" outputowner="0" indexofoutput="2" />
+                      <Link inputowner="2" indexofinput="3" outputowner="3" indexofoutput="6" />
+                    </Diagram>
+                  </BehaviorKeyframe>
+                </BehaviorLayer>
+              </Timeline>
+              <Resource name="Legs" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Look At" id="9" localization="-1" tooltip="This box makes the robot look at a desired position." x="229" y="42">
+              <bitmap>media/images/box/movement/move_head.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self)
+
+        self.x = 0.0
+        self.y = 0.0
+        self.z = 0.0
+
+        self.maxSpeed = 0.5
+
+        self.useWholeBody = False
+        self.frame = 0 #FRAME TORSO
+
+    def onLoad(self):
+        self.tracker = self.session().service( "ALTracker" )
+        self.BIND_PYTHON(self.getName(), "setParameter")
+
+    def onUnload(self):
+        pass
+
+    def onInput_onStart(self):
+        self.x = self.getParameter("X (m)")
+        self.y = self.getParameter("Y (m)")
+        self.z = self.getParameter("Z (m)")
+
+        self.maxSpeed = self.getParameter("Speed (%)") / 100.0
+        self.useWholeBody = self.getParameter("WholeBody")
+
+        frameStr = self.getParameter("Frame")
+        if frameStr == "Torso":
+            self.frame = 0
+        elif frameStr == "World":
+            self.frame = 1
+        elif frameStr == "Robot":
+            self.frame = 2
+
+        self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+        self.onStopped()
+
+    def onInput_onStop(self):
+        self.onUnload()
+        pass
+
+    def setParameter(self, parameterName, newValue):
+        GeneratedClass.setParameter(self, parameterName, newValue)
+
+        if (parameterName == "X (m)"):
+            self.x = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Y (m)"):
+            self.y = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Z (m)"):
+            self.z = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Speed (%)"):
+            self.maxSpeed = newValue / 100.0
+            return
+
+        if (parameterName == "WholeBody"):
+            self.useWholeBody = newValue
+            return
+
+        if (parameterName == "Frame"):
+            if(newValue == "Torso"):
+                self.frame = 0
+            elif newValue == "World":
+                self.frame = 1
+            elif newValue == "Robot":
+                self.frame = 2]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+              <Parameter name="X (m)" inherits_from_parent="0" content_type="2" value="1" default_value="1" min="0.001" max="10" tooltip="X coordinate of the target to look at." id="5" />
+              <Parameter name="Y (m)" inherits_from_parent="0" content_type="2" value="-4" default_value="0" min="-10" max="10" tooltip="Y coordinate of the target to look at." id="6" />
+              <Parameter name="Z (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="Z coordinate of the target to look at." id="7" />
+              <Parameter name="Speed (%)" inherits_from_parent="0" content_type="1" value="50" default_value="50" min="1" max="100" tooltip="Speed to move the head towards the desired position." id="8" />
+              <Parameter name="WholeBody" inherits_from_parent="0" content_type="0" value="0" default_value="0" tooltip="Use whole body constraints" id="9" />
+              <Parameter name="Frame" inherits_from_parent="0" content_type="3" value="Torso" default_value="Torso" custom_choice="0" tooltip="Select the frame of target." id="10">
+                <Choice value="Torso" />
+                <Choice value="World" />
+                <Choice value="Robot" />
+              </Parameter>
+            </Box>
+            <Box name="Look At (1)" id="8" localization="-1" tooltip="This box makes the robot look at a desired position." x="767" y="47">
+              <bitmap>media/images/box/movement/move_head.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self)
+
+        self.x = 0.0
+        self.y = 0.0
+        self.z = 0.0
+
+        self.maxSpeed = 0.5
+
+        self.useWholeBody = False
+        self.frame = 0 #FRAME TORSO
+
+    def onLoad(self):
+        self.tracker = self.session().service( "ALTracker" )
+        self.BIND_PYTHON(self.getName(), "setParameter")
+
+    def onUnload(self):
+        pass
+
+    def onInput_onStart(self):
+        self.x = self.getParameter("X (m)")
+        self.y = self.getParameter("Y (m)")
+        self.z = self.getParameter("Z (m)")
+
+        self.maxSpeed = self.getParameter("Speed (%)") / 100.0
+        self.useWholeBody = self.getParameter("WholeBody")
+
+        frameStr = self.getParameter("Frame")
+        if frameStr == "Torso":
+            self.frame = 0
+        elif frameStr == "World":
+            self.frame = 1
+        elif frameStr == "Robot":
+            self.frame = 2
+
+        self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+        self.onStopped()
+
+    def onInput_onStop(self):
+        self.onUnload()
+        pass
+
+    def setParameter(self, parameterName, newValue):
+        GeneratedClass.setParameter(self, parameterName, newValue)
+
+        if (parameterName == "X (m)"):
+            self.x = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Y (m)"):
+            self.y = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Z (m)"):
+            self.z = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Speed (%)"):
+            self.maxSpeed = newValue / 100.0
+            return
+
+        if (parameterName == "WholeBody"):
+            self.useWholeBody = newValue
+            return
+
+        if (parameterName == "Frame"):
+            if(newValue == "Torso"):
+                self.frame = 0
+            elif newValue == "World":
+                self.frame = 1
+            elif newValue == "Robot":
+                self.frame = 2]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+              <Parameter name="X (m)" inherits_from_parent="0" content_type="2" value="1" default_value="1" min="0.001" max="10" tooltip="X coordinate of the target to look at." id="5" />
+              <Parameter name="Y (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="Y coordinate of the target to look at." id="6" />
+              <Parameter name="Z (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="Z coordinate of the target to look at." id="7" />
+              <Parameter name="Speed (%)" inherits_from_parent="0" content_type="1" value="50" default_value="50" min="1" max="100" tooltip="Speed to move the head towards the desired position." id="8" />
+              <Parameter name="WholeBody" inherits_from_parent="0" content_type="0" value="0" default_value="0" tooltip="Use whole body constraints" id="9" />
+              <Parameter name="Frame" inherits_from_parent="0" content_type="3" value="Torso" default_value="Torso" custom_choice="0" tooltip="Select the frame of target." id="10">
+                <Choice value="Torso" />
+                <Choice value="World" />
+                <Choice value="Robot" />
+              </Parameter>
+            </Box>
+            <Box name="Compass Move To (2)" id="10" localization="8" tooltip="Make the robot move to a configured point relative to its current location using camera to correct deviation.&#x0A;&#x0A;V1.1.0" x="370" y="204">
+              <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+              <Output name="failure" type="1" type_size="1" nature="1" inner="0" tooltip="Triggered when the move fails (e.g. the robot falls)." id="5" />
+              <Parameter name="Distance X (m)" inherits_from_parent="0" content_type="2" value="2.5" default_value="0" min="-10" max="10" tooltip="Distance to travel along the robot X axis." id="6" />
+              <Parameter name="Distance Y (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="Distance to travel along the robot Y axis." id="7" />
+              <Parameter name="Theta (rad)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-3.14" max="3.14" tooltip="Angle to travel around the robot Z axis." id="8" />
+              <Timeline enable="0">
+                <BehaviorLayer name="behavior_layer1">
+                  <BehaviorKeyframe name="keyframe1" index="1">
+                    <Diagram>
+                      <Box name="Move To" id="2" localization="8" tooltip="Make the robot move to a configured point relative to its current location." x="532" y="110">
+                        <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        try :
+            self.compass = self.session().service("ALVisualCompass")
+        except Exception as e:
+            self.compass = None
+            self.logger.error(e)
+
+    def onUnload(self):
+        if self.compass:
+            self.compass.moveTo(0.0, 0.0, 0.0)
+
+    def onInput_onStart(self):
+        if self.compass:
+            self.compass.moveTo(self.getParameter("Distance X (m)"), self.getParameter("Distance Y (m)"), self.getParameter("Theta (rad)"))
+        # The move is finished so output
+        self.onStopped() #~ activate output of the box
+
+    def onInput_onStop(self):
+        self.onUnload()
+        self.failure()]]>
+                          </content>
+                        </script>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished or stopped." id="4" />
+                        <Output name="failure" type="1" type_size="1" nature="2" inner="0" tooltip="" id="5" />
+                        <Parameter name="Distance X (m)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="The distance in meters for forward/backward motion. Positive value&#x0A;means forward, negative value means backward." id="6" />
+                        <Parameter name="Distance Y (m)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="The distance in meters for lateral motion. Positive value means left, negative&#x0A;value means right." id="7" />
+                        <Parameter name="Theta (rad)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-3.14" max="3.14" tooltip="The orientation in radians for final rotation. Positive value means anticlockwise,&#x0A;negative value means clockwise." id="8" />
+                        <Resource name="Legs" type="Lock" timeout="0" />
+                      </Box>
+                      <Box name="Fall Detector" id="3" localization="8" tooltip='Detect if the the robot has fallen and has activated the fall manager process. &#x0A;&#x0A;Note : The output &quot;robotHasFallen&quot; is stimulated 0.5s after the fall is detected to give the robot time to fall.' x="200" y="216">
+                        <bitmap>media/images/box/sensors/fall_manager.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.bIsRunning = False
+
+    def onUnload(self):
+        self.bIsRunning = False
+
+    def onInput_onStart(self):
+        self.bIsRunning = True
+
+    def onInput_onStop(self):
+        if( self.bIsRunning ):
+            self.onUnload()
+            self.onStopped()]]>
+                          </content>
+                        </script>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                        <Input name="memory_robotHasFallen" type="0" type_size="1" nature="4" stm_value_name="robotHasFallen" inner="1" tooltip="Connected to ALMemory. Will be stimulated every time the value subscribed to changes, respecting the refresh period." id="4" />
+                        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is stopped." id="5" />
+                        <Output name="robotHasFallen" type="1" type_size="1" nature="2" inner="0" tooltip="This output is stimulated when the robot has fallen." id="6" />
+                        <Timeline enable="0">
+                          <BehaviorLayer name="behavior_layer1">
+                            <BehaviorKeyframe name="keyframe1" index="1">
+                              <Diagram>
+                                <Box name="Wait" id="6" localization="8" tooltip="Wait a moment before sending a signal on the output. &#x0A;Can be stopped anytime. &#x0A;Stimulating the input again before output is activated restarts the waiting period.&#x0A;" x="206" y="93">
+                                  <bitmap>media/images/box/wait.png</bitmap>
+                                  <script language="4">
+                                    <content>
+                                      <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.waiting = None
+
+    def onUnload(self):
+        self.cancelWaiting()
+
+    def triggerOutput(self):
+        self.timerOutput()
+
+    def cancelWaiting(self):
+        if self.waiting:
+            self.waiting.cancel()
+        self.waiting = None
+
+    def onInput_onStart(self):
+        self.cancelWaiting()
+        import qi
+        self.waiting = qi.async(self.triggerOutput, delay=int(self.getParameter("Timeout (s)") * 1000 * 1000))
+
+    def onInput_onStop(self):
+        if self.getParameter("Trigger timerOutput if cancelled") and self.waiting and self.waiting.isRunning():
+            self.timerOutput()
+        self.onUnload()]]>
+                                    </content>
+                                  </script>
+                                  <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                  <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Start the Wait box with the configured timeout value." id="2" />
+                                  <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Stop the wait and stimulate the output." id="3" />
+                                  <Output name="timerOutput" type="1" type_size="1" nature="1" inner="0" tooltip="Send a bang once time set in parameters is elapsed, or if the box is stopped." id="4" />
+                                  <Parameter name="Timeout (s)" inherits_from_parent="0" content_type="2" value="0.5" default_value="1" min="0" max="5000" tooltip="Duration the box waits before stimulating the output." id="5" />
+                                  <Parameter name="Trigger timerOutput if cancelled" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="If the box is currently waiting and cancelled, output will be stimulated." id="6" />
+                                </Box>
+                                <Link inputowner="6" indexofinput="2" outputowner="0" indexofoutput="4" />
+                                <Link inputowner="0" indexofinput="6" outputowner="6" indexofoutput="4" />
+                              </Diagram>
+                            </BehaviorKeyframe>
+                          </BehaviorLayer>
+                        </Timeline>
+                      </Box>
+                      <Link inputowner="2" indexofinput="2" outputowner="0" indexofoutput="2" />
+                      <Link inputowner="0" indexofinput="4" outputowner="2" indexofoutput="4" />
+                      <Link inputowner="0" indexofinput="5" outputowner="2" indexofoutput="5" />
+                      <Link inputowner="3" indexofinput="2" outputowner="0" indexofoutput="2" />
+                      <Link inputowner="2" indexofinput="3" outputowner="3" indexofoutput="6" />
+                    </Diagram>
+                  </BehaviorKeyframe>
+                </BehaviorLayer>
+              </Timeline>
+              <Resource name="Legs" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Look At (2)" id="11" localization="-1" tooltip="This box makes the robot look at a desired position." x="508" y="205">
+              <bitmap>media/images/box/movement/move_head.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self)
+
+        self.x = 0.0
+        self.y = 0.0
+        self.z = 0.0
+
+        self.maxSpeed = 0.5
+
+        self.useWholeBody = False
+        self.frame = 0 #FRAME TORSO
+
+    def onLoad(self):
+        self.tracker = self.session().service( "ALTracker" )
+        self.BIND_PYTHON(self.getName(), "setParameter")
+
+    def onUnload(self):
+        pass
+
+    def onInput_onStart(self):
+        self.x = self.getParameter("X (m)")
+        self.y = self.getParameter("Y (m)")
+        self.z = self.getParameter("Z (m)")
+
+        self.maxSpeed = self.getParameter("Speed (%)") / 100.0
+        self.useWholeBody = self.getParameter("WholeBody")
+
+        frameStr = self.getParameter("Frame")
+        if frameStr == "Torso":
+            self.frame = 0
+        elif frameStr == "World":
+            self.frame = 1
+        elif frameStr == "Robot":
+            self.frame = 2
+
+        self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+        self.onStopped()
+
+    def onInput_onStop(self):
+        self.onUnload()
+        pass
+
+    def setParameter(self, parameterName, newValue):
+        GeneratedClass.setParameter(self, parameterName, newValue)
+
+        if (parameterName == "X (m)"):
+            self.x = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Y (m)"):
+            self.y = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Z (m)"):
+            self.z = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Speed (%)"):
+            self.maxSpeed = newValue / 100.0
+            return
+
+        if (parameterName == "WholeBody"):
+            self.useWholeBody = newValue
+            return
+
+        if (parameterName == "Frame"):
+            if(newValue == "Torso"):
+                self.frame = 0
+            elif newValue == "World":
+                self.frame = 1
+            elif newValue == "Robot":
+                self.frame = 2]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+              <Parameter name="X (m)" inherits_from_parent="0" content_type="2" value="1" default_value="1" min="0.001" max="10" tooltip="X coordinate of the target to look at." id="5" />
+              <Parameter name="Y (m)" inherits_from_parent="0" content_type="2" value="-10" default_value="0" min="-10" max="10" tooltip="Y coordinate of the target to look at." id="6" />
+              <Parameter name="Z (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="Z coordinate of the target to look at." id="7" />
+              <Parameter name="Speed (%)" inherits_from_parent="0" content_type="1" value="50" default_value="50" min="1" max="100" tooltip="Speed to move the head towards the desired position." id="8" />
+              <Parameter name="WholeBody" inherits_from_parent="0" content_type="0" value="0" default_value="0" tooltip="Use whole body constraints" id="9" />
+              <Parameter name="Frame" inherits_from_parent="0" content_type="3" value="Torso" default_value="Torso" custom_choice="0" tooltip="Select the frame of target." id="10">
+                <Choice value="Torso" />
+                <Choice value="World" />
+                <Choice value="Robot" />
+              </Parameter>
+            </Box>
+            <Box name="Say Text (1)" id="12" localization="8" tooltip="Say the text received on its input." x="628" y="43">
+              <bitmap>media/images/box/interaction/say.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.tts = self.session().service('ALTextToSpeech')
+        self.ttsStop = self.session().service('ALTextToSpeech') #Create another service as wait is blocking if audioout is remote
+        self.bIsRunning = False
+        self.ids = []
+
+    def onUnload(self):
+        for id in self.ids:
+            try:
+                self.ttsStop.stop(id)
+            except:
+                pass
+        while( self.bIsRunning ):
+            time.sleep( 0.2 )
+
+    def onInput_onStart(self, p):
+        self.bIsRunning = True
+        try:
+            sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
+            sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
+            sentence += str(p)
+            sentence +=  "\RST\ "
+            id = self.tts.pCall("say",str(sentence))
+            self.ids.append(id)
+            self.tts.wait(id)
+        finally:
+            try:
+                self.ids.remove(id)
+            except:
+                pass
+            if( self.ids == [] ):
+                self.onStopped() # activate output of the box
+                self.bIsRunning = False
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when Box behavior is finished." id="4" />
+              <Parameter name="Voice shaping (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.' id="5" />
+              <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
+              <Resource name="Speech" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Text Edit (2)" id="13" localization="8" tooltip="Send the text you entered when the input is stimulated." plugin="textedit_plugin" x="376" y="40">
+              <bitmap>media/images/box/interaction/vocabulary.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		GeneratedClass.__init__(self)
+
+	def onInput_onStart(self):
+		self.onStopped("È permesso? È permesso? Che buio che c’è in questo teatro!")]]>
+                </content>
+              </script>
+              <pluginContent>
+                <text>
+                  <![CDATA[È permesso? È permesso? Che buio che c’è in questo teatro!]]>
+                </text>
+              </pluginContent>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the text on the output." id="2" />
+              <Output name="onStopped" type="3" type_size="1" nature="2" inner="0" tooltip="The text you entered." id="3" />
+            </Box>
+            <Box name="Delay" id="14" localization="8" tooltip="Wait a moment before triggering the output. &#x0A;Can be stopped anytime. &#x0A;Multiple inputs will trigger multiple outputs." x="92" y="372">
+              <bitmap>media/images/box/wait.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.delayed = []
+
+    def onUnload(self):
+        self.cancelDelays()
+
+    def cancelDelays(self):
+        cancel_list = list(self.delayed)
+        for d in cancel_list:
+            d.cancel()
+
+    def cleanDelay(self, fut, fut_ref):
+        self.delayed.remove(fut)
+
+    def triggerOutput(self):
+        self.timerOutput()
+
+    def onInput_onStart(self):
+        import qi
+        import functools
+        delay_future = qi.async(self.triggerOutput, delay=int(self.getParameter("Timeout (s)") * 1000 * 1000))
+        # keep the async operation in an array for cancel
+        # and remove it when it is finished in the callback
+        self.delayed.append(delay_future)
+        bound_clean = functools.partial(self.cleanDelay, delay_future)
+        delay_future.addCallback(bound_clean)
+
+    def onInput_onStop(self):
+        if self.getParameter("Trigger timerOutput if cancelled") and self.delayed:
+            self.timerOutput()
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Start the Delay box with the configured timeout value." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Stop the wait and stimulate the output." id="3" />
+              <Output name="timerOutput" type="1" type_size="1" nature="1" inner="0" tooltip="Send a bang once delay set in parameters is elapsed, or if the box is stopped and the appropriate parameter is set." id="4" />
+              <Parameter name="Timeout (s)" inherits_from_parent="0" content_type="2" value="5" default_value="1" min="0" max="5000" tooltip="Duration the box waits before stimulating the output." id="5" />
+              <Parameter name="Trigger timerOutput if cancelled" inherits_from_parent="0" content_type="0" value="0" default_value="1" tooltip="If the box is currently delaying at least one signal and cancelled, output will be stimulated." id="6" />
+            </Box>
+            <Box name="Look At (3)" id="15" localization="-1" tooltip="This box makes the robot look at a desired position." x="228" y="365">
+              <bitmap>media/images/box/movement/move_head.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self)
+
+        self.x = 0.0
+        self.y = 0.0
+        self.z = 0.0
+
+        self.maxSpeed = 0.5
+
+        self.useWholeBody = False
+        self.frame = 0 #FRAME TORSO
+
+    def onLoad(self):
+        self.tracker = self.session().service( "ALTracker" )
+        self.BIND_PYTHON(self.getName(), "setParameter")
+
+    def onUnload(self):
+        pass
+
+    def onInput_onStart(self):
+        self.x = self.getParameter("X (m)")
+        self.y = self.getParameter("Y (m)")
+        self.z = self.getParameter("Z (m)")
+
+        self.maxSpeed = self.getParameter("Speed (%)") / 100.0
+        self.useWholeBody = self.getParameter("WholeBody")
+
+        frameStr = self.getParameter("Frame")
+        if frameStr == "Torso":
+            self.frame = 0
+        elif frameStr == "World":
+            self.frame = 1
+        elif frameStr == "Robot":
+            self.frame = 2
+
+        self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+        self.onStopped()
+
+    def onInput_onStop(self):
+        self.onUnload()
+        pass
+
+    def setParameter(self, parameterName, newValue):
+        GeneratedClass.setParameter(self, parameterName, newValue)
+
+        if (parameterName == "X (m)"):
+            self.x = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Y (m)"):
+            self.y = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Z (m)"):
+            self.z = newValue
+            self.tracker.lookAt([self.x, self.y, self.z], self.frame, self.maxSpeed, self.useWholeBody)
+            self.onStopped()
+            return
+
+        if (parameterName == "Speed (%)"):
+            self.maxSpeed = newValue / 100.0
+            return
+
+        if (parameterName == "WholeBody"):
+            self.useWholeBody = newValue
+            return
+
+        if (parameterName == "Frame"):
+            if(newValue == "Torso"):
+                self.frame = 0
+            elif newValue == "World":
+                self.frame = 1
+            elif newValue == "Robot":
+                self.frame = 2]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+              <Parameter name="X (m)" inherits_from_parent="0" content_type="2" value="1" default_value="1" min="0.001" max="10" tooltip="X coordinate of the target to look at." id="5" />
+              <Parameter name="Y (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="Y coordinate of the target to look at." id="6" />
+              <Parameter name="Z (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="Z coordinate of the target to look at." id="7" />
+              <Parameter name="Speed (%)" inherits_from_parent="0" content_type="1" value="50" default_value="50" min="1" max="100" tooltip="Speed to move the head towards the desired position." id="8" />
+              <Parameter name="WholeBody" inherits_from_parent="0" content_type="0" value="0" default_value="0" tooltip="Use whole body constraints" id="9" />
+              <Parameter name="Frame" inherits_from_parent="0" content_type="3" value="Torso" default_value="Torso" custom_choice="0" tooltip="Select the frame of target." id="10">
+                <Choice value="Torso" />
+                <Choice value="World" />
+                <Choice value="Robot" />
+              </Parameter>
+            </Box>
+            <Box name="Text Edit (4)" id="16" localization="8" tooltip="Send the text you entered when the input is stimulated." plugin="textedit_plugin" x="358" y="354">
+              <bitmap>media/images/box/interaction/vocabulary.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		GeneratedClass.__init__(self)
+
+	def onInput_onStart(self):
+		self.onStopped("Signore e signori, buonasera!  \nSono lieto di darvi il benvenuto a questa bellissima serata")]]>
+                </content>
+              </script>
+              <pluginContent>
+                <text>
+                  <![CDATA[Signore e signori, buonasera!  
+Sono lieto di darvi il benvenuto a questa bellissima serata]]>
+                </text>
+              </pluginContent>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the text on the output." id="2" />
+              <Output name="onStopped" type="3" type_size="1" nature="2" inner="0" tooltip="The text you entered." id="3" />
+            </Box>
+            <Box name="Animated Say Text (2)" id="19" localization="8" tooltip="Say the text received on its input and move during its speech.&#x0A;" x="616" y="356">
+              <bitmap>media/images/box/interaction/say.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.tts = self.session().service('ALAnimatedSpeech')
+        self.ttsStop = self.session().service('ALAnimatedSpeech') #Create another service as wait is blocking if audioout is remote
+        self.bIsRunning = False
+        self.ids = []
+
+    def onUnload(self):
+        for id in self.ids:
+            try:
+                self.ttsStop.stop(id)
+            except:
+                pass
+        while( self.bIsRunning ):
+            time.sleep( 0.2 )
+
+    def onInput_onStart(self, p):
+        self.bIsRunning = True
+        try:
+            movement = self.getParameter("Speaking movement mode")
+            sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
+            sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
+            sentence += str(p)
+            sentence +=  "\RST\ "
+            id = self.tts.pCall("say",str(sentence), {"speakingMovementMode":movement})
+            self.ids.append(id)
+            self.tts.wait(id)
+        finally:
+            try:
+                self.ids.remove(id)
+            except:
+                pass
+            if( self.ids == [] ):
+                self.onStopped() # activate output of the box
+                self.bIsRunning = False
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when Box behavior is finished." id="4" />
+              <Parameter name="Voice shaping (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.' id="5" />
+              <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
+              <Parameter name="Speaking movement mode" inherits_from_parent="0" content_type="3" value="contextual" default_value="contextual" custom_choice="0" tooltip="Change the body language mode during the speech.&#x0A;disabled: The robot will only play the animations given by the user through the animation parameter.&#x0A;random: During time the robot has no animation to play, he will launch random neutral animations.&#x0A;contextual: During time the robot has no animation to play, he will try to launch a new one accordingly to the saying text. Every time the robot can&apos;t find a contextual animation he will launch a random neutral animation." id="7">
+                <Choice value="disabled" />
+                <Choice value="random" />
+                <Choice value="contextual" />
+              </Parameter>
+              <Resource name="Speech" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Animated Say Text (1)" id="17" localization="8" tooltip="Say the text received on its input and move during its speech.&#x0A;" x="994" y="391">
+              <bitmap>media/images/box/interaction/say.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.tts = self.session().service('ALAnimatedSpeech')
+        self.ttsStop = self.session().service('ALAnimatedSpeech') #Create another service as wait is blocking if audioout is remote
+        self.bIsRunning = False
+        self.ids = []
+
+    def onUnload(self):
+        for id in self.ids:
+            try:
+                self.ttsStop.stop(id)
+            except:
+                pass
+        while( self.bIsRunning ):
+            time.sleep( 0.2 )
+
+    def onInput_onStart(self, p):
+        self.bIsRunning = True
+        try:
+            movement = self.getParameter("Speaking movement mode")
+            sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
+            sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
+            sentence += str(p)
+            sentence +=  "\RST\ "
+            id = self.tts.pCall("say",str(sentence), {"speakingMovementMode":movement})
+            self.ids.append(id)
+            self.tts.wait(id)
+        finally:
+            try:
+                self.ids.remove(id)
+            except:
+                pass
+            if( self.ids == [] ):
+                self.onStopped() # activate output of the box
+                self.bIsRunning = False
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when Box behavior is finished." id="4" />
+              <Parameter name="Voice shaping (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.' id="5" />
+              <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="90" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
+              <Parameter name="Speaking movement mode" inherits_from_parent="0" content_type="3" value="contextual" default_value="contextual" custom_choice="0" tooltip="Change the body language mode during the speech.&#x0A;disabled: The robot will only play the animations given by the user through the animation parameter.&#x0A;random: During time the robot has no animation to play, he will launch random neutral animations.&#x0A;contextual: During time the robot has no animation to play, he will try to launch a new one accordingly to the saying text. Every time the robot can&apos;t find a contextual animation he will launch a random neutral animation." id="7">
+                <Choice value="disabled" />
+                <Choice value="random" />
+                <Choice value="contextual" />
+              </Parameter>
+              <Resource name="Speech" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Text Edit (5)" id="20" localization="8" tooltip="Send the text you entered when the input is stimulated." plugin="textedit_plugin" x="734" y="313">
+              <bitmap>media/images/box/interaction/vocabulary.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		GeneratedClass.__init__(self)
+
+	def onInput_onStart(self):
+		self.onStopped("Mi presento: il mio nome è NAO. \nSono un umanoide molto giovane,  \nho solo 5  anni di vita  \ne sono molto curioso, un ossessivo registratore di contenuti!\nPerò non sono pericoloso.  anzi, sono qui per aiutarvi e 	accompagnarvi alla scoperta del profeta della speranza! \n \nAnche io, come mi mie colleghi studenti, ho iniziato a leggere Dante.  ")]]>
+                </content>
+              </script>
+              <pluginContent>
+                <text>
+                  <![CDATA[Mi presento: il mio nome è NAO. 
+Sono un umanoide molto giovane,  
+ho solo 5  anni di vita  
+e sono molto curioso, un ossessivo registratore di contenuti!
+Però non sono pericoloso.  anzi, sono qui per aiutarvi e 	accompagnarvi alla scoperta del profeta della speranza! 
+ 
+Anche io, come mi mie colleghi studenti, ho iniziato a leggere Dante.  ]]>
+                </text>
+              </pluginContent>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the text on the output." id="2" />
+              <Output name="onStopped" type="3" type_size="1" nature="2" inner="0" tooltip="The text you entered." id="3" />
+            </Box>
+            <Box name="Text Edit (3)" id="18" localization="8" tooltip="Send the text you entered when the input is stimulated." plugin="textedit_plugin" x="45" y="569">
+              <bitmap>media/images/box/interaction/vocabulary.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		GeneratedClass.__init__(self)
+
+	def onInput_onStart(self):
+		self.onStopped("Nel mezzo del cammin di nostra vita \nmi ritrovai per una selva oscura \nché la diritta via era smarrita.")]]>
+                </content>
+              </script>
+              <pluginContent>
+                <text>
+                  <![CDATA[Nel mezzo del cammin di nostra vita 
+mi ritrovai per una selva oscura 
+ché la diritta via era smarrita.]]>
+                </text>
+              </pluginContent>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the text on the output." id="2" />
+              <Output name="onStopped" type="3" type_size="1" nature="2" inner="0" tooltip="The text you entered." id="3" />
+            </Box>
+            <Box name="Animated Say Text (3)" id="21" localization="8" tooltip="Say the text received on its input and move during its speech.&#x0A;" x="283" y="575">
+              <bitmap>media/images/box/interaction/say.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.tts = self.session().service('ALAnimatedSpeech')
+        self.ttsStop = self.session().service('ALAnimatedSpeech') #Create another service as wait is blocking if audioout is remote
+        self.bIsRunning = False
+        self.ids = []
+
+    def onUnload(self):
+        for id in self.ids:
+            try:
+                self.ttsStop.stop(id)
+            except:
+                pass
+        while( self.bIsRunning ):
+            time.sleep( 0.2 )
+
+    def onInput_onStart(self, p):
+        self.bIsRunning = True
+        try:
+            movement = self.getParameter("Speaking movement mode")
+            sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
+            sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
+            sentence += str(p)
+            sentence +=  "\RST\ "
+            id = self.tts.pCall("say",str(sentence), {"speakingMovementMode":movement})
+            self.ids.append(id)
+            self.tts.wait(id)
+        finally:
+            try:
+                self.ids.remove(id)
+            except:
+                pass
+            if( self.ids == [] ):
+                self.onStopped() # activate output of the box
+                self.bIsRunning = False
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when Box behavior is finished." id="4" />
+              <Parameter name="Voice shaping (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.' id="5" />
+              <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
+              <Parameter name="Speaking movement mode" inherits_from_parent="0" content_type="3" value="contextual" default_value="contextual" custom_choice="0" tooltip="Change the body language mode during the speech.&#x0A;disabled: The robot will only play the animations given by the user through the animation parameter.&#x0A;random: During time the robot has no animation to play, he will launch random neutral animations.&#x0A;contextual: During time the robot has no animation to play, he will try to launch a new one accordingly to the saying text. Every time the robot can&apos;t find a contextual animation he will launch a random neutral animation." id="7">
+                <Choice value="disabled" />
+                <Choice value="random" />
+                <Choice value="contextual" />
+              </Parameter>
+              <Resource name="Speech" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Text Edit (6)" id="22" localization="8" tooltip="Send the text you entered when the input is stimulated." plugin="textedit_plugin" x="439" y="568">
+              <bitmap>media/images/box/interaction/vocabulary.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		GeneratedClass.__init__(self)
+
+	def onInput_onStart(self):
+		self.onStopped("Ahi quanto a dir qual era è cosa dura \nesta selva selvaggia e aspra e forte \nche nel pensier rinova la paura! ")]]>
+                </content>
+              </script>
+              <pluginContent>
+                <text>
+                  <![CDATA[Ahi quanto a dir qual era è cosa dura 
+esta selva selvaggia e aspra e forte 
+che nel pensier rinova la paura! ]]>
+                </text>
+              </pluginContent>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the text on the output." id="2" />
+              <Output name="onStopped" type="3" type_size="1" nature="2" inner="0" tooltip="The text you entered." id="3" />
+            </Box>
+            <Box name="Animated Say Text (4)" id="23" localization="8" tooltip="Say the text received on its input and move during its speech.&#x0A;" x="680" y="572">
+              <bitmap>media/images/box/interaction/say.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.tts = self.session().service('ALAnimatedSpeech')
+        self.ttsStop = self.session().service('ALAnimatedSpeech') #Create another service as wait is blocking if audioout is remote
+        self.bIsRunning = False
+        self.ids = []
+
+    def onUnload(self):
+        for id in self.ids:
+            try:
+                self.ttsStop.stop(id)
+            except:
+                pass
+        while( self.bIsRunning ):
+            time.sleep( 0.2 )
+
+    def onInput_onStart(self, p):
+        self.bIsRunning = True
+        try:
+            movement = self.getParameter("Speaking movement mode")
+            sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
+            sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
+            sentence += str(p)
+            sentence +=  "\RST\ "
+            id = self.tts.pCall("say",str(sentence), {"speakingMovementMode":movement})
+            self.ids.append(id)
+            self.tts.wait(id)
+        finally:
+            try:
+                self.ids.remove(id)
+            except:
+                pass
+            if( self.ids == [] ):
+                self.onStopped() # activate output of the box
+                self.bIsRunning = False
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when Box behavior is finished." id="4" />
+              <Parameter name="Voice shaping (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.' id="5" />
+              <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="150" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
+              <Parameter name="Speaking movement mode" inherits_from_parent="0" content_type="3" value="contextual" default_value="contextual" custom_choice="0" tooltip="Change the body language mode during the speech.&#x0A;disabled: The robot will only play the animations given by the user through the animation parameter.&#x0A;random: During time the robot has no animation to play, he will launch random neutral animations.&#x0A;contextual: During time the robot has no animation to play, he will try to launch a new one accordingly to the saying text. Every time the robot can&apos;t find a contextual animation he will launch a random neutral animation." id="7">
+                <Choice value="disabled" />
+                <Choice value="random" />
+                <Choice value="contextual" />
+              </Parameter>
+              <Resource name="Speech" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Text Edit (7)" id="24" localization="8" tooltip="Send the text you entered when the input is stimulated." plugin="textedit_plugin" x="793" y="579">
+              <bitmap>media/images/box/interaction/vocabulary.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		GeneratedClass.__init__(self)
+
+	def onInput_onStart(self):
+		self.onStopped("Tant’è amara che poco è più morte; \nma per trattar del ben chi vi trovai, \ndirò de l’altre cose chi v’ho scorte.")]]>
+                </content>
+              </script>
+              <pluginContent>
+                <text>
+                  <![CDATA[Tant’è amara che poco è più morte; 
+ma per trattar del ben chi vi trovai, 
+dirò de l’altre cose chi v’ho scorte.]]>
+                </text>
+              </pluginContent>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the text on the output." id="2" />
+              <Output name="onStopped" type="3" type_size="1" nature="2" inner="0" tooltip="The text you entered." id="3" />
+            </Box>
+            <Box name="Animated Say Text (5)" id="25" localization="8" tooltip="Say the text received on its input and move during its speech.&#x0A;" x="1031" y="578">
+              <bitmap>media/images/box/interaction/say.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.tts = self.session().service('ALAnimatedSpeech')
+        self.ttsStop = self.session().service('ALAnimatedSpeech') #Create another service as wait is blocking if audioout is remote
+        self.bIsRunning = False
+        self.ids = []
+
+    def onUnload(self):
+        for id in self.ids:
+            try:
+                self.ttsStop.stop(id)
+            except:
+                pass
+        while( self.bIsRunning ):
+            time.sleep( 0.2 )
+
+    def onInput_onStart(self, p):
+        self.bIsRunning = True
+        try:
+            movement = self.getParameter("Speaking movement mode")
+            sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
+            sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
+            sentence += str(p)
+            sentence +=  "\RST\ "
+            id = self.tts.pCall("say",str(sentence), {"speakingMovementMode":movement})
+            self.ids.append(id)
+            self.tts.wait(id)
+        finally:
+            try:
+                self.ids.remove(id)
+            except:
+                pass
+            if( self.ids == [] ):
+                self.onStopped() # activate output of the box
+                self.bIsRunning = False
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when Box behavior is finished." id="4" />
+              <Parameter name="Voice shaping (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.' id="5" />
+              <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="171" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
+              <Parameter name="Speaking movement mode" inherits_from_parent="0" content_type="3" value="contextual" default_value="contextual" custom_choice="0" tooltip="Change the body language mode during the speech.&#x0A;disabled: The robot will only play the animations given by the user through the animation parameter.&#x0A;random: During time the robot has no animation to play, he will launch random neutral animations.&#x0A;contextual: During time the robot has no animation to play, he will try to launch a new one accordingly to the saying text. Every time the robot can&apos;t find a contextual animation he will launch a random neutral animation." id="7">
+                <Choice value="disabled" />
+                <Choice value="random" />
+                <Choice value="contextual" />
+              </Parameter>
+              <Resource name="Speech" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Text Edit (8)" id="26" localization="8" tooltip="Send the text you entered when the input is stimulated." plugin="textedit_plugin" x="47" y="716">
+              <bitmap>media/images/box/interaction/vocabulary.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		GeneratedClass.__init__(self)
+
+	def onInput_onStart(self):
+		self.onStopped("Accipicchia, \nEh sì, ho appena imparato a memoria la Divina Commedia, in meno 	di un secondo,  \nma,  non ho capito nulla.\nCos’è questo Inferno? Chi è Dante? Chi è Virgilio? ")]]>
+                </content>
+              </script>
+              <pluginContent>
+                <text>
+                  <![CDATA[Accipicchia, 
+Eh sì, ho appena imparato a memoria la Divina Commedia, in meno 	di un secondo,  
+ma,  non ho capito nulla.
+Cos’è questo Inferno? Chi è Dante? Chi è Virgilio? ]]>
+                </text>
+              </pluginContent>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the text on the output." id="2" />
+              <Output name="onStopped" type="3" type_size="1" nature="2" inner="0" tooltip="The text you entered." id="3" />
+            </Box>
+            <Box name="Text Edit (9)" id="27" localization="8" tooltip="Send the text you entered when the input is stimulated." plugin="textedit_plugin" x="457" y="718">
+              <bitmap>media/images/box/interaction/vocabulary.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		GeneratedClass.__init__(self)
+
+	def onInput_onStart(self):
+		self.onStopped("Vedete, qui sta la differenza tra me e voi.\nA voi serve tempo, a me no.\nma voi ne sapete più di me. voi ci capite qualcosa,  \nvoi sentite il gusto della poesia,  \nio invece mi nutro di numeri, calcoli, algoritmi,  \nCome nel film di matrix. vi ricordate? Tutti quei numeri verdi dall’alto in basso?")]]>
+                </content>
+              </script>
+              <pluginContent>
+                <text>
+                  <![CDATA[Vedete, qui sta la differenza tra me e voi.
+A voi serve tempo, a me no.
+ma voi ne sapete più di me. voi ci capite qualcosa,  
+voi sentite il gusto della poesia,  
+io invece mi nutro di numeri, calcoli, algoritmi,  
+Come nel film di matrix. vi ricordate? Tutti quei numeri verdi dall’alto in basso?]]>
+                </text>
+              </pluginContent>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the text on the output." id="2" />
+              <Output name="onStopped" type="3" type_size="1" nature="2" inner="0" tooltip="The text you entered." id="3" />
+            </Box>
+            <Box name="Animated Say Text (6)" id="28" localization="8" tooltip="Say the text received on its input and move during its speech.&#x0A;" x="696" y="722">
+              <bitmap>media/images/box/interaction/say.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.tts = self.session().service('ALAnimatedSpeech')
+        self.ttsStop = self.session().service('ALAnimatedSpeech') #Create another service as wait is blocking if audioout is remote
+        self.bIsRunning = False
+        self.ids = []
+
+    def onUnload(self):
+        for id in self.ids:
+            try:
+                self.ttsStop.stop(id)
+            except:
+                pass
+        while( self.bIsRunning ):
+            time.sleep( 0.2 )
+
+    def onInput_onStart(self, p):
+        self.bIsRunning = True
+        try:
+            movement = self.getParameter("Speaking movement mode")
+            sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
+            sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
+            sentence += str(p)
+            sentence +=  "\RST\ "
+            id = self.tts.pCall("say",str(sentence), {"speakingMovementMode":movement})
+            self.ids.append(id)
+            self.tts.wait(id)
+        finally:
+            try:
+                self.ids.remove(id)
+            except:
+                pass
+            if( self.ids == [] ):
+                self.onStopped() # activate output of the box
+                self.bIsRunning = False
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when Box behavior is finished." id="4" />
+              <Parameter name="Voice shaping (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.' id="5" />
+              <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
+              <Parameter name="Speaking movement mode" inherits_from_parent="0" content_type="3" value="contextual" default_value="contextual" custom_choice="0" tooltip="Change the body language mode during the speech.&#x0A;disabled: The robot will only play the animations given by the user through the animation parameter.&#x0A;random: During time the robot has no animation to play, he will launch random neutral animations.&#x0A;contextual: During time the robot has no animation to play, he will try to launch a new one accordingly to the saying text. Every time the robot can&apos;t find a contextual animation he will launch a random neutral animation." id="7">
+                <Choice value="disabled" />
+                <Choice value="random" />
+                <Choice value="contextual" />
+              </Parameter>
+              <Resource name="Speech" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Animated Say Text (7)" id="29" localization="8" tooltip="Say the text received on its input and move during its speech.&#x0A;" x="288" y="722">
+              <bitmap>media/images/box/interaction/say.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.tts = self.session().service('ALAnimatedSpeech')
+        self.ttsStop = self.session().service('ALAnimatedSpeech') #Create another service as wait is blocking if audioout is remote
+        self.bIsRunning = False
+        self.ids = []
+
+    def onUnload(self):
+        for id in self.ids:
+            try:
+                self.ttsStop.stop(id)
+            except:
+                pass
+        while( self.bIsRunning ):
+            time.sleep( 0.2 )
+
+    def onInput_onStart(self, p):
+        self.bIsRunning = True
+        try:
+            movement = self.getParameter("Speaking movement mode")
+            sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
+            sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
+            sentence += str(p)
+            sentence +=  "\RST\ "
+            id = self.tts.pCall("say",str(sentence), {"speakingMovementMode":movement})
+            self.ids.append(id)
+            self.tts.wait(id)
+        finally:
+            try:
+                self.ids.remove(id)
+            except:
+                pass
+            if( self.ids == [] ):
+                self.onStopped() # activate output of the box
+                self.bIsRunning = False
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when Box behavior is finished." id="4" />
+              <Parameter name="Voice shaping (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.' id="5" />
+              <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
+              <Parameter name="Speaking movement mode" inherits_from_parent="0" content_type="3" value="contextual" default_value="contextual" custom_choice="0" tooltip="Change the body language mode during the speech.&#x0A;disabled: The robot will only play the animations given by the user through the animation parameter.&#x0A;random: During time the robot has no animation to play, he will launch random neutral animations.&#x0A;contextual: During time the robot has no animation to play, he will try to launch a new one accordingly to the saying text. Every time the robot can&apos;t find a contextual animation he will launch a random neutral animation." id="7">
+                <Choice value="disabled" />
+                <Choice value="random" />
+                <Choice value="contextual" />
+              </Parameter>
+              <Resource name="Speech" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Text Edit (10)" id="30" localization="8" tooltip="Send the text you entered when the input is stimulated." plugin="textedit_plugin" x="806" y="721">
+              <bitmap>media/images/box/interaction/vocabulary.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		GeneratedClass.__init__(self)
+
+	def onInput_onStart(self):
+		self.onStopped("Questa sera voglio imparare qualcosa di nuovo,  \nvoglio capire cosa è questo inferno,  \nvoglio vedere come lo hanno immaginato, voglio ascoltare parole nuove,  \ne so di essere nel posto giusto")]]>
+                </content>
+              </script>
+              <pluginContent>
+                <text>
+                  <![CDATA[Questa sera voglio imparare qualcosa di nuovo,  
+voglio capire cosa è questo inferno,  
+voglio vedere come lo hanno immaginato, voglio ascoltare parole nuove,  
+e so di essere nel posto giusto]]>
+                </text>
+              </pluginContent>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the text on the output." id="2" />
+              <Output name="onStopped" type="3" type_size="1" nature="2" inner="0" tooltip="The text you entered." id="3" />
+            </Box>
+            <Box name="Animated Say Text (8)" id="31" localization="8" tooltip="Say the text received on its input and move during its speech.&#x0A;" x="1028" y="765">
+              <bitmap>media/images/box/interaction/say.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.tts = self.session().service('ALAnimatedSpeech')
+        self.ttsStop = self.session().service('ALAnimatedSpeech') #Create another service as wait is blocking if audioout is remote
+        self.bIsRunning = False
+        self.ids = []
+
+    def onUnload(self):
+        for id in self.ids:
+            try:
+                self.ttsStop.stop(id)
+            except:
+                pass
+        while( self.bIsRunning ):
+            time.sleep( 0.2 )
+
+    def onInput_onStart(self, p):
+        self.bIsRunning = True
+        try:
+            movement = self.getParameter("Speaking movement mode")
+            sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
+            sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
+            sentence += str(p)
+            sentence +=  "\RST\ "
+            id = self.tts.pCall("say",str(sentence), {"speakingMovementMode":movement})
+            self.ids.append(id)
+            self.tts.wait(id)
+        finally:
+            try:
+                self.ids.remove(id)
+            except:
+                pass
+            if( self.ids == [] ):
+                self.onStopped() # activate output of the box
+                self.bIsRunning = False
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when Box behavior is finished." id="4" />
+              <Parameter name="Voice shaping (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.' id="5" />
+              <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
+              <Parameter name="Speaking movement mode" inherits_from_parent="0" content_type="3" value="contextual" default_value="contextual" custom_choice="0" tooltip="Change the body language mode during the speech.&#x0A;disabled: The robot will only play the animations given by the user through the animation parameter.&#x0A;random: During time the robot has no animation to play, he will launch random neutral animations.&#x0A;contextual: During time the robot has no animation to play, he will try to launch a new one accordingly to the saying text. Every time the robot can&apos;t find a contextual animation he will launch a random neutral animation." id="7">
+                <Choice value="disabled" />
+                <Choice value="random" />
+                <Choice value="contextual" />
+              </Parameter>
+              <Resource name="Speech" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Move To (1)" id="4" localization="8" tooltip="Make the robot move to a configured point relative to its current location." x="92" y="937">
+              <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+        self.positionErrorThresholdPos = 0.01
+        self.positionErrorThresholdAng = 0.03
+
+    def onLoad(self):
+        self.motion = self.session().service("ALMotion")
+
+    def onUnload(self):
+        self.motion.moveToward(0.0, 0.0, 0.0)
+
+    def onInput_onStart(self):
+        import almath
+        # The command position estimation will be set to the sensor position
+        # when the robot starts moving, so we use sensors first and commands later.
+        initPosition = almath.Pose2D(self.motion.getRobotPosition(True))
+        targetDistance = almath.Pose2D(self.getParameter("Distance X (m)"),
+            self.getParameter("Distance Y (m)"),
+            self.getParameter("Theta (deg)") * almath.PI / 180)
+        expectedEndPosition = initPosition * targetDistance
+        enableArms = self.getParameter("Arms movement enabled")
+        self.motion.setMoveArmsEnabled(enableArms, enableArms)
+        self.motion.moveTo(self.getParameter("Distance X (m)"),
+            self.getParameter("Distance Y (m)"),
+            self.getParameter("Theta (deg)") * almath.PI / 180)
+
+        # The move is finished so output
+        realEndPosition = almath.Pose2D(self.motion.getRobotPosition(False))
+        positionError = realEndPosition.diff(expectedEndPosition)
+        positionError.theta = almath.modulo2PI(positionError.theta)
+        if (abs(positionError.x) < self.positionErrorThresholdPos
+            and abs(positionError.y) < self.positionErrorThresholdPos
+            and abs(positionError.theta) < self.positionErrorThresholdAng):
+            self.onArrivedAtDestination()
+        else:
+            self.onStoppedBeforeArriving(positionError.toVector())
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onArrivedAtDestination" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when the robot arrives at its destination." id="4" />
+              <Output name="onStoppedBeforeArriving" type="0" type_size="1" nature="1" inner="0" tooltip="Signal sent when the robot stops before arriving to its destination. Returns a vector [x (m), y (m), theta(rad)] with the remaining distance up to the destination. This distance is expressed in the ROBOT frame." id="5" />
+              <Parameter name="Distance X (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0.2" min="-5" max="10" tooltip="The distance in meters for forward/backward motion. Positive value&#x0A;means forward, negative value means backward." id="6" />
+              <Parameter name="Distance Y (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-5" max="5" tooltip="The distance in meters for lateral motion. Positive value means left, negative&#x0A;value means right." id="7" />
+              <Parameter name="Theta (deg)" inherits_from_parent="0" content_type="2" value="-180" default_value="0" min="-180" max="180" tooltip="The orientation in degrees for final rotation. Positive value means anticlockwise,&#x0A;negative value means clockwise." id="8" />
+              <Parameter name="Arms movement enabled" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="Enables natural motion of the arms." id="9" />
+              <Resource name="Legs" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Move To (2)" id="5" localization="8" tooltip="Make the robot move to a configured point relative to its current location." x="385" y="933">
+              <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+        self.positionErrorThresholdPos = 0.01
+        self.positionErrorThresholdAng = 0.03
+
+    def onLoad(self):
+        self.motion = self.session().service("ALMotion")
+
+    def onUnload(self):
+        self.motion.moveToward(0.0, 0.0, 0.0)
+
+    def onInput_onStart(self):
+        import almath
+        # The command position estimation will be set to the sensor position
+        # when the robot starts moving, so we use sensors first and commands later.
+        initPosition = almath.Pose2D(self.motion.getRobotPosition(True))
+        targetDistance = almath.Pose2D(self.getParameter("Distance X (m)"),
+            self.getParameter("Distance Y (m)"),
+            self.getParameter("Theta (deg)") * almath.PI / 180)
+        expectedEndPosition = initPosition * targetDistance
+        enableArms = self.getParameter("Arms movement enabled")
+        self.motion.setMoveArmsEnabled(enableArms, enableArms)
+        self.motion.moveTo(self.getParameter("Distance X (m)"),
+            self.getParameter("Distance Y (m)"),
+            self.getParameter("Theta (deg)") * almath.PI / 180)
+
+        # The move is finished so output
+        realEndPosition = almath.Pose2D(self.motion.getRobotPosition(False))
+        positionError = realEndPosition.diff(expectedEndPosition)
+        positionError.theta = almath.modulo2PI(positionError.theta)
+        if (abs(positionError.x) < self.positionErrorThresholdPos
+            and abs(positionError.y) < self.positionErrorThresholdPos
+            and abs(positionError.theta) < self.positionErrorThresholdAng):
+            self.onArrivedAtDestination()
+        else:
+            self.onStoppedBeforeArriving(positionError.toVector())
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onArrivedAtDestination" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when the robot arrives at its destination." id="4" />
+              <Output name="onStoppedBeforeArriving" type="0" type_size="1" nature="1" inner="0" tooltip="Signal sent when the robot stops before arriving to its destination. Returns a vector [x (m), y (m), theta(rad)] with the remaining distance up to the destination. This distance is expressed in the ROBOT frame." id="5" />
+              <Parameter name="Distance X (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0.2" min="-5" max="10" tooltip="The distance in meters for forward/backward motion. Positive value&#x0A;means forward, negative value means backward." id="6" />
+              <Parameter name="Distance Y (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-5" max="5" tooltip="The distance in meters for lateral motion. Positive value means left, negative&#x0A;value means right." id="7" />
+              <Parameter name="Theta (deg)" inherits_from_parent="0" content_type="2" value="90" default_value="0" min="-180" max="180" tooltip="The orientation in degrees for final rotation. Positive value means anticlockwise,&#x0A;negative value means clockwise." id="8" />
+              <Parameter name="Arms movement enabled" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="Enables natural motion of the arms." id="9" />
+              <Resource name="Legs" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Compass Move To (3)" id="32" localization="8" tooltip="Make the robot move to a configured point relative to its current location using camera to correct deviation.&#x0A;&#x0A;V1.1.0" x="232" y="944">
+              <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+              <Output name="failure" type="1" type_size="1" nature="1" inner="0" tooltip="Triggered when the move fails (e.g. the robot falls)." id="5" />
+              <Parameter name="Distance X (m)" inherits_from_parent="0" content_type="2" value="2.5" default_value="0" min="-10" max="10" tooltip="Distance to travel along the robot X axis." id="6" />
+              <Parameter name="Distance Y (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="Distance to travel along the robot Y axis." id="7" />
+              <Parameter name="Theta (rad)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-3.14" max="3.14" tooltip="Angle to travel around the robot Z axis." id="8" />
+              <Timeline enable="0">
+                <BehaviorLayer name="behavior_layer1">
+                  <BehaviorKeyframe name="keyframe1" index="1">
+                    <Diagram>
+                      <Box name="Move To" id="2" localization="8" tooltip="Make the robot move to a configured point relative to its current location." x="532" y="110">
+                        <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        try :
+            self.compass = self.session().service("ALVisualCompass")
+        except Exception as e:
+            self.compass = None
+            self.logger.error(e)
+
+    def onUnload(self):
+        if self.compass:
+            self.compass.moveTo(0.0, 0.0, 0.0)
+
+    def onInput_onStart(self):
+        if self.compass:
+            self.compass.moveTo(self.getParameter("Distance X (m)"), self.getParameter("Distance Y (m)"), self.getParameter("Theta (rad)"))
+        # The move is finished so output
+        self.onStopped() #~ activate output of the box
+
+    def onInput_onStop(self):
+        self.onUnload()
+        self.failure()]]>
+                          </content>
+                        </script>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished or stopped." id="4" />
+                        <Output name="failure" type="1" type_size="1" nature="2" inner="0" tooltip="" id="5" />
+                        <Parameter name="Distance X (m)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="The distance in meters for forward/backward motion. Positive value&#x0A;means forward, negative value means backward." id="6" />
+                        <Parameter name="Distance Y (m)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="The distance in meters for lateral motion. Positive value means left, negative&#x0A;value means right." id="7" />
+                        <Parameter name="Theta (rad)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-3.14" max="3.14" tooltip="The orientation in radians for final rotation. Positive value means anticlockwise,&#x0A;negative value means clockwise." id="8" />
+                        <Resource name="Legs" type="Lock" timeout="0" />
+                      </Box>
+                      <Box name="Fall Detector" id="3" localization="8" tooltip='Detect if the the robot has fallen and has activated the fall manager process. &#x0A;&#x0A;Note : The output &quot;robotHasFallen&quot; is stimulated 0.5s after the fall is detected to give the robot time to fall.' x="200" y="216">
+                        <bitmap>media/images/box/sensors/fall_manager.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.bIsRunning = False
+
+    def onUnload(self):
+        self.bIsRunning = False
+
+    def onInput_onStart(self):
+        self.bIsRunning = True
+
+    def onInput_onStop(self):
+        if( self.bIsRunning ):
+            self.onUnload()
+            self.onStopped()]]>
+                          </content>
+                        </script>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                        <Input name="memory_robotHasFallen" type="0" type_size="1" nature="4" stm_value_name="robotHasFallen" inner="1" tooltip="Connected to ALMemory. Will be stimulated every time the value subscribed to changes, respecting the refresh period." id="4" />
+                        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is stopped." id="5" />
+                        <Output name="robotHasFallen" type="1" type_size="1" nature="2" inner="0" tooltip="This output is stimulated when the robot has fallen." id="6" />
+                        <Timeline enable="0">
+                          <BehaviorLayer name="behavior_layer1">
+                            <BehaviorKeyframe name="keyframe1" index="1">
+                              <Diagram>
+                                <Box name="Wait" id="6" localization="8" tooltip="Wait a moment before sending a signal on the output. &#x0A;Can be stopped anytime. &#x0A;Stimulating the input again before output is activated restarts the waiting period.&#x0A;" x="206" y="93">
+                                  <bitmap>media/images/box/wait.png</bitmap>
+                                  <script language="4">
+                                    <content>
+                                      <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.waiting = None
+
+    def onUnload(self):
+        self.cancelWaiting()
+
+    def triggerOutput(self):
+        self.timerOutput()
+
+    def cancelWaiting(self):
+        if self.waiting:
+            self.waiting.cancel()
+        self.waiting = None
+
+    def onInput_onStart(self):
+        self.cancelWaiting()
+        import qi
+        self.waiting = qi.async(self.triggerOutput, delay=int(self.getParameter("Timeout (s)") * 1000 * 1000))
+
+    def onInput_onStop(self):
+        if self.getParameter("Trigger timerOutput if cancelled") and self.waiting and self.waiting.isRunning():
+            self.timerOutput()
+        self.onUnload()]]>
+                                    </content>
+                                  </script>
+                                  <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                  <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Start the Wait box with the configured timeout value." id="2" />
+                                  <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Stop the wait and stimulate the output." id="3" />
+                                  <Output name="timerOutput" type="1" type_size="1" nature="1" inner="0" tooltip="Send a bang once time set in parameters is elapsed, or if the box is stopped." id="4" />
+                                  <Parameter name="Timeout (s)" inherits_from_parent="0" content_type="2" value="0.5" default_value="1" min="0" max="5000" tooltip="Duration the box waits before stimulating the output." id="5" />
+                                  <Parameter name="Trigger timerOutput if cancelled" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="If the box is currently waiting and cancelled, output will be stimulated." id="6" />
+                                </Box>
+                                <Link inputowner="6" indexofinput="2" outputowner="0" indexofoutput="4" />
+                                <Link inputowner="0" indexofinput="6" outputowner="6" indexofoutput="4" />
+                              </Diagram>
+                            </BehaviorKeyframe>
+                          </BehaviorLayer>
+                        </Timeline>
+                      </Box>
+                      <Link inputowner="2" indexofinput="2" outputowner="0" indexofoutput="2" />
+                      <Link inputowner="0" indexofinput="4" outputowner="2" indexofoutput="4" />
+                      <Link inputowner="0" indexofinput="5" outputowner="2" indexofoutput="5" />
+                      <Link inputowner="3" indexofinput="2" outputowner="0" indexofoutput="2" />
+                      <Link inputowner="2" indexofinput="3" outputowner="3" indexofoutput="6" />
+                    </Diagram>
+                  </BehaviorKeyframe>
+                </BehaviorLayer>
+              </Timeline>
+              <Resource name="Legs" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Compass Move To (4)" id="33" localization="8" tooltip="Make the robot move to a configured point relative to its current location using camera to correct deviation.&#x0A;&#x0A;V1.1.0" x="510" y="952">
+              <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+              <Output name="failure" type="1" type_size="1" nature="1" inner="0" tooltip="Triggered when the move fails (e.g. the robot falls)." id="5" />
+              <Parameter name="Distance X (m)" inherits_from_parent="0" content_type="2" value="2.5" default_value="0" min="-10" max="10" tooltip="Distance to travel along the robot X axis." id="6" />
+              <Parameter name="Distance Y (m)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="Distance to travel along the robot Y axis." id="7" />
+              <Parameter name="Theta (rad)" inherits_from_parent="0" content_type="2" value="0" default_value="0" min="-3.14" max="3.14" tooltip="Angle to travel around the robot Z axis." id="8" />
+              <Timeline enable="0">
+                <BehaviorLayer name="behavior_layer1">
+                  <BehaviorKeyframe name="keyframe1" index="1">
+                    <Diagram>
+                      <Box name="Move To" id="2" localization="8" tooltip="Make the robot move to a configured point relative to its current location." x="532" y="110">
+                        <bitmap>media/images/box/movement/walk_forward.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        try :
+            self.compass = self.session().service("ALVisualCompass")
+        except Exception as e:
+            self.compass = None
+            self.logger.error(e)
+
+    def onUnload(self):
+        if self.compass:
+            self.compass.moveTo(0.0, 0.0, 0.0)
+
+    def onInput_onStart(self):
+        if self.compass:
+            self.compass.moveTo(self.getParameter("Distance X (m)"), self.getParameter("Distance Y (m)"), self.getParameter("Theta (rad)"))
+        # The move is finished so output
+        self.onStopped() #~ activate output of the box
+
+    def onInput_onStop(self):
+        self.onUnload()
+        self.failure()]]>
+                          </content>
+                        </script>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished or stopped." id="4" />
+                        <Output name="failure" type="1" type_size="1" nature="2" inner="0" tooltip="" id="5" />
+                        <Parameter name="Distance X (m)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="The distance in meters for forward/backward motion. Positive value&#x0A;means forward, negative value means backward." id="6" />
+                        <Parameter name="Distance Y (m)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-10" max="10" tooltip="The distance in meters for lateral motion. Positive value means left, negative&#x0A;value means right." id="7" />
+                        <Parameter name="Theta (rad)" inherits_from_parent="1" content_type="2" value="0" default_value="0" min="-3.14" max="3.14" tooltip="The orientation in radians for final rotation. Positive value means anticlockwise,&#x0A;negative value means clockwise." id="8" />
+                        <Resource name="Legs" type="Lock" timeout="0" />
+                      </Box>
+                      <Box name="Fall Detector" id="3" localization="8" tooltip='Detect if the the robot has fallen and has activated the fall manager process. &#x0A;&#x0A;Note : The output &quot;robotHasFallen&quot; is stimulated 0.5s after the fall is detected to give the robot time to fall.' x="200" y="216">
+                        <bitmap>media/images/box/sensors/fall_manager.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.bIsRunning = False
+
+    def onUnload(self):
+        self.bIsRunning = False
+
+    def onInput_onStart(self):
+        self.bIsRunning = True
+
+    def onInput_onStop(self):
+        if( self.bIsRunning ):
+            self.onUnload()
+            self.onStopped()]]>
+                          </content>
+                        </script>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                        <Input name="memory_robotHasFallen" type="0" type_size="1" nature="4" stm_value_name="robotHasFallen" inner="1" tooltip="Connected to ALMemory. Will be stimulated every time the value subscribed to changes, respecting the refresh period." id="4" />
+                        <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is stopped." id="5" />
+                        <Output name="robotHasFallen" type="1" type_size="1" nature="2" inner="0" tooltip="This output is stimulated when the robot has fallen." id="6" />
+                        <Timeline enable="0">
+                          <BehaviorLayer name="behavior_layer1">
+                            <BehaviorKeyframe name="keyframe1" index="1">
+                              <Diagram>
+                                <Box name="Wait" id="6" localization="8" tooltip="Wait a moment before sending a signal on the output. &#x0A;Can be stopped anytime. &#x0A;Stimulating the input again before output is activated restarts the waiting period.&#x0A;" x="206" y="93">
+                                  <bitmap>media/images/box/wait.png</bitmap>
+                                  <script language="4">
+                                    <content>
+                                      <![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.waiting = None
+
+    def onUnload(self):
+        self.cancelWaiting()
+
+    def triggerOutput(self):
+        self.timerOutput()
+
+    def cancelWaiting(self):
+        if self.waiting:
+            self.waiting.cancel()
+        self.waiting = None
+
+    def onInput_onStart(self):
+        self.cancelWaiting()
+        import qi
+        self.waiting = qi.async(self.triggerOutput, delay=int(self.getParameter("Timeout (s)") * 1000 * 1000))
+
+    def onInput_onStop(self):
+        if self.getParameter("Trigger timerOutput if cancelled") and self.waiting and self.waiting.isRunning():
+            self.timerOutput()
+        self.onUnload()]]>
+                                    </content>
+                                  </script>
+                                  <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                                  <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Start the Wait box with the configured timeout value." id="2" />
+                                  <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Stop the wait and stimulate the output." id="3" />
+                                  <Output name="timerOutput" type="1" type_size="1" nature="1" inner="0" tooltip="Send a bang once time set in parameters is elapsed, or if the box is stopped." id="4" />
+                                  <Parameter name="Timeout (s)" inherits_from_parent="0" content_type="2" value="0.5" default_value="1" min="0" max="5000" tooltip="Duration the box waits before stimulating the output." id="5" />
+                                  <Parameter name="Trigger timerOutput if cancelled" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="If the box is currently waiting and cancelled, output will be stimulated." id="6" />
+                                </Box>
+                                <Link inputowner="6" indexofinput="2" outputowner="0" indexofoutput="4" />
+                                <Link inputowner="0" indexofinput="6" outputowner="6" indexofoutput="4" />
+                              </Diagram>
+                            </BehaviorKeyframe>
+                          </BehaviorLayer>
+                        </Timeline>
+                      </Box>
+                      <Link inputowner="2" indexofinput="2" outputowner="0" indexofoutput="2" />
+                      <Link inputowner="0" indexofinput="4" outputowner="2" indexofoutput="4" />
+                      <Link inputowner="0" indexofinput="5" outputowner="2" indexofoutput="5" />
+                      <Link inputowner="3" indexofinput="2" outputowner="0" indexofoutput="2" />
+                      <Link inputowner="2" indexofinput="3" outputowner="3" indexofoutput="6" />
+                    </Diagram>
+                  </BehaviorKeyframe>
+                </BehaviorLayer>
+              </Timeline>
+              <Resource name="Legs" type="Lock" timeout="0" />
+            </Box>
+            <Box name="Text Edit" id="6" localization="8" tooltip="Send the text you entered when the input is stimulated." plugin="textedit_plugin" x="638" y="221">
+              <bitmap>media/images/box/interaction/vocabulary.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		GeneratedClass.__init__(self)
+
+	def onInput_onStart(self):
+		self.onStopped("Era qui che dovevo posizionarmi? Giusto? Regia mi dai l\'Okei?")]]>
+                </content>
+              </script>
+              <pluginContent>
+                <text>
+                  <![CDATA[Era qui che dovevo posizionarmi? Giusto? Regia mi dai l'Okei?]]>
+                </text>
+              </pluginContent>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the text on the output." id="2" />
+              <Output name="onStopped" type="3" type_size="1" nature="2" inner="0" tooltip="The text you entered." id="3" />
+            </Box>
+            <Box name="Say Text" id="7" localization="8" tooltip="Say the text received on its input." x="904" y="208">
+              <bitmap>media/images/box/interaction/say.png</bitmap>
+              <script language="4">
+                <content>
+                  <![CDATA[import time
+
+class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self, False)
+
+    def onLoad(self):
+        self.tts = self.session().service('ALTextToSpeech')
+        self.ttsStop = self.session().service('ALTextToSpeech') #Create another service as wait is blocking if audioout is remote
+        self.bIsRunning = False
+        self.ids = []
+
+    def onUnload(self):
+        for id in self.ids:
+            try:
+                self.ttsStop.stop(id)
+            except:
+                pass
+        while( self.bIsRunning ):
+            time.sleep( 0.2 )
+
+    def onInput_onStart(self, p):
+        self.bIsRunning = True
+        try:
+            sentence = "\RSPD="+ str( self.getParameter("Speed (%)") ) + "\ "
+            sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
+            sentence += str(p)
+            sentence +=  "\RST\ "
+            id = self.tts.pCall("say",str(sentence))
+            self.ids.append(id)
+            self.tts.wait(id)
+        finally:
+            try:
+                self.ids.remove(id)
+            except:
+                pass
+            if( self.ids == [] ):
+                self.onStopped() # activate output of the box
+                self.bIsRunning = False
+
+    def onInput_onStop(self):
+        self.onUnload()]]>
+                </content>
+              </script>
+              <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
+              <Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this Input." id="2" />
+              <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this Input." id="3" />
+              <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when Box behavior is finished." id="4" />
+              <Parameter name="Voice shaping (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="150" tooltip='Used to modify at runtime the voice feature (tone, speed). In a slighty&#x0A;different way than pitch and speed, it gives a kind of &quot;gender or age&#x0A;modification&quot; effect.&#x0A;&#x0A;For instance, a quite good male derivation of female voice can be&#x0A;obtained setting this parameter to 78%.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the&#x0A;speed parameter. For example, if you want to decrease by 20% the voice&#x0A;shaping, you will have to increase by 20% the speed to keep a constant&#x0A;average speed.' id="5" />
+              <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
+              <Resource name="Speech" type="Lock" timeout="0" />
+            </Box>
+            <Link inputowner="12" indexofinput="2" outputowner="13" indexofoutput="3" />
+            <Link inputowner="19" indexofinput="2" outputowner="16" indexofoutput="3" />
+            <Link inputowner="21" indexofinput="2" outputowner="18" indexofoutput="3" />
+            <Link inputowner="23" indexofinput="2" outputowner="22" indexofoutput="3" />
+            <Link inputowner="25" indexofinput="2" outputowner="24" indexofoutput="3" />
+            <Link inputowner="28" indexofinput="2" outputowner="27" indexofoutput="3" />
+            <Link inputowner="31" indexofinput="2" outputowner="30" indexofoutput="3" />
+            <Link inputowner="20" indexofinput="2" outputowner="19" indexofoutput="4" />
+            <Link inputowner="22" indexofinput="2" outputowner="21" indexofoutput="4" />
+            <Link inputowner="24" indexofinput="2" outputowner="23" indexofoutput="4" />
+            <Link inputowner="29" indexofinput="2" outputowner="26" indexofoutput="3" />
+            <Link inputowner="27" indexofinput="2" outputowner="29" indexofoutput="4" />
+            <Link inputowner="30" indexofinput="2" outputowner="28" indexofoutput="4" />
+            <Link inputowner="17" indexofinput="2" outputowner="20" indexofoutput="3" />
+            <Link inputowner="7" indexofinput="2" outputowner="6" indexofoutput="3" />
+          </Diagram>
+        </BehaviorKeyframe>
+      </BehaviorLayer>
+    </Timeline>
+  </Box>
+</ChoregrapheProject>

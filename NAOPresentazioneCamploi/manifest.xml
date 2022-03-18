@@ -1,10 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="naoproject-d58397" installOnlyAtStartup="false">
+<package version="0.0.0" uuid="naochallenge-bb2c9b" installOnlyAtStartup="false">
  <names>
   <name lang="en_US">Untitled</name>
  </names>
+ <supportedLanguages>
+  <language>en_US</language>
+ </supportedLanguages>
  <descriptionLanguages>
-  <language>it_IT</language>
+  <language>en_US</language>
  </descriptionLanguages>
  <contents>
   <behaviorContent path="behavior_1">

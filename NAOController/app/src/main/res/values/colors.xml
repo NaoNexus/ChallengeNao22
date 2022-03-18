@@ -14,4 +14,6 @@
     <color name="button_background">#FFD9413D</color>
     <color name="description_card_background">#66000000</color>
     <color name="transparent">#00000000</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color">#1589FF</color>
 </resources>

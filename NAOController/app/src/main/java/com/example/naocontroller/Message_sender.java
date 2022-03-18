@@ -11,12 +11,12 @@ public class Message_sender extends AsyncTask<String, Void, Void> {
     protected Void doInBackground(String[] strings) {
 
         String ip = strings[1];
-        try {
+        int port = Integer.parseInt(strings[2]);
 
-            Socket socket = new Socket(ip, 5050);
+        try {
+            Socket socket = new Socket(ip, port);
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             writer.print(strings[0]);
-
             writer.close();
             socket.close();
 

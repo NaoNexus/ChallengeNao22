@@ -1,13 +1,15 @@
 package com.example.naocontroller;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Locale;
@@ -21,11 +23,14 @@ public class Nao_buttons extends AppCompatActivity {
              btn_opera_3,
              btn_opera_4,
              btn_opera_5,
-             btn_opera_6,btn_opera_7, btn_opera_8;
+             btn_opera_6,
+             btn_opera_7,
+             btn_opera_8,
+             btn_settings;
 
-    Button btn_settings;
-
-    TextInputEditText ip_text;
+    AlertDialog dialog;
+    AlertDialog.Builder dialog_Builder;
+    String ip, port = "";
 
 
 
@@ -41,7 +46,6 @@ public class Nao_buttons extends AppCompatActivity {
 
         setContentView(R.layout.activity_nao_buttons);
 
-
         btn_opera_1 = findViewById(R.id.btn_1);
         btn_opera_2 = findViewById(R.id.btn_2);
         btn_opera_3 = findViewById(R.id.btn_3);
@@ -52,46 +56,71 @@ public class Nao_buttons extends AppCompatActivity {
         btn_opera_8 = findViewById(R.id.btn_8);
         btn_settings = findViewById(R.id.btn_settings);
 
-        btn_settings.setOnClickListener(view -> {
-            Intent intent = new Intent(Nao_buttons.this, Settings_activity.class);
-            startActivity(intent);
-            finish();
-        });
+        btn_settings.setOnClickListener(view ->
+                createNewContactDialog()
+        );
 
         btn_opera_1.setOnClickListener(v ->
-                data_sender(1, Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(1, this.ip, this.port)
         );
         btn_opera_2.setOnClickListener(v ->
-                data_sender(2, Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(2, this.ip, this.port)
         );
         btn_opera_3.setOnClickListener(v ->
-                data_sender(3, Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(3, this.ip, this.port)
         );
         btn_opera_4.setOnClickListener(v ->
-                data_sender(4, Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(4, this.ip, this.port)
         );
         btn_opera_5.setOnClickListener(v ->
-                data_sender(5, Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(5, this.ip, this.port)
         );
         btn_opera_6.setOnClickListener(v ->
-                data_sender(6, Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(6, this.ip, this.port)
         );
         btn_opera_7.setOnClickListener(v ->
-                data_sender(7, Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(7, this.ip, this.port)
         );
         btn_opera_7.setOnClickListener(v ->
-                data_sender(8, Objects.requireNonNull(ip_text.getText()).toString())
+                data_sender(8, this.ip, this.port)
         );
     }
 
 
-    private void data_sender(int paintingIndex, String ip) {
+    private void data_sender(int paintingIndex, String ip, String port) {
         Message_sender bg_void = new Message_sender();
-        bg_void.execute(String.format(Locale.ITALIAN, "app_%d_nao", paintingIndex), ip);
+        bg_void.execute(String.format(Locale.ITALIAN, "app_%d_nao", paintingIndex), ip, port);
 
         Intent intent = new Intent(Nao_buttons.this, Nao_description.class);
         intent.putExtra("painting", paintingIndex);
         startActivity(intent);
-        finish();
+
+    }
+
+
+    private void createNewContactDialog() {
+
+        dialog_Builder = new AlertDialog.Builder(this);
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_settings_menu, null);
+
+        TextInputEditText ip_edit_text = contactPopupView.findViewById(R.id.ip_edit_text);
+        TextInputEditText port_edit_text = contactPopupView.findViewById(R.id.port_edit_text);
+        Button btn_ok = contactPopupView.findViewById(R.id.btn_ok);
+        Button btn_annulla = contactPopupView.findViewById(R.id.btn_annulla);
+
+        dialog_Builder.setView(contactPopupView);
+        dialog = dialog_Builder.create();
+        dialog.show();
+
+        btn_ok.setOnClickListener(view -> {
+            this.ip = Objects.requireNonNull(ip_edit_text.getText()).toString();
+            this.port = Objects.requireNonNull(port_edit_text.getText()).toString();
+            dialog.hide();
+        });
+
+        btn_annulla.setOnClickListener(view -> {
+            ip_edit_text.setText("");
+            port_edit_text.setText("");
+        });
     }
 }

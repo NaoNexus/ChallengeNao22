@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NAOController">
         <activity
-            android:name=".Settings_activity"
-            android:exported="false" />
-        <activity
             android:name=".Nao_buttons"
             android:exported="false" />
         <activity android:name=".MainActivity">
@@ -24,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Nao_description"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -3,11 +3,12 @@ package com.example.naocontroller;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 
-public class Nao_description extends Activity {
+public class Nao_description extends Activity  {
 
     TextView authorText,
              descriptionText,
@@ -30,8 +31,17 @@ public class Nao_description extends Activity {
         descriptionText = findViewById(R.id.txt_painting_description);
 
         setTexts();
+        messageReceiver();
+    }
 
-        //TODO: receive the command that nao returned to base and display buttons again.
+    private void messageReceiver() {
+
+        Message_reciver message_reciver = new Message_reciver(message_received -> {
+
+            Toast.makeText(getApplicationContext(), "Messaggio ricevuto: " + message_received, Toast.LENGTH_LONG).show();
+            finish();
+        });
+        message_reciver.execute();
     }
 
     private void setTexts () {

@@ -28,10 +28,10 @@ public class Nao_buttons extends AppCompatActivity {
              btn_opera_8,
              btn_settings;
 
+
     AlertDialog dialog;
     AlertDialog.Builder dialog_Builder;
     String ip, port = "";
-
 
 
     @Override
@@ -43,8 +43,8 @@ public class Nao_buttons extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         Objects.requireNonNull(getSupportActionBar()).hide();
         //ACTION BAR CUSTOMISATION\\
-
         setContentView(R.layout.activity_nao_buttons);
+
 
         btn_opera_1 = findViewById(R.id.btn_1);
         btn_opera_2 = findViewById(R.id.btn_2);
@@ -55,6 +55,7 @@ public class Nao_buttons extends AppCompatActivity {
         btn_opera_7 = findViewById(R.id.btn_7);
         btn_opera_8 = findViewById(R.id.btn_8);
         btn_settings = findViewById(R.id.btn_settings);
+
 
         btn_settings.setOnClickListener(view ->
                 createNewContactDialog()
@@ -81,7 +82,7 @@ public class Nao_buttons extends AppCompatActivity {
         btn_opera_7.setOnClickListener(v ->
                 data_sender(7, this.ip, this.port)
         );
-        btn_opera_7.setOnClickListener(v ->
+        btn_opera_8.setOnClickListener(v ->
                 data_sender(8, this.ip, this.port)
         );
     }
@@ -94,7 +95,6 @@ public class Nao_buttons extends AppCompatActivity {
         Intent intent = new Intent(Nao_buttons.this, Nao_description.class);
         intent.putExtra("painting", paintingIndex);
         startActivity(intent);
-
     }
 
 
@@ -115,7 +115,7 @@ public class Nao_buttons extends AppCompatActivity {
         btn_ok.setOnClickListener(view -> {
             this.ip = Objects.requireNonNull(ip_edit_text.getText()).toString();
             this.port = Objects.requireNonNull(port_edit_text.getText()).toString();
-            dialog.hide();
+            dialog.dismiss();
         });
 
         btn_annulla.setOnClickListener(view -> {

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="naochallenge-bb2c9b" installOnlyAtStartup="false">
+<package uuid="naochallenge-bb2c9b" version="0.0.0" installOnlyAtStartup="false">
  <names>
   <name lang="en_US">Untitled</name>
  </names>

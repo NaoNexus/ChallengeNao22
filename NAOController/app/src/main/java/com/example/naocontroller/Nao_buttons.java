@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,6 @@ import java.util.Objects;
 
 
 public class Nao_buttons extends AppCompatActivity {
-
     CardView btn_opera_1,
              btn_opera_2,
              btn_opera_3,
@@ -99,7 +99,6 @@ public class Nao_buttons extends AppCompatActivity {
 
 
     private void createNewContactDialog() {
-
         dialog_Builder = new AlertDialog.Builder(this);
         final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_settings_menu, null);
 
@@ -108,8 +107,13 @@ public class Nao_buttons extends AppCompatActivity {
         Button btn_ok = contactPopupView.findViewById(R.id.btn_ok);
         Button btn_annulla = contactPopupView.findViewById(R.id.btn_annulla);
 
+        ip_edit_text.setText(this.ip);
+        port_edit_text.setText(this.port);
+
         dialog_Builder.setView(contactPopupView);
         dialog = dialog_Builder.create();
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
         dialog.show();
 
         btn_ok.setOnClickListener(view -> {
@@ -119,8 +123,7 @@ public class Nao_buttons extends AppCompatActivity {
         });
 
         btn_annulla.setOnClickListener(view -> {
-            ip_edit_text.setText("");
-            port_edit_text.setText("");
+            dialog.dismiss();
         });
     }
 }

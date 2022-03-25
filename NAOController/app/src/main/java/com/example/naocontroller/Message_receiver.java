@@ -7,9 +7,8 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Message_reciver extends AsyncTask <String, Void, String> {
-
-    final int SERVER_PORT = 6000;
+public class Message_receiver extends AsyncTask <String, Void, String> {
+    final int SERVER_PORT = 5050;
     String message_received = "";
 
     public interface AsyncResponse {
@@ -18,16 +17,13 @@ public class Message_reciver extends AsyncTask <String, Void, String> {
 
     public AsyncResponse response;
 
-    public Message_reciver(AsyncResponse response) {
+    public Message_receiver(AsyncResponse response) {
         this.response = response;
     }
 
     @Override
     protected String doInBackground(String[] strings) {
         try {
-            //CLIENT MUST SEND DATA TO PORT 5050\\
-            //PORT 6000 CANNOT BE CHANGED\\
-            //BEFORE RUNNING DO PORT-FORWARDING AND REDIRECT TRAFFIC FROM 5050 TO 6000 (with Telnet)\\
             ServerSocket ss = new ServerSocket(SERVER_PORT);
             System.out.println("Waiting for client");
             Socket s = ss.accept();

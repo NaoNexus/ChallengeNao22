@@ -6,10 +6,8 @@ import java.net.Socket;
 
 public class Message_sender extends AsyncTask<String, Void, Void> {
 
-
     @Override
     protected Void doInBackground(String[] strings) {
-
         String ip = strings[1];
         int port = Integer.parseInt(strings[2]);
 

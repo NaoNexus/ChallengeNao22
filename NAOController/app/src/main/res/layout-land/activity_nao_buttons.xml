@@ -84,7 +84,8 @@
                     android:layout_width="260dp"
                     android:layout_height="180dp"
                     android:contentDescription="@string/title_painting_1"
-                    android:src="@drawable/ic_wifi"/>
+                    android:src="@drawable/opera_11"
+                    android:scaleType="centerCrop"/>
 
                 <TextView
                     android:text="@string/title_painting_1"
@@ -111,7 +112,8 @@
                 android:contentDescription="@string/title_painting_2"
                 android:layout_width="260dp"
                 android:layout_height="180dp"
-                android:src="@drawable/ic_wifi"/>
+                android:src="@drawable/opera_12"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:text="@string/title_painting_2"
@@ -139,7 +141,8 @@
                 android:layout_width="260dp"
                 android:layout_height="180dp"
                 android:contentDescription="@string/title_painting_3"
-                android:src="@drawable/ic_wifi"/>
+                android:src="@drawable/opera_13"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:text="@string/title_painting_3"
@@ -167,7 +170,8 @@
                 android:layout_width="260dp"
                 android:layout_height="180dp"
                 android:contentDescription="@string/title_painting_4"
-                android:src="@drawable/ic_wifi"/>
+                android:src="@drawable/opera_14"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:text="@string/title_painting_4"
@@ -195,7 +199,8 @@
                 android:layout_width="260dp"
                 android:layout_height="180dp"
                 android:contentDescription="@string/title_painting_5"
-                android:src="@drawable/ic_wifi"/>
+                android:src="@drawable/opera_15"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:text="@string/title_painting_5"
@@ -223,7 +228,8 @@
                 android:layout_width="260dp"
                 android:layout_height="180dp"
                 android:contentDescription="@string/title_painting_6"
-                android:src="@drawable/ic_wifi"/>
+                android:src="@drawable/opera_16"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:text="@string/title_painting_6"
@@ -251,7 +257,8 @@
                 android:layout_width="260dp"
                 android:layout_height="180dp"
                 android:contentDescription="@string/title_painting_7"
-                android:src="@drawable/ic_wifi"/>
+                android:src="@drawable/opera_17"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:text="@string/title_painting_7"
@@ -279,7 +286,8 @@
                 android:layout_width="260dp"
                 android:layout_height="180dp"
                 android:contentDescription="@string/title_painting_8"
-                android:src="@drawable/ic_wifi"/>
+                android:src="@drawable/opera_18"
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:text="@string/title_painting_8"

@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 
 
 public class Nao_description extends Activity  {
-
     TextView authorText,
              descriptionText,
              titleText,
@@ -35,13 +34,12 @@ public class Nao_description extends Activity  {
     }
 
     private void messageReceiver() {
-
-        Message_reciver message_reciver = new Message_reciver(message_received -> {
+        Message_receiver message_receiver = new Message_receiver(message_received -> {
 
             Toast.makeText(getApplicationContext(), "Messaggio ricevuto: " + message_received, Toast.LENGTH_LONG).show();
             finish();
         });
-        message_reciver.execute();
+        message_receiver.execute();
     }
 
     private void setTexts () {

@@ -1,52 +1,55 @@
 <resources>
     <string name="app_name">NAOController</string>
-    <string name="btn_camera">Fotocamera</string>
-    <!-- Paintings -->
-    <string name="title_painting_1">LA RUINA</string>
-    <string name="author_painting_1">AUTORE 1</string>
-    <string name="song_painting_1">CANTO 11</string>
-    <string name="description_painting_1">DESCRIZIONE  1</string>
-
-    <string name="title_painting_2">I CENTAURI</string>
-    <string name="author_painting_2">AUTORE 2</string>
-    <string name="song_painting_2">CANTO 12</string>
-    <string name="description_painting_2">DESCRIZIONE  2</string>
-
-    <string name="title_painting_3">LA SELVA DEI SUICIDI</string>
-    <string name="author_painting_3">AUTORE 3</string>
-    <string name="song_painting_3">CANTO 13</string>
-    <string name="description_painting_3">DESCRIZIONE  3</string>
-
-    <string name="title_painting_4">CAPANEO</string>
-    <string name="author_painting_4">AUTORE 4</string>
-    <string name="song_painting_4">CANTO 14</string>
-    <string name="description_painting_4">DESCRIZIONE  4</string>
-
-    <string name="title_painting_5">BRUNETTO LATINI</string>
-    <string name="author_painting_5">AUTORE 5</string>
-    <string name="song_painting_5">CANTO 15</string>
-    <string name="description_painting_5">DESCRIZIONE  5</string>
-
-    <string name="title_painting_6">IL POZZO DEI GIGANTI</string>
-    <string name="author_painting_6">AUTORE 6</string>
-    <string name="song_painting_6">CANTO 16</string>
-    <string name="description_painting_6">DESCRIZIONE  6</string>
-
-    <string name="title_painting_7">GERIONE</string>
-    <string name="author_painting_7">AUTORE 7</string>
-    <string name="song_painting_7">CANTO 17</string>
-    <string name="description_painting_7">DESCRIZIONE  7</string>
-
-    <string name="title_painting_8">GLI ADULATORI</string>
-    <string name="author_painting_8">AUTORE 8</string>
-    <string name="song_painting_8">CANTO 18</string>
-    <string name="description_painting_8">DESCRIZIONE  8</string>
-
     <string name="hint_ip">Indirizzo IP</string>
     <string name="hint_port">Porta</string>
     <string name="logo">logo</string>
     <string name="logo_name">NaoNexus team®</string>
+    <string name="btn_camera">Fotocamera</string>
     <string name="btn_settings">Impostazioni</string>
     <string name="btn_ok">OK</string>
     <string name="btn_cancel">ANNULLA</string>
+
+    <string name="ic_location">Posizione</string>
+    <string name="ic_songs">Canti</string>
+
+    <!-- Paintings -->
+    <string name="title_painting_1">LA RUINA</string>
+    <string name="location_painting_1">CERCHIO 6</string>
+    <string name="song_painting_1">CANTO 11</string>
+    <string name="description_painting_1">DESCRIZIONE  1</string>
+
+    <string name="title_painting_2">I CENTAURI</string>
+    <string name="location_painting_2">CERCHIO 7 - GIRONE 1</string>
+    <string name="song_painting_2">CANTO 12</string>
+    <string name="description_painting_2">DESCRIZIONE  2</string>
+
+    <string name="title_painting_3">LA SELVA DEI SUICIDI</string>
+    <string name="location_painting_3">SETTIMO CERCHIO, GIRONE 2</string>
+    <string name="song_painting_3">CANTO 13</string>
+    <string name="description_painting_3">DESCRIZIONE  3</string>
+
+    <string name="title_painting_4">CAPANEO</string>
+    <string name="location_painting_4">SETTIMO CERCHIO, GIRONE 3</string>
+    <string name="song_painting_4">CANTO 14</string>
+    <string name="description_painting_4">DESCRIZIONE  4</string>
+
+    <string name="title_painting_5">BRUNETTO LATINI</string>
+    <string name="location_painting_5">SETTIMO CERCHIO, GIRONE 3</string>
+    <string name="song_painting_5">CANTO 15</string>
+    <string name="description_painting_5">DESCRIZIONE  5</string>
+
+    <string name="title_painting_6">IL POZZO DEI GIGANTI</string>
+    <string name="location_painting_6">SETTIMO CERCHIO, GIRONE 3</string>
+    <string name="song_painting_6">CANTO 16</string>
+    <string name="description_painting_6">DESCRIZIONE  6</string>
+
+    <string name="title_painting_7">GERIONE</string>
+    <string name="location_painting_7">SETTIMO CERCHIO, GIRONE 3</string>
+    <string name="song_painting_7">CANTO 17</string>
+    <string name="description_painting_7">DESCRIZIONE  7</string>
+
+    <string name="title_painting_8">GLI ADULATORI</string>
+    <string name="location_painting_8">OTTAVO CERCHIO, GIRONE 1</string>
+    <string name="song_painting_8">CANTO 18</string>
+    <string name="description_painting_8">DESCRIZIONE  8</string>
 </resources>

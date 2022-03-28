@@ -68,14 +68,16 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/painting_image"
                 android:layout_width="430dp"
-                android:layout_height="640dp"
+                android:layout_height="620dp"
                 android:contentDescription="@string/title_painting_1"
-                android:src="@drawable/ic_wifi"/>
+                android:src="@drawable/Opera_11"
+                android:scaleType="centerCrop"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="430dp"
-                android:layout_height="100dp">
+                android:layout_height="120dp">
 
                 <TextView
                     android:id="@+id/txt_painting_title"
@@ -88,29 +90,55 @@
                     app:layout_constraintVertical_bias=".1"
                     app:layout_constraintHorizontal_bias=".5"/>
 
-                <TextView
-                    android:id="@+id/txt_painting_author"
-                    android:text="@string/author_painting_1"
-                    style="@style/TextStyle"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:contentDescription="@string/title_painting_1"
+                    android:src="@drawable/ic_location"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias=".8"
-                    app:layout_constraintHorizontal_bias=".1"
+                    app:layout_constraintVertical_bias=".55"
+                    app:layout_constraintHorizontal_bias=".03"/>
+
+                <TextView
+                    android:id="@+id/txt_painting_author"
+                    android:text="@string/location_painting_2"
+                    style="@style/TextStyle"
+                    android:layout_width="300dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias=".55"
+                    app:layout_constraintHorizontal_bias=".35"
                     android:textAlignment="textStart"/>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:contentDescription="@string/ic_songs"
+                    android:src="@drawable/ic_book"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias=".95"
+                    app:layout_constraintHorizontal_bias=".03"/>
 
                 <TextView
                     android:id="@+id/txt_painting_song"
                     android:text="@string/song_painting_1"
                     style="@style/TextStyle"
+                    android:layout_width="300dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias=".8"
-                    app:layout_constraintHorizontal_bias=".9"
-                    android:textAlignment="textEnd"/>
+                    app:layout_constraintVertical_bias=".95"
+                    app:layout_constraintHorizontal_bias=".35"
+                    android:textAlignment="textStart"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

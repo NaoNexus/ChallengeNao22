@@ -72,7 +72,7 @@
                 android:layout_width="430dp"
                 android:layout_height="620dp"
                 android:contentDescription="@string/title_painting_1"
-                android:src="@drawable/Opera_11"
+                android:src="@drawable/opera_11"
                 android:scaleType="centerCrop"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout

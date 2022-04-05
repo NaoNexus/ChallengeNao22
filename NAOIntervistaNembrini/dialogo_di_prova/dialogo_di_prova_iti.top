@@ -1,0 +1,16 @@
+topic: ~dialogo_di_prova()
+language: iti
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello
+
+u:(Ciao [NAO robot]) Ciao, questa funzionalità è davvero forte.
+u:(Facciamo {"un pò di"} attività fisica) Volentieri, piegamenti o tai chi?
+    u1:(Piegamenti) Teniamoci in forma! $Piegamenti=1 
+    u1:(Tai chi) Vada per tai chi! $TaiChi=1

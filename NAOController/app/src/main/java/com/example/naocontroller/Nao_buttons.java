@@ -89,6 +89,7 @@ public class Nao_buttons extends AppCompatActivity {
 
 
     private void data_sender(int paintingIndex, String ip, String port) {
+        //IF ELSE IP ALREADY SET
         Message_sender bg_void = new Message_sender();
         bg_void.execute(String.format(Locale.ITALIAN, "app_%d_nao", paintingIndex), ip, port);
 

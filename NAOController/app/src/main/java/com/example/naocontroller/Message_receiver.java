@@ -29,12 +29,14 @@ public class Message_receiver extends AsyncTask <String, Void, String> {
             Socket s = ss.accept();
             System.out.println("Connected");
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            this.message_received = reader.readLine();
+            while (!this.message_received.equals("stop")) {
 
-            s.close();
-            ss.close();
-            reader.close();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                this.message_received = reader.readLine();
+                s.close();
+                ss.close();
+                reader.close();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

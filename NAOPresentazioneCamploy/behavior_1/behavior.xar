@@ -2200,7 +2200,6 @@ class MyClass(GeneratedClass):
             <Link inputowner="13" indexofinput="2" outputowner="9" indexofoutput="4" />
             <Link inputowner="8" indexofinput="2" outputowner="12" indexofoutput="4" />
             <Link inputowner="14" indexofinput="2" outputowner="7" indexofoutput="4" />
-            <Link inputowner="6" indexofinput="2" outputowner="11" indexofoutput="4" />
             <Link inputowner="15" indexofinput="2" outputowner="14" indexofoutput="4" />
             <Link inputowner="16" indexofinput="2" outputowner="15" indexofoutput="4" />
             <Link inputowner="26" indexofinput="2" outputowner="25" indexofoutput="4" />
@@ -2210,6 +2209,7 @@ class MyClass(GeneratedClass):
             <Link inputowner="30" indexofinput="2" outputowner="28" indexofoutput="4" />
             <Link inputowner="10" indexofinput="2" outputowner="8" indexofoutput="4" />
             <Link inputowner="2" indexofinput="2" outputowner="43" indexofoutput="3" />
+            <Link inputowner="6" indexofinput="2" outputowner="11" indexofoutput="4" />
           </Diagram>
         </BehaviorKeyframe>
       </BehaviorLayer>

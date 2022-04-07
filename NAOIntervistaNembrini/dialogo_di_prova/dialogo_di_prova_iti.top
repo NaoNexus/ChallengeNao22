@@ -10,7 +10,7 @@ language: iti
 # Replying to speech
 #u:(~hello) ~hello
 
-u:(Ciao [NAO robot]) Ciao, questa funzionalità è davvero forte.
+u:(Come ti chiami e dove sei nato?) Ciao, sono NAO.
 u:(Facciamo {"un pò di"} attività fisica) Volentieri, piegamenti o tai chi?
     u1:(Piegamenti) Teniamoci in forma! $Piegamenti=1 
     u1:(Tai chi) Vada per tai chi! $TaiChi=1

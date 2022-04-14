@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<<<<<<< HEAD
+<package version="0.0.0" installOnlyAtStartup="false" uuid="naoproject-d58397">
+=======
+<package installOnlyAtStartup="false" version="0.0.0" uuid="naoproject-d58397">
+>>>>>>> 237a2a7 (Fix App Position)
+ <names>
+  <name lang="en_US">Untitled</name>
+ </names>
+ <descriptionLanguages>
+  <language>it_IT</language>
+ </descriptionLanguages>
+ <contents>
+  <behaviorContent path="behavior_1">
+   <userRequestable/>
+   <nature>interactive</nature>
+   <permissions/>
+  </behaviorContent>
+ </contents>
+</package>

@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
+
+    private final int DELAY = 2500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         //ACTION BAR CUSTOMISATION\\
 
         setContentView(R.layout.activity_main);
-
+        //new Handler().postDelayed(() -> setContentView(R.layout.activity_main),DELAY);
+        //TODO: make entrance screen layout (after remove comment and first setContentView)
 
         Intent intent = new Intent(MainActivity.this, NaoButtons.class);
         startActivity(intent);

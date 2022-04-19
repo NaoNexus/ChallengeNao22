@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class MessageReceiver extends AsyncTask <String, Void, String> {
+public class MessageReceiver extends AsyncTask<String, Void, String> {
     private final static String TAG = MessageReceiver.class.getSimpleName();
 
     String messageReceived = "";
@@ -31,14 +31,15 @@ public class MessageReceiver extends AsyncTask <String, Void, String> {
             System.out.println("Waiting for client");
             Socket s = ss.accept();
             System.out.println("Connected");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
-            while (!this.messageReceived.equals("stop")) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                this.messageReceived = reader.readLine();
-                s.close();
-                ss.close();
-                reader.close();
+            while (!this.message_received.equals("stop")) {
+                this.message_received = reader.readLine();
             }
+
+            s.close();
+            ss.close();
+            reader.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,4 +52,3 @@ public class MessageReceiver extends AsyncTask <String, Void, String> {
         response.processFinish(message_received);
     }
 }
-

@@ -135,6 +135,7 @@ public class NaoButtons extends AppCompatActivity {
         TextInputEditText portEditText = contactPopupView.findViewById(R.id.port_edit_text);
         Button okButton = contactPopupView.findViewById(R.id.btn_ok);
         Button cancelButton = contactPopupView.findViewById(R.id.btn_annulla);
+        Button followButton = contactPopupView.findViewById(R.id.btn_follow_mode);
 
         ipEditText.setText(this.ip);
         portEditText.setText(this.port);
@@ -152,5 +153,7 @@ public class NaoButtons extends AppCompatActivity {
         });
 
         cancelButton.setOnClickListener(view -> dialog.dismiss());
+
+        followButton.setOnClickListener(view -> dataSender(0, ip, port));
     }
 }

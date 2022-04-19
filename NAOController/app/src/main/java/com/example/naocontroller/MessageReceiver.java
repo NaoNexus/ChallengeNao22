@@ -28,15 +28,15 @@ public class MessageReceiver extends AsyncTask <String, Void, String> {
             System.out.println("Waiting for client");
             Socket s = ss.accept();
             System.out.println("Connected");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
             while (!this.message_received.equals("stop")) {
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
                 this.message_received = reader.readLine();
-                s.close();
-                ss.close();
-                reader.close();
             }
+
+            s.close();
+            ss.close();
+            reader.close();
 
         } catch (Exception e) {
             e.printStackTrace();

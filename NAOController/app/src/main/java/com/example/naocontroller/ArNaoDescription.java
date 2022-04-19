@@ -28,6 +28,7 @@ import com.example.naocontroller.ar.helpers.TrackingStateHelper;
 import com.example.naocontroller.ar.rendering.AugmentedImageRenderer;
 import com.example.naocontroller.ar.rendering.BackgroundRenderer;
 
+import com.example.naocontroller.socket.MessageReceiver;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.ArCoreApk;
 import com.google.ar.core.AugmentedImage;
@@ -56,9 +57,12 @@ import javax.microedition.khronos.opengles.GL10;
 
 
 public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView.Renderer {
+    private static final String TAG = ArNaoDescription.class.getSimpleName();
 
-    static final String TAG = ArNaoDescription.class.getSimpleName();
-
+    // SOCKET
+    
+    private int port;
+    
     // GRAPHICS AND LOGIC
 
     private boolean recognisePainting;
@@ -96,6 +100,7 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
         setContentView(R.layout.ar_description);
         Bundle b = getIntent().getExtras();
         recognisePainting = b.getBoolean("recognisePainting");
+        port = b.getInt("port");
 
         messageReceiver();
 
@@ -431,6 +436,6 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
 
     private void messageReceiver() {
         MessageReceiver messageReceiver = new MessageReceiver(messageReceived -> finish());
-        messageReceiver.execute();
+        messageReceiver.execute(String.valueOf(port));
     }
 }

@@ -5,9 +5,9 @@ import android.util.DisplayMetrics;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class Utilities {
+    private final static String TAG = Utilities.class.getSimpleName();
+
     private Utilities() {}
 
     static public void setTexts(int paintingIndex, TextView titleText, TextView locationText) {

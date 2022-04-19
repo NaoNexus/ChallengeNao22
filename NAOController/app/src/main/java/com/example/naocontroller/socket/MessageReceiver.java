@@ -1,4 +1,4 @@
-package com.example.naocontroller;
+package com.example.naocontroller.socket;
 
 import android.os.AsyncTask;
 
@@ -8,8 +8,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class MessageReceiver extends AsyncTask <String, Void, String> {
-    final int SERVER_PORT = 5050;
-    String message_received = "";
+    private final static String TAG = MessageReceiver.class.getSimpleName();
+
+    String messageReceived = "";
 
     public interface AsyncResponse {
         void processFinish(String message_received);
@@ -23,16 +24,17 @@ public class MessageReceiver extends AsyncTask <String, Void, String> {
 
     @Override
     protected String doInBackground(String[] strings) {
+        int port = Integer.parseInt(strings[0]);
+
         try {
-            ServerSocket ss = new ServerSocket(SERVER_PORT);
+            ServerSocket ss = new ServerSocket(port);
             System.out.println("Waiting for client");
             Socket s = ss.accept();
             System.out.println("Connected");
 
-            while (!this.message_received.equals("stop")) {
-
+            while (!this.messageReceived.equals("stop")) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                this.message_received = reader.readLine();
+                this.messageReceived = reader.readLine();
                 s.close();
                 ss.close();
                 reader.close();
@@ -41,7 +43,7 @@ public class MessageReceiver extends AsyncTask <String, Void, String> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return message_received;
+        return messageReceived;
     }
 
     @Override

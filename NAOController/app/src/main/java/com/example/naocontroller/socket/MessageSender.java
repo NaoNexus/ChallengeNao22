@@ -1,10 +1,11 @@
-package com.example.naocontroller;
+package com.example.naocontroller.socket;
 
 import android.os.AsyncTask;
 import java.io.PrintWriter;
 import java.net.Socket;
 
 public class MessageSender extends AsyncTask<String, Void, Void> {
+    private final static String TAG = MessageSender.class.getSimpleName();
 
     @Override
     protected Void doInBackground(String[] strings) {

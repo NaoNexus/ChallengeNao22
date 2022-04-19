@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.naocontroller.ar.helpers.CameraPermissionHelper;
+import com.example.naocontroller.socket.MessageSender;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Locale;
@@ -19,6 +20,8 @@ import java.util.Objects;
 
 
 public class NaoButtons extends AppCompatActivity {
+    private final static String TAG = NaoButtons.class.getSimpleName();
+    
     CardView painting1Button,
              painting2Button,
              painting3Button,
@@ -70,6 +73,7 @@ public class NaoButtons extends AppCompatActivity {
             if (CameraPermissionHelper.hasCameraPermission(this)) {
                 Intent intent = new Intent(NaoButtons.this, ArNaoDescription.class);
                 intent.putExtra("recognisePainting", true);
+                intent.putExtra("port", port);
                 startActivity(intent);
             } else
                 CameraPermissionHelper.requestCameraPermission(this);
@@ -111,11 +115,13 @@ public class NaoButtons extends AppCompatActivity {
             Intent intent = new Intent(NaoButtons.this, ArNaoDescription.class);
             intent.putExtra("recognisePainting", false);
             intent.putExtra("painting", paintingIndex);
+            intent.putExtra("port", port);
             startActivity(intent);
         } else {
             CameraPermissionHelper.requestCameraPermission(this);
             Intent intent = new Intent(NaoButtons.this, NaoDescription.class);
             intent.putExtra("painting", paintingIndex);
+            intent.putExtra("port", port);
             startActivity(intent);
         }
     }

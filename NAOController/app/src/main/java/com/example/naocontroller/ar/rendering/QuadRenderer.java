@@ -14,7 +14,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 class QuadRenderer {
-    private static final String TAG = "QuadRenderer";
+    private static final String TAG = QuadRenderer.class.getSimpleName();
 
     private final int[] mTextures = new int[1];
 

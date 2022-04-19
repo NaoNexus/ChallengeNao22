@@ -12,7 +12,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
 
-    private final int DELAY = 2500;
+    private final static int DELAY = 2500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         //new Handler().postDelayed(() -> setContentView(R.layout.activity_main),DELAY);
-        //TODO: make entrance screen layout (after remove comment and first setContentView)
+        //TODO: make entry screen layout (after remove comment and first setContentView)
 
         Intent intent = new Intent(MainActivity.this, NaoButtons.class);
         startActivity(intent);

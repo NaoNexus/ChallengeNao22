@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Nao_buttons"
+    tools:context=".NaoButtons"
     android:background="@drawable/buttons_activity_background">
 
     <androidx.cardview.widget.CardView
@@ -26,7 +26,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/btn_camera"
+        android:id="@+id/btn_camera_recognition"
         style="@style/IconButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

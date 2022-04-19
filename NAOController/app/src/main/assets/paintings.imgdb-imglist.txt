@@ -1,0 +1,2 @@
+image_1|image_1.jpg
+image_2|image_2.jpg

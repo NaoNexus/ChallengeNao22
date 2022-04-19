@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Nao_description"
+    tools:context=".NaoDescription"
     android:background="@drawable/buttons_activity_background">
 
     <ImageView

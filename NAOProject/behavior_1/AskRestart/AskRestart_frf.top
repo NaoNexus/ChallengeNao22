@@ -1,0 +1,35 @@
+topic: ~AskRestart()
+language: frf
+
+include:lexicon_frf.top
+
+concept:(ask_restart) ^rand[
+    "La balade est finie ?"
+    "ça y est, tu es déjà fatigué ?"    
+]
+
+u:(in:onActivation) ~ask_restart
+
+    u1:(~yes) ^rand[
+        "J'ai adoré cette balade avec toi."
+        "Le contact de ta main va me manquer."
+        "J'ai l'impression d'avoir découvert le monde à tes cotés."     
+    ] $FollowMeOnYes=1
+    
+    u1:(~no) $FollowMeOnNo=1
+
+    u1:([
+        ~repeat_it
+        ~i_didnt_understand
+    ]) ^first[
+        "^exist(Dialog/LastAnswer) $Dialog/LastAnswer ^stayInScope"
+        "$Dialog/Answered ^stayInScope"
+    ]
+
+    u1:(e:Dialog/NoOneSpeak5) [
+        "~ask_restart ^stayInScope"
+        $FollowMeOnYes=1
+    ]
+    u1:(*)  [
+        "~ask_restart ^stayInScope"
+    ]

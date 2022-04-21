@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NAOController</string>
+    <string name="app_name">NAO Controller</string>
     <string name="hint_ip">Indirizzo IP</string>
     <string name="hint_port">Porta</string>
     <string name="logo">logo</string>
@@ -13,44 +13,58 @@
     <string name="ic_location">Posizione</string>
     <string name="ic_songs">Canti</string>
 
+    <string name="app_description">Realtà aumentata e comunicazione con il NAO per l\'esposizione delle opere</string>
+    <string name="app_details">Un progetto NAONEXUS, tutti i diritti riservati. Versione: 1.0.1</string>
+
     <!-- Paintings -->
-    <string name="title_painting_1">LA RUINA</string>
-    <string name="location_painting_1">CERCHIO 6</string>
-    <string name="song_painting_1">CANTO 11</string>
-    <string name="description_painting_1">DESCRIZIONE  1</string>
+    <string name="title_painting_11">LA RUINA</string>
+    <string name="location_painting_11">CERCHIO 6</string>
+    <string name="song_painting_11">CANTO 11</string>
+    <string name="description_painting_11">\*DANTE\*\nIl forte puzzo costringe Dante e Virgilio a ritrarsi in un punto dove c\'è l\'avello di papa Anastasio II, il cui nome è scritto sul coperchio. Pontefice dal 496 al 498, secondo una diffusa tradizione avrebbe accolto a Roma il diacono Fotino della Chiesa orientale, il quale l\'avrebbe indotto ad abbracciare l\'eresia monofisita</string>
 
-    <string name="title_painting_2">I CENTAURI</string>
-    <string name="location_painting_2">CERCHIO 7 - GIRONE 1</string>
-    <string name="song_painting_2">CANTO 12</string>
-    <string name="description_painting_2">DESCRIZIONE  2</string>
+    <string name="title_painting_12">I CENTAURI</string>
+    <string name="location_painting_12">CERCHIO 7 - GIRONE 1</string>
+    <string name="song_painting_12">CANTO 12</string>
+    <string name="description_painting_12">
+        \*I CENTAURI\*\nI Centauri erano creature mitologiche dal busto umano su corpo di cavallo che vivevano nei boschi della Tessaglia, con fama di esseri violenti e litigiosi. Virgilio dice a Dante che il centauro che uno dei centauri è Nesso, morto a causa di Deianira, mentre quello al centro è Chirone, che allevò Achille, e l\'altro è Folo, uno dei più violenti. Intorno al fiume ce ne sono migliaia, col compito di colpire con le frecce i dannati che fuoriescono troppo dal sangue bollente.\n\n
+        \*CHIRONE\*\nFiglio di Crono e della ninfa Filira, maestro di Achille e di molti altri eroi del mondo antico, Chirone è rappresentato nella tradizione classica come un saggio educatore, medico, astronomo e musico, ben diverso dagli altri centauri. Viveva in una grotta del monte Pelio in Tessaglia. Quando fu colpito per errore da Ercole con una freccia avvelenata dal sangue dell\'Idra di Lerna, Chirone, che come figlio di Crono era immortale, soffrì a causa del veleno dolori tali che chiese a Giove di porre fine ai suoi giorni. Giove allora lo trasformò nella costellazione del Sagittario.\nDante fa di Chirone una figura meditativa e saggia, profondamente diversa dai compagni.\n\n
+        \*NESSO\*\nTraghettando Ercole e Deianira sul fiume Eveno, Nesso si innamorò della donna e tentò di rapirla. Ercole lo ferì a morte con una freccia avvelenata nel sangue dell\'Idra di Lerna. Morendo, il centauro si vendicò: regalò, infatti, a Deianira una tunica intrisa del suo sangue dicendole che aveva il potere di far innamorare chi la indossasse. Quando Deianira vide il marito innamorarsi di Iole, figlia del re di Ecalia, fatta prigioniera, pensò fosse giunto il momento di servirsi della tunica. Ma, non appena la indossò, Ercole fu preso da dolori atroci e si uccise. Deianira, disperata, si uccise a sua volta.\n\n
+        \*FOLO\*\nFolo era uno dei centauri più violenti. Alle nozze di Piritoo e Ippodamia si ubriacò e, con i suoi compagni, tentò di rapire la sposa e farle violenza.\n
+    </string>
 
-    <string name="title_painting_3">LA SELVA DEI SUICIDI</string>
-    <string name="location_painting_3">SETTIMO CERCHIO, GIRONE 2</string>
-    <string name="song_painting_3">CANTO 13</string>
-    <string name="description_painting_3">DESCRIZIONE  3</string>
+    <string name="title_painting_13">LA SELVA DEI SUICIDI</string>
+    <string name="location_painting_13">SETTIMO CERCHIO, GIRONE 2</string>
+    <string name="song_painting_13">CANTO 13</string>
+    <string name="description_painting_13">
+        \*ARPIE\*\nCreature della mitologia classica, figlie di Taumante ed Elettra, descritte come mostruosi uccelli dal volto femminile ed associate alla violenza e alla furia delle bufere. Compaiono in varie opere della letteratura greco-latina, soprattutto nell\'Eneide in cui si dice che abitano le isole Strofadi dalle quali cacciano i Troiani, preannunciando loro una terribile carestia che in realtà si rivelerà un inganno. Nella Divina Commedia nidificano tra le piante dove sono imprigionate le anime dei suicidi e si cibano delle loro foglie, provocando dolore ai dannati.\n\n
+        \*PIER DELLE VIGNE (ALBERO)\*\nIntimo collaboratore di Federico II di Svevia, tanto fedele da diventarne il solo depositario di tutti i segreti. Aveva svolto il suo incarico con lealtà e dedizione, al punto da perderne la serenità e la vita: infatti il suo zelo aveva acceso contro di lui l\'invidia dei cortigiani, i quali sobillarono il sovrano e lo indussero ad accusarlo di tradimento. In seguito Pier della Vigna si era tolto la vita, credendo in tal modo di sfuggire allo sdegno del sovrano e finendo per passare dalla ragione al torto.\n
+    </string>
 
-    <string name="title_painting_4">CAPANEO</string>
-    <string name="location_painting_4">SETTIMO CERCHIO, GIRONE 3</string>
-    <string name="song_painting_4">CANTO 14</string>
-    <string name="description_painting_4">DESCRIZIONE  4</string>
+    <string name="title_painting_14">CAPANEO</string>
+    <string name="location_painting_14">SETTIMO CERCHIO, GIRONE 3</string>
+    <string name="song_painting_14">CANTO 14</string>
+    <string name="description_painting_14">\*CAPANEO\*\nPersonaggio del mito classico, figlio di Ipponoo e Astinome (o Laodice), uno dei sette re che assediarono Tebe. Stazio nella Tebaide lo descrive come gigantesco, di empia tracotanza, al punto che osò sfidare Giove mentre scalava le mura della città e fu da lui fulminato. Dante lo colloca tra i bestemmiatori del terzo girone del VII Cerchio dell\'Inferno, sdraiati nel sabbione rovente sotto la pioggia di fuoco\n</string>
 
-    <string name="title_painting_5">BRUNETTO LATINI</string>
-    <string name="location_painting_5">SETTIMO CERCHIO, GIRONE 3</string>
-    <string name="song_painting_5">CANTO 15</string>
-    <string name="description_painting_5">DESCRIZIONE  5</string>
+    <string name="title_painting_15">BRUNETTO LATINI</string>
+    <string name="location_painting_15">SETTIMO CERCHIO, GIRONE 3</string>
+    <string name="song_painting_15">CANTO 15</string>
+    <string name="description_painting_15">\*BRUNETTO LATINI\*\nScrittore e uomo politico fiorentino (1220–1294 ca.), notaio di parte guelfa. La sua opera più importante sono Li livres dou trésor, una sorta di enciclopedia scritta in lingua d\'oïl e subito tradotta in volgare toscano. Dante lo colloca tra i sodomiti del terzo girone del VII Cerchio dell\'Inferno; l\'episodio è un\'affettuosa rievocazione del suo antico maestro, ma anche una ferma condanna della sua condotta peccaminosa.\n</string>
 
-    <string name="title_painting_6">IL POZZO DEI GIGANTI</string>
-    <string name="location_painting_6">SETTIMO CERCHIO, GIRONE 3</string>
-    <string name="song_painting_6">CANTO 16</string>
-    <string name="description_painting_6">DESCRIZIONE  6</string>
+    <string name="title_painting_16">IL POZZO DEI GIGANTI</string>
+    <string name="location_painting_16">SETTIMO CERCHIO, GIRONE 3</string>
+    <string name="song_painting_16">CANTO 16</string>
+    <string name="description_painting_16">\*BURRONE\*\nDante segue Virgilio e poco tempo dopo giungono vicini al suono del fiume che si getta in basso, tanto forte da coprire le loro voci. Dante paragona il Flegetonte che si getta nell\'alto burrato sottostante alla cascata formata dall\'Acquacheta presso San Benedetto nell\'Appennino tosco-emiliano, fiume che cambia nome arrivato vicino a Forlì.\n</string>
 
-    <string name="title_painting_7">GERIONE</string>
-    <string name="location_painting_7">SETTIMO CERCHIO, GIRONE 3</string>
-    <string name="song_painting_7">CANTO 17</string>
-    <string name="description_painting_7">DESCRIZIONE  7</string>
+    <string name="title_painting_17">GERIONE</string>
+    <string name="location_painting_17">SETTIMO CERCHIO, GIRONE 3</string>
+    <string name="song_painting_17">CANTO 17</string>
+    <string name="description_painting_17">\*GERIONE\*\nPersonaggio della mitologia classica, figlio di Crisaore e Calliroe definito «tricefalo» da Esiodo mentre la tradizione successiva lo descrisse con tre busti uniti all\'altezza del bacino. Secondo la leggenda era il custode delle vacche che Ercole, su incarico di Euristeo, gli sottrasse dopo averlo ucciso. Nella Commedia la trasformazione del personaggio classico è notevole con l\'aggiunta di particolari quali il volto dell\'uomo giusto e il corpo di serpente che sono chiaramente riferiti alla frode.\n</string>
 
-    <string name="title_painting_8">GLI ADULATORI</string>
-    <string name="location_painting_8">OTTAVO CERCHIO, GIRONE 1</string>
-    <string name="song_painting_8">CANTO 18</string>
-    <string name="description_painting_8">DESCRIZIONE  8</string>
+    <string name="title_painting_18">GLI ADULATORI</string>
+    <string name="location_painting_18">OTTAVO CERCHIO, GIRONE 1</string>
+    <string name="song_painting_18">CANTO 18</string>
+    <string name="description_painting_18">
+        \*ALESSIO INTERMINELLI\*\nTra gli adulatori immersi nello sterco, Dante colloca il lucchese Alessio Interminelli, nobile lucchese appartenente ad una famiglia di guelfi bianchi, morto forse dopo il 1295 e il cui peccato di adulazione è poco noto alle cronache contemporanee. È Dante a riconoscerlo, dopo aver osservato che il dannato ha il capo talmente pieno di sterco che non è chiaro se sia laico o cherco, se porti o no la tonsura. Il peccatore lo rimprovera perché Dante guarda lui più degli altri, quindi il poeta ne svela l\'identità e il dannato si colpisce la testa ammettendo che la sua lingua non fu mai stanca di adulare.\n\n
+        \*TAIDE\*\nDopo l\'incontro con Interminelli, Virgilio invita Dante a spingere lo sguardo un po\' più avanti, in modo da vedere una donna sudicia e scarmigliata, che si graffia con le unghie piene di sterco e si china sulle cosce. È la prostituta Taide, che al suo amante che le chiedeva se lei lo ringraziava, aveva risposto: «Sì, moltissimo!»\n
+    </string>
 </resources>

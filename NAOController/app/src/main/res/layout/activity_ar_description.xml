@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TitleTextStyle"
-                    android:text="@string/title_painting_1"
+                    android:text="@string/title_painting_11"
                     android:textColor="@color/main_color"/>
 
                 <TextView
@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextStyle"
-                    android:text="@string/location_painting_1"
+                    android:text="@string/location_painting_11"
                     android:textColor="@color/background_gradient_end"
                     android:layout_weight="6"/>
 

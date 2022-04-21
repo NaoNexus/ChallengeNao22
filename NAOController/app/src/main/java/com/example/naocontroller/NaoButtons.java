@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.naocontroller.ar.helpers.CameraPermissionHelper;
+import com.example.naocontroller.ar.helpers.SnackbarHelper;
 import com.example.naocontroller.socket.MessageSender;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -36,9 +37,11 @@ public class NaoButtons extends AppCompatActivity {
 
     AlertDialog dialog;
     AlertDialog.Builder dialogBuilder;
+
     String ip = "";
     String port = "";
 
+    private final SnackbarHelper messageSnackbarHelper = new SnackbarHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,11 @@ public class NaoButtons extends AppCompatActivity {
 
         cameraRecognitionButton.setOnClickListener(view -> {
             if (CameraPermissionHelper.hasCameraPermission(this)) {
+                if (ip.equals("") || port.equals("")) {
+                    messageSnackbarHelper.showMessage(this, "Imposta l'ip e la porta per riuscire a comunicare con il NAO");
+                    return;
+                }
+
                 Intent intent = new Intent(NaoButtons.this, ArNaoDescription.class);
                 intent.putExtra("recognisePainting", true);
                 intent.putExtra("port", port);
@@ -107,29 +115,27 @@ public class NaoButtons extends AppCompatActivity {
 
 
     private void dataSender(int paintingIndex, String ip, String port) {
+        if (ip.equals("") || port.equals("")) {
+            messageSnackbarHelper.showMessage(this, "Imposta l'ip e la porta per riuscire a comunicare con il NAO");
+            return;
+        }
+
         //IF ELSE IP ALREADY SET
         MessageSender sender = new MessageSender();
         sender.execute(String.format(Locale.ITALIAN, "app_%d_nao", paintingIndex), ip, port);
 
-        if (CameraPermissionHelper.hasCameraPermission(this)) {
-            Intent intent = new Intent(NaoButtons.this, ArNaoDescription.class);
-            intent.putExtra("recognisePainting", false);
-            intent.putExtra("painting", paintingIndex);
-            intent.putExtra("port", port);
-            startActivity(intent);
-        } else {
-            CameraPermissionHelper.requestCameraPermission(this);
-            Intent intent = new Intent(NaoButtons.this, NaoDescription.class);
-            intent.putExtra("painting", paintingIndex);
-            intent.putExtra("port", port);
-            startActivity(intent);
-        }
+        StatsManager.increaseNormalPaintings();
+
+        Intent intent = new Intent(NaoButtons.this, NaoDescription.class);
+        intent.putExtra("painting", paintingIndex);
+        intent.putExtra("port", port);
+        startActivity(intent);
     }
 
 
     private void createSettingsDialog() {
         dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_settings_menu, null);
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_settings, null);
 
         TextInputEditText ipEditText = contactPopupView.findViewById(R.id.ip_edit_text);
         TextInputEditText portEditText = contactPopupView.findViewById(R.id.port_edit_text);
@@ -145,6 +151,15 @@ public class NaoButtons extends AppCompatActivity {
         dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
         dialog.show();
+
+        followButton.setOnClickListener(view -> {
+            if (ip.equals("") || port.equals("")) {
+                messageSnackbarHelper.showMessage(this, "Imposta l'ip e la porta per riuscire a comunicare con il NAO");
+                return;
+            }
+            MessageSender sender = new MessageSender();
+            sender.execute("app_follow_nao", ip, port);
+        });
 
         okButton.setOnClickListener(view -> {
             this.ip = Objects.requireNonNull(ipEditText.getText()).toString();

@@ -1,6 +1,13 @@
 package com.example.naocontroller;
 
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.opengl.Matrix;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,42 +20,43 @@ public class Utilities {
     static public void setTexts(int paintingIndex, TextView titleText, TextView locationText) {
         switch (paintingIndex) {
             case 1:
-                titleText.setText(R.string.title_painting_1);
-                locationText.setText(R.string.location_painting_1);
+                titleText.setText(R.string.title_painting_11);
+                locationText.setText(R.string.location_painting_11);
                 break;
             case 2:
-                titleText.setText(R.string.title_painting_2);
-                locationText.setText(R.string.location_painting_2);
+                titleText.setText(R.string.title_painting_12);
+                locationText.setText(R.string.location_painting_12);
                 break;
             case 3:
-                titleText.setText(R.string.title_painting_3);
-                locationText.setText(R.string.location_painting_3);
+                titleText.setText(R.string.title_painting_13);
+                locationText.setText(R.string.location_painting_13);
                 break;
             case 4:
-                titleText.setText(R.string.title_painting_4);
-                locationText.setText(R.string.location_painting_4);
+                titleText.setText(R.string.title_painting_14);
+                locationText.setText(R.string.location_painting_14);
                 break;
             case 5:
-                titleText.setText(R.string.title_painting_5);
-                locationText.setText(R.string.location_painting_5);
+                titleText.setText(R.string.title_painting_15);
+                locationText.setText(R.string.location_painting_15);
                 break;
             case 6:
-                titleText.setText(R.string.title_painting_6);
-                locationText.setText(R.string.location_painting_6);
+                titleText.setText(R.string.title_painting_16);
+                locationText.setText(R.string.location_painting_16);
                 break;
             case 7:
-                titleText.setText(R.string.title_painting_7);
-                locationText.setText(R.string.location_painting_7);
+                titleText.setText(R.string.title_painting_17);
+                locationText.setText(R.string.location_painting_17);
                 break;
             case 8:
-                titleText.setText(R.string.title_painting_8);
-                locationText.setText(R.string.location_painting_8);
+                titleText.setText(R.string.title_painting_18);
+                locationText.setText(R.string.location_painting_18);
                 break;
         }
     }
 
     static public void setTextsAndCardsImages (
             int paintingIndex,
+            Resources resources,
             TextView titleText,
             TextView authorText,
             TextView songText,
@@ -56,62 +64,124 @@ public class Utilities {
             ImageView paintingView) {
         switch (paintingIndex) {
             case 1:
-                titleText.setText(R.string.title_painting_1);
-                authorText.setText(R.string.location_painting_1);
-                songText.setText(R.string.song_painting_1);
-                descriptionText.setText(R.string.description_painting_1);
+                titleText.setText(R.string.title_painting_11);
+                authorText.setText(R.string.location_painting_11);
+                songText.setText(R.string.song_painting_11);
+                descriptionText.setText(getDetailsString(paintingIndex, resources));
                 paintingView.setBackgroundResource(R.drawable.opera_11);
                 break;
             case 2:
-                titleText.setText(R.string.title_painting_2);
-                authorText.setText(R.string.location_painting_2);
-                songText.setText(R.string.song_painting_2);
-                descriptionText.setText(R.string.description_painting_2);
+                titleText.setText(R.string.title_painting_12);
+                authorText.setText(R.string.location_painting_12);
+                songText.setText(R.string.song_painting_12);
+                descriptionText.setText(getDetailsString(paintingIndex, resources));
                 paintingView.setBackgroundResource(R.drawable.opera_12);
                 break;
             case 3:
-                titleText.setText(R.string.title_painting_3);
-                authorText.setText(R.string.location_painting_3);
-                songText.setText(R.string.song_painting_3);
-                descriptionText.setText(R.string.description_painting_3);
+                titleText.setText(R.string.title_painting_13);
+                authorText.setText(R.string.location_painting_13);
+                songText.setText(R.string.song_painting_13);
+                descriptionText.setText(getDetailsString(paintingIndex, resources));
                 paintingView.setBackgroundResource(R.drawable.opera_13);
                 break;
             case 4:
-                titleText.setText(R.string.title_painting_4);
-                authorText.setText(R.string.location_painting_4);
-                songText.setText(R.string.song_painting_4);
-                descriptionText.setText(R.string.description_painting_4);
+                titleText.setText(R.string.title_painting_14);
+                authorText.setText(R.string.location_painting_14);
+                songText.setText(R.string.song_painting_14);
+                descriptionText.setText(getDetailsString(paintingIndex, resources));
                 paintingView.setBackgroundResource(R.drawable.opera_14);
                 break;
             case 5:
-                titleText.setText(R.string.title_painting_5);
-                authorText.setText(R.string.location_painting_5);
-                songText.setText(R.string.song_painting_5);
-                descriptionText.setText(R.string.description_painting_5);
+                titleText.setText(R.string.title_painting_15);
+                authorText.setText(R.string.location_painting_15);
+                songText.setText(R.string.song_painting_15);
+                descriptionText.setText(getDetailsString(paintingIndex, resources));
                 paintingView.setBackgroundResource(R.drawable.opera_15);
                 break;
             case 6:
-                titleText.setText(R.string.title_painting_6);
-                authorText.setText(R.string.location_painting_6);
-                songText.setText(R.string.song_painting_6);
-                descriptionText.setText(R.string.description_painting_6);
+                titleText.setText(R.string.title_painting_16);
+                authorText.setText(R.string.location_painting_16);
+                songText.setText(R.string.song_painting_16);
+                descriptionText.setText(getDetailsString(paintingIndex, resources));
                 paintingView.setBackgroundResource(R.drawable.opera_16);
                 break;
             case 7:
-                titleText.setText(R.string.title_painting_7);
-                authorText.setText(R.string.location_painting_7);
-                songText.setText(R.string.song_painting_7);
-                descriptionText.setText(R.string.description_painting_7);
+                titleText.setText(R.string.title_painting_17);
+                authorText.setText(R.string.location_painting_17);
+                songText.setText(R.string.song_painting_17);
+                descriptionText.setText(getDetailsString(paintingIndex, resources));
                 paintingView.setBackgroundResource(R.drawable.opera_17);
                 break;
             case 8:
-                titleText.setText(R.string.title_painting_8);
-                authorText.setText(R.string.location_painting_8);
-                songText.setText(R.string.song_painting_8);
-                descriptionText.setText(R.string.description_painting_8);
+                titleText.setText(R.string.title_painting_18);
+                authorText.setText(R.string.location_painting_18);
+                songText.setText(R.string.song_painting_18);
+                descriptionText.setText(getDetailsString(paintingIndex, resources));
                 paintingView.setBackgroundResource(R.drawable.opera_18);
                 break;
         }
+    }
+
+    static private SpannableStringBuilder getDetailsString(int paintingIndex, Resources resources) {
+        String string;
+        SpannableStringBuilder formattedString;
+        int redColor = resources.getColor(R.color.main_color);
+        int whiteColor = resources.getColor(R.color.white);
+
+        switch (paintingIndex) {
+            case 1:
+                string = resources.getString(R.string.description_painting_11);
+                return formatString(string, redColor, whiteColor);
+            case 2:
+                string = resources.getString(R.string.description_painting_12);
+                return formatString(string, redColor, whiteColor);
+            case 3:
+                string = resources.getString(R.string.description_painting_13);
+                return formatString(string, redColor, whiteColor);
+            case 4:
+                string = resources.getString(R.string.description_painting_14);
+                return formatString(string, redColor, whiteColor);
+            case 5:
+                string = resources.getString(R.string.description_painting_15);
+                return formatString(string, redColor, whiteColor);
+            case 6:
+                string = resources.getString(R.string.description_painting_16);
+                return formatString(string, redColor, whiteColor);
+            case 7:
+                string = resources.getString(R.string.description_painting_17);
+                return formatString(string, redColor, whiteColor);
+            case 8:
+                string = resources.getString(R.string.description_painting_18);
+                return formatString(string, redColor, whiteColor);
+            default:
+                return new SpannableStringBuilder();
+        }
+    }
+
+    static private SpannableStringBuilder formatString (String string, int redColor, int whiteColor) {
+        SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
+        String[] paragraphs;
+
+        paragraphs = string.split("\\*");
+
+        int index = 0;
+        String paragraph;
+        for (int i = 0; i < paragraphs.length; i ++) {
+            paragraph = paragraphs[i];
+            stringBuilder.append(paragraph);
+            if (i%2 == 0) {
+                stringBuilder.setSpan(new ForegroundColorSpan(whiteColor), index, index + paragraph.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                stringBuilder.setSpan(new StyleSpan(Typeface.NORMAL), index, index + paragraph.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                stringBuilder.setSpan(new RelativeSizeSpan(1f), index, index + paragraph.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else {
+                stringBuilder.setSpan(new ForegroundColorSpan(redColor), index, index + paragraph.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                stringBuilder.setSpan(new StyleSpan(Typeface.BOLD), index, index + paragraph.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                stringBuilder.setSpan(new RelativeSizeSpan(1.5f), index, index + paragraph.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            index += paragraph.length();
+        }
+
+        return stringBuilder;
     }
 
     static public int getPaintingIndexFromTitle(String paintingTitle) {
@@ -136,6 +206,8 @@ public class Utilities {
                 return 0;
         }
     }
+
+
 
     static public float[] calculateWorldToCameraMatrix(float[] modelmtx, float[] viewmtx, float[] prjmtx) {
         float scaleFactor = 1.0f;

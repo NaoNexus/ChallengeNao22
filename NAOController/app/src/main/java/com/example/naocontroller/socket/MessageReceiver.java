@@ -13,7 +13,7 @@ public class MessageReceiver extends AsyncTask<String, Void, String> {
     String messageReceived = "";
 
     public interface AsyncResponse {
-        void processFinish(String message_received);
+        void processFinish(String messageReceived);
     }
 
     public AsyncResponse response;
@@ -33,8 +33,8 @@ public class MessageReceiver extends AsyncTask<String, Void, String> {
             System.out.println("Connected");
             BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
-            while (!this.message_received.equals("stop")) {
-                this.message_received = reader.readLine();
+            while (!this.messageReceived.equals("stop")) {
+                this.messageReceived = reader.readLine();
             }
 
             s.close();
@@ -48,7 +48,7 @@ public class MessageReceiver extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String message_received) {
-        response.processFinish(message_received);
+    protected void onPostExecute(String messageReceived) {
+        response.processFinish(messageReceived);
     }
 }

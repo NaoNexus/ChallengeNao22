@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import java.util.Objects;
 
@@ -25,11 +28,12 @@ public class MainActivity extends AppCompatActivity {
         //ACTION BAR CUSTOMISATION\\
 
         setContentView(R.layout.activity_main);
-        //new Handler().postDelayed(() -> setContentView(R.layout.activity_main),DELAY);
-        //TODO: make entry screen layout (after remove comment and first setContentView)
 
-        Intent intent = new Intent(MainActivity.this, NaoButtons.class);
-        startActivity(intent);
-        finish();
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(MainActivity.this, NaoButtons.class);
+            startActivity(intent);
+            finish();
+        },DELAY);
+        //TODO: make entry screen layout (after remove comment and first setContentView)
     }
 }

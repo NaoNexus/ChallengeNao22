@@ -42,11 +42,11 @@ public class NaoDescription extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         //ACTION BAR CUSTOMISATION\\
 
-        setupGraphics();
-
         setContentView(R.layout.activity_nao_description);
 
-        Utilities.setTextsAndCardsImages(paintingIndex, titleText, authorText, songText, descriptionText, paintingView);
+        setupGraphics();
+
+        Utilities.setTextsAndCardsImages(paintingIndex, getResources(), titleText, authorText, songText, descriptionText, paintingView);
         messageReceiver();
     }
 

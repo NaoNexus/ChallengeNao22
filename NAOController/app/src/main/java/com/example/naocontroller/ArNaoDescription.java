@@ -97,7 +97,7 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ar_description);
+        setContentView(R.layout.activity_ar_description);
         Bundle b = getIntent().getExtras();
         recognisePainting = b.getBoolean("recognisePainting");
         port = b.getInt("port");
@@ -146,6 +146,7 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
                 paintingIndex = Utilities.getPaintingIndexFromTitle(paintingRecognisedTitle.getText().toString());
                 augmentedImageRenderer.setupPaintingDetails(this, paintingIndex);
                 recognisePainting = false;
+                StatsManager.increaseARPaintings();
                 cardSlideDownAnimation.start();
             }
         });
@@ -386,6 +387,7 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
                         if (Utilities.isInScreen(objmtx, viewmtx, projmtx, displayMetrics)) {
                             if (paintingRecognisedCard.getTranslationY() == animationDownDP) {
                                 Log.i(TAG, "Image tracked: " + augmentedImage.getIndex());
+                                StatsManager.increaseNPaintingsRecognised();
                                 this.runOnUiThread(() -> {
                                     cardSlideUpAnimation.start();
                                     Utilities.setTexts(augmentedImage.getIndex() + 1,

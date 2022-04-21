@@ -15,8 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias=".042"
-        app:layout_constraintVertical_bias=".05">
+        app:layout_constraintHorizontal_bias=".958"
+        app:layout_constraintVertical_bias=".07">
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -32,8 +32,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias=".957"
-        app:layout_constraintVertical_bias=".95">
+        app:layout_constraintHorizontal_bias=".042"
+        app:layout_constraintVertical_bias=".07">
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -47,7 +47,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:contentDescription="@string/logo"
-        android:src="@drawable/logo_nao_nexus"
+        android:src="@drawable/nao_nexus_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias=".5"
@@ -64,237 +64,373 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="50dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_1"
             style="@style/ClickableButtonStyle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_5"
+            app:layout_constraintEnd_toStartOf="@+id/btn_2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".3"
-            app:layout_constraintHorizontal_bias=".05">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="260dp"
-                    android:layout_height="180dp"
-                    android:contentDescription="@string/title_painting_1"
+                    android:id="@+id/image_view_1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerInParent="true"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/title_painting_11"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/opera_11"
-                    android:scaleType="centerCrop"/>
+                    app:layout_constraintDimensionRatio="25:18"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
-                    android:text="@string/title_painting_1"
-                    style="@style/TitleTextStyle"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    style="@style/TitleTextStyle"
+                    android:layout_height="40dp"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:text="@string/title_painting_12"
+                    android:textSize="23sp"
+                    android:layout_weight="1"
+                    app:layout_constraintTop_toBottomOf="@+id/image_view_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btn_2"
-        style="@style/ClickableButtonStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".3"
-        app:layout_constraintHorizontal_bias=".35">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_2"
+            style="@style/ClickableButtonStyle"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btn_6"
+            app:layout_constraintEnd_toStartOf="@+id/btn_3"
+            app:layout_constraintStart_toEndOf="@id/btn_1">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <ImageView
-                android:contentDescription="@string/title_painting_2"
-                android:layout_width="260dp"
-                android:layout_height="180dp"
+                android:id="@+id/image_view_2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/title_painting_12"
+                android:scaleType="centerCrop"
                 android:src="@drawable/opera_12"
-                android:scaleType="centerCrop"/>
+                app:layout_constraintDimensionRatio="25:18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:text="@string/title_painting_2"
-                style="@style/TitleTextStyle"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                style="@style/TitleTextStyle"
+                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="@string/title_painting_12"
+                android:textSize="23sp"
+                android:layout_weight="1"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btn_3"
-        style="@style/ClickableButtonStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".3"
-        app:layout_constraintHorizontal_bias=".65">
+        </androidx.cardview.widget.CardView>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_3"
+            style="@style/ClickableButtonStyle"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_7"
+            app:layout_constraintEnd_toStartOf="@+id/btn_4"
+            app:layout_constraintStart_toEndOf="@id/btn_2">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="260dp"
-                android:layout_height="180dp"
-                android:contentDescription="@string/title_painting_3"
+                android:id="@+id/image_view_3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/title_painting_13"
+                android:scaleType="centerCrop"
                 android:src="@drawable/opera_13"
-                android:scaleType="centerCrop"/>
+                app:layout_constraintDimensionRatio="25:18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:text="@string/title_painting_3"
-                style="@style/TitleTextStyle"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                style="@style/TitleTextStyle"
+                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="@string/title_painting_13"
+                android:textSize="23sp"
+                android:layout_weight="1"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btn_4"
-        style="@style/ClickableButtonStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".3"
-        app:layout_constraintHorizontal_bias=".95">
+        </androidx.cardview.widget.CardView>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_4"
+            style="@style/ClickableButtonStyle"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_3">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="260dp"
-                android:layout_height="180dp"
-                android:contentDescription="@string/title_painting_4"
+                android:id="@+id/image_view_4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/title_painting_14"
+                android:scaleType="centerCrop"
                 android:src="@drawable/opera_14"
-                android:scaleType="centerCrop"/>
+                app:layout_constraintDimensionRatio="25:18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:text="@string/title_painting_4"
-                style="@style/TitleTextStyle"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                style="@style/TitleTextStyle"
+                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="@string/title_painting_14"
+                android:textSize="23sp"
+                android:layout_weight="1"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btn_5"
-        style="@style/ClickableButtonStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".75"
-        app:layout_constraintHorizontal_bias=".05">
+        </androidx.cardview.widget.CardView>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_5"
+            style="@style/ClickableButtonStyle"
+            app:layout_constraintTop_toBottomOf="@id/btn_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_6"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="260dp"
-                android:layout_height="180dp"
-                android:contentDescription="@string/title_painting_5"
-                android:src="@drawable/opera_15"
-                android:scaleType="centerCrop"/>
-
+                android:id="@+id/image_view_5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/title_painting_15"
+                android:scaleType="centerCrop"
+                android:src="@drawable/opera_12"
+                app:layout_constraintDimensionRatio="25:18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
             <TextView
-                android:text="@string/title_painting_5"
-                style="@style/TitleTextStyle"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                style="@style/TitleTextStyle"
+                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="@string/title_painting_15"
+                android:textSize="23sp"
+                android:layout_weight="1"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btn_6"
-        style="@style/ClickableButtonStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".75"
-        app:layout_constraintHorizontal_bias=".35">
+        </androidx.cardview.widget.CardView>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_6"
+            style="@style/ClickableButtonStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_7"
+            app:layout_constraintStart_toEndOf="@id/btn_5"
+            app:layout_constraintTop_toBottomOf="@id/btn_2"
+            android:layout_marginEnd="20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="260dp"
-                android:layout_height="180dp"
-                android:contentDescription="@string/title_painting_6"
+                android:id="@+id/image_view_6"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/title_painting_16"
+                android:scaleType="centerCrop"
                 android:src="@drawable/opera_16"
-                android:scaleType="centerCrop"/>
+                app:layout_constraintDimensionRatio="25:18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:text="@string/title_painting_6"
-                style="@style/TitleTextStyle"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                style="@style/TitleTextStyle"
+                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="@string/title_painting_16"
+                android:textSize="23sp"
+                android:layout_weight="1"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btn_7"
-        style="@style/ClickableButtonStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".75"
-        app:layout_constraintHorizontal_bias=".65">
+        </androidx.cardview.widget.CardView>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_7"
+            style="@style/ClickableButtonStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_8"
+            app:layout_constraintStart_toEndOf="@id/btn_6"
+            app:layout_constraintTop_toBottomOf="@id/btn_3"
+            android:layout_marginEnd="20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="260dp"
-                android:layout_height="180dp"
-                android:contentDescription="@string/title_painting_7"
+                android:id="@+id/image_view_7"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/title_painting_17"
+                android:scaleType="centerCrop"
                 android:src="@drawable/opera_17"
-                android:scaleType="centerCrop"/>
+                app:layout_constraintDimensionRatio="25:18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:text="@string/title_painting_7"
-                style="@style/TitleTextStyle"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                style="@style/TitleTextStyle"
+                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="@string/title_painting_17"
+                android:textSize="23sp"
+                android:layout_weight="1"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btn_8"
-        style="@style/ClickableButtonStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".75"
-        app:layout_constraintHorizontal_bias=".95">
+        </androidx.cardview.widget.CardView>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_8"
+            style="@style/ClickableButtonStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_7"
+            app:layout_constraintTop_toBottomOf="@id/btn_4">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="260dp"
-                android:layout_height="180dp"
-                android:contentDescription="@string/title_painting_8"
+                android:id="@+id/image_view_8"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/title_painting_18"
+                android:scaleType="centerCrop"
                 android:src="@drawable/opera_18"
-                android:scaleType="centerCrop"/>
+                app:layout_constraintDimensionRatio="25:18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:text="@string/title_painting_8"
-                style="@style/TitleTextStyle"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                style="@style/TitleTextStyle"
+                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="@string/title_painting_18"
+                android:textSize="23sp"
+                android:layout_weight="1"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

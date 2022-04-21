@@ -33,8 +33,8 @@ public class MessageReceiver extends AsyncTask<String, Void, String> {
             System.out.println("Connected");
             BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
-            while (!this.message_received.equals("stop")) {
-                this.message_received = reader.readLine();
+            while (!this.messageReceived.equals("stop")) {
+                this.messageReceived = reader.readLine();
             }
 
             s.close();

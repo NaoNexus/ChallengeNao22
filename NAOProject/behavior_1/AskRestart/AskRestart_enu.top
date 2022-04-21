@@ -1,0 +1,32 @@
+topic: ~AskRestart()
+language: enu
+
+include:lexicon_enu.top
+
+concept:(ask_restart) "Are we done walking ?"
+
+u:(in:onActivation) ~ask_restart
+
+    u1:(~yes) ^rand[
+        "This little walk was great !"
+        "I'm going to miss the feel of your hand !"
+        " I feel like we explored the world together !"
+    ] $FollowMeOnYes=1
+    
+    u1:(~no) $FollowMeOnNo=1
+
+    u1:([
+        ~repeat_it
+        ~i_didnt_understand
+    ]) ^first[
+        "^exist(Dialog/LastAnswer) $Dialog/LastAnswer ^stayInScope"
+        "$Dialog/Answered ^stayInScope"
+    ]
+
+    u1:(e:Dialog/NoOneSpeak5) [
+        "~ask_restart ^stayInScope"
+        $FollowMeOnYes=1
+    ]
+    u1:(*)  [
+        "~ask_restart ^stayInScope"
+    ]

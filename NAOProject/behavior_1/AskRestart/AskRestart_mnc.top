@@ -1,0 +1,23 @@
+topic: ~AskRestart()
+language: mnc
+
+concept:(ask_restart) 就是到这里吗 ?
+
+u:(in:onActivation) ~ask_restart
+
+    u1:(是) ^rand[
+        "经常走走真好!"
+        "你的手真温暖，我会想念你的！"
+        "下次还要带我走走哦 !"     
+    ] $FollowMeOnYes=1
+    
+    u1:(不是) $FollowMeOnNo=1
+
+    u1:(e:Dialog/NoOneSpeak5) [
+        "~ask_restart ^stayInScope"
+        $FollowMeOnYes=1
+    ]
+    
+    u1:(*)  [
+        "~ask_restart ^stayInScope"
+    ]

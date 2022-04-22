@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -16,13 +18,11 @@ import com.example.naocontroller.ar.helpers.SnackbarHelper;
 import com.example.naocontroller.socket.MessageSender;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.Locale;
 import java.util.Objects;
 
 
 public class NaoButtons extends AppCompatActivity {
-    private final static String TAG = NaoButtons.class.getSimpleName();
-    
+
     CardView painting1Button,
              painting2Button,
              painting3Button,
@@ -35,8 +35,8 @@ public class NaoButtons extends AppCompatActivity {
              cameraRecognitionButton;
 
 
-    AlertDialog dialog;
-    AlertDialog.Builder dialogBuilder;
+    AlertDialog dialogSettings, dialogStats;
+    AlertDialog.Builder dialogBuilderSettings, dialogBuilderStats;
 
     String ip = "";
     String port = "";
@@ -88,69 +88,75 @@ public class NaoButtons extends AppCompatActivity {
         });
 
         painting1Button.setOnClickListener(v ->
-                dataSender(1, this.ip, this.port)
+                dataSender("1", this.ip, this.port)
         );
         painting2Button.setOnClickListener(v ->
-                dataSender(2, this.ip, this.port)
+                dataSender("2", this.ip, this.port)
         );
         painting3Button.setOnClickListener(v ->
-                dataSender(3, this.ip, this.port)
+                dataSender("3", this.ip, this.port)
         );
         painting4button.setOnClickListener(v ->
-                dataSender(4, this.ip, this.port)
+                dataSender("4", this.ip, this.port)
         );
         painting5Button.setOnClickListener(v ->
-                dataSender(5, this.ip, this.port)
+                dataSender("5", this.ip, this.port)
         );
         painting6Button.setOnClickListener(v ->
-                dataSender(6, this.ip, this.port)
+                dataSender("6", this.ip, this.port)
         );
         painting7Button.setOnClickListener(v ->
-                dataSender(7, this.ip, this.port)
+                dataSender("7", this.ip, this.port)
         );
         painting8Button.setOnClickListener(v ->
-                dataSender(8, this.ip, this.port)
+                dataSender("8", this.ip, this.port)
         );
     }
 
 
-    private void dataSender(int paintingIndex, String ip, String port) {
+    private void dataSender(String paintingIndex, String ip, String port) {
         if (ip.equals("") || port.equals("")) {
             messageSnackbarHelper.showMessage(this, "Imposta l'ip e la porta per riuscire a comunicare con il NAO");
             return;
         }
 
-        //IF ELSE IP ALREADY SET
         MessageSender sender = new MessageSender();
-        sender.execute(String.format(Locale.ITALIAN, "app_%d_nao", paintingIndex), ip, port);
+        sender.execute("app_" + paintingIndex + "_nao", ip, port);
 
         StatsManager.increaseNormalPaintings();
 
-        Intent intent = new Intent(NaoButtons.this, NaoDescription.class);
-        intent.putExtra("painting", paintingIndex);
-        intent.putExtra("port", port);
-        startActivity(intent);
+        if (!paintingIndex.equals("error")) {
+
+            Intent intent = new Intent(NaoButtons.this, NaoDescription.class);
+            intent.putExtra("painting", Integer.parseInt(paintingIndex));
+            intent.putExtra("port", port);
+            intent.putExtra("ip", ip);
+            startActivity(intent);
+        }
     }
 
 
     private void createSettingsDialog() {
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_settings, null);
+        dialogBuilderSettings = new AlertDialog.Builder(this);
 
-        TextInputEditText ipEditText = contactPopupView.findViewById(R.id.ip_edit_text);
-        TextInputEditText portEditText = contactPopupView.findViewById(R.id.port_edit_text);
-        Button okButton = contactPopupView.findViewById(R.id.btn_ok);
-        Button cancelButton = contactPopupView.findViewById(R.id.btn_annulla);
-        Button followButton = contactPopupView.findViewById(R.id.btn_follow_mode);
+        final View settingsPopupView = getLayoutInflater().inflate(R.layout.popup_settings, null);
+
+
+        TextInputEditText ipEditText = settingsPopupView.findViewById(R.id.ip_edit_text);
+        TextInputEditText portEditText = settingsPopupView.findViewById(R.id.port_edit_text);
+        Button okButton = settingsPopupView.findViewById(R.id.btn_ok);
+        Button cancelButton = settingsPopupView.findViewById(R.id.btn_annulla);
+        Button followButton = settingsPopupView.findViewById(R.id.btn_follow_mode);
+        ImageButton statsButton = settingsPopupView.findViewById(R.id.btn_stats);
 
         ipEditText.setText(this.ip);
         portEditText.setText(this.port);
 
-        dialogBuilder.setView(contactPopupView);
-        dialog = dialogBuilder.create();
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawableResource(R.color.transparent);
-        dialog.show();
+        dialogBuilderSettings.setView(settingsPopupView);
+        dialogSettings = dialogBuilderSettings.create();
+        dialogSettings.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogSettings.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        dialogSettings.show();
 
         followButton.setOnClickListener(view -> {
             if (ip.equals("") || port.equals("")) {
@@ -164,11 +170,36 @@ public class NaoButtons extends AppCompatActivity {
         okButton.setOnClickListener(view -> {
             this.ip = Objects.requireNonNull(ipEditText.getText()).toString();
             this.port = Objects.requireNonNull(portEditText.getText()).toString();
-            dialog.dismiss();
+            dialogSettings.dismiss();
         });
 
-        cancelButton.setOnClickListener(view -> dialog.dismiss());
+        cancelButton.setOnClickListener(view -> dialogSettings.dismiss());
 
-        followButton.setOnClickListener(view -> dataSender(0, ip, port));
+
+        followButton.setOnClickListener(view -> dataSender("error", ip, port));
+
+
+        statsButton.setOnClickListener(view -> {
+            dialogBuilderStats = new AlertDialog.Builder(this);
+            final View statsPopupView = getLayoutInflater().inflate(R.layout.popup_stats, null);
+
+            Button backButton = statsPopupView.findViewById(R.id.btn_back_to_settings);
+            TextView arPaintingsDescribed = statsPopupView.findViewById(R.id.text_NumArDescripted);
+            TextView PaintingsDescribed = statsPopupView.findViewById(R.id.text_NumNormalDescripted);
+            TextView numPaintingsRecognised = statsPopupView.findViewById(R.id.text_NumPaintingsRecognised);
+
+            dialogBuilderStats.setView(statsPopupView);
+            dialogStats = dialogBuilderStats.create();
+            dialogStats.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            dialogStats.getWindow().setBackgroundDrawableResource(R.color.transparent);
+            dialogStats.show();
+
+            backButton.setOnClickListener(view1 -> dialogStats.dismiss());
+
+            arPaintingsDescribed.setText(String.valueOf(StatsManager.getNARPaintings()));
+            PaintingsDescribed.setText(String.valueOf(StatsManager.getNNormalPaintings()));
+            numPaintingsRecognised.setText(String.valueOf(StatsManager.getNPaintingsRecognised()));
+
+        });
     }
 }

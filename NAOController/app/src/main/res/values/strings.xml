@@ -9,6 +9,7 @@
     <string name="btn_ok">OK</string>
     <string name="btn_cancel">ANNULLA</string>
     <string name="btn_follow">FOLLOW</string>
+    <string name="btn_stats">Statistiche</string>
 
     <string name="ic_location">Posizione</string>
     <string name="ic_songs">Canti</string>
@@ -67,4 +68,10 @@
         \*ALESSIO INTERMINELLI\*\nTra gli adulatori immersi nello sterco, Dante colloca il lucchese Alessio Interminelli, nobile lucchese appartenente ad una famiglia di guelfi bianchi, morto forse dopo il 1295 e il cui peccato di adulazione è poco noto alle cronache contemporanee. È Dante a riconoscerlo, dopo aver osservato che il dannato ha il capo talmente pieno di sterco che non è chiaro se sia laico o cherco, se porti o no la tonsura. Il peccatore lo rimprovera perché Dante guarda lui più degli altri, quindi il poeta ne svela l\'identità e il dannato si colpisce la testa ammettendo che la sua lingua non fu mai stanca di adulare.\n\n
         \*TAIDE\*\nDopo l\'incontro con Interminelli, Virgilio invita Dante a spingere lo sguardo un po\' più avanti, in modo da vedere una donna sudicia e scarmigliata, che si graffia con le unghie piene di sterco e si china sulle cosce. È la prostituta Taide, che al suo amante che le chiedeva se lei lo ringraziava, aveva risposto: «Sì, moltissimo!»\n
     </string>
+    <string name="text_arDescriptionStats">Opere descritte grazie alla realtà aumentata</string>
+    <string name="text_normalDescriptionStats">Opere descritte utilizzando i bottoni</string>
+    <string name="text_recognisedPaintingsStats">Dipinti riconosciuti</string>
+    <string name="text_backToSettings">BACK</string>
+    <string name="btn_wait">WAIT</string>
+
 </resources>

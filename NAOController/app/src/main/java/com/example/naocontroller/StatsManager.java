@@ -8,7 +8,6 @@ public class StatsManager {
     private static short nARPaintingsDescribed = 0;
     private static short nPaintingsDescribed = 0;
     private static short nPaintingsRecognised = 0;
-    //private static byte NAOBatteryPercentage = 100;
 
     public static void increaseARPaintings() {nARPaintingsDescribed ++;}
 
@@ -31,10 +30,4 @@ public class StatsManager {
     public static short getNPaintingsRecognised () {return nPaintingsRecognised;}
 
     public static void resetNPaintingsRecognised () {nPaintingsRecognised = 0;}
-
-    /*public static void setNAOBatteryPercentage(byte batteryPercentage) {
-        NAOBatteryPercentage = batteryPercentage;
-    }
-
-    public static byte getNAOBatteryPercentage() {return NAOBatteryPercentage;}*/
 }

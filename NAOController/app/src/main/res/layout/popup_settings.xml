@@ -40,7 +40,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_follow_mode"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="55dp"
                     android:layout_marginEnd="10dp"
                     android:layout_gravity="end|center_vertical"
@@ -49,6 +49,18 @@
                     android:text="@string/btn_follow"
                     android:textColor="@color/white"
                     app:cornerRadius="20dp"/>
+
+                <ImageButton
+                    android:id="@+id/btn_stats"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_stats"
+                    android:layout_gravity="center"
+                    android:elevation="15dp"
+                    android:layout_marginEnd="25dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/btn_stats" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -78,7 +90,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ip_edit_text"
-                    android:inputType="numberDecimal"
+                    android:inputType="text"
                     android:layout_width="300dp"
                     android:layout_height="55dp"
                     android:layout_gravity="center_horizontal"

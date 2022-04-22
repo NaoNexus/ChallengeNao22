@@ -1,19 +1,17 @@
 package com.example.naocontroller;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
-    private final static String TAG = MainActivity.class.getSimpleName();
 
     private final static int DELAY = 2500;
 
@@ -34,6 +32,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         },DELAY);
-        //TODO: make entry screen layout (after remove comment and first setContentView)
     }
 }

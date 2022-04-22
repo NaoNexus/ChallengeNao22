@@ -9,7 +9,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="500dp"
-        android:layout_height="wrap_content"
+        android:layout_height="320dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,44 +23,52 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="65dp"
                 android:orientation="horizontal">
 
                 <TextView
                     style="@style/TitleTextStyle"
-                    android:layout_height="55dp"
+                    android:layout_height="50dp"
                     android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:textAlignment="textStart"
-                    android:gravity="start|center_vertical"
-                    android:layout_gravity="start|center_vertical"
-                    android:layout_weight="3"
+                    android:gravity="start|top"
+                    android:layout_gravity="start|top"
+                    android:layout_weight="5"
                     android:text="@string/btn_settings"
                     android:textColor="@color/main_color" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_follow_mode"
                     android:layout_width="80dp"
-                    android:layout_height="55dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_weight="1"
+                    android:layout_gravity="end|top"
+                    android:layout_weight="2"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
                     android:backgroundTint="@color/background_gradient_start"
                     android:text="@string/btn_follow"
                     android:textColor="@color/white"
                     app:cornerRadius="20dp"/>
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_stats"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_stats"
-                    android:layout_gravity="center"
-                    android:elevation="15dp"
-                    android:layout_marginEnd="25dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:contentDescription="@string/btn_stats" />
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="end|top"
+                    android:backgroundTint="@color/background_gradient_start"
+                    app:icon="@drawable/ic_stats"
+                    android:textColor="@color/white"
+                    app:cornerRadius="20dp"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -90,7 +98,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ip_edit_text"
-                    android:inputType="text"
+                    android:inputType="number"
+                    android:digits="0123456789."
                     android:layout_width="300dp"
                     android:layout_height="55dp"
                     android:layout_gravity="center_horizontal"
@@ -125,7 +134,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/port_edit_text"
-                    android:inputType="numberDecimal"
+                    android:inputType="number"
+                    android:digits="0123456789"
                     android:layout_width="300dp"
                     android:layout_height="55dp"
                     android:layout_gravity="center_horizontal"

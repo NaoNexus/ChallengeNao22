@@ -68,56 +68,56 @@ public class Utilities {
                 authorText.setText(R.string.location_painting_11);
                 songText.setText(R.string.song_painting_11);
                 descriptionText.setText(getDetailsString(paintingIndex, resources));
-                paintingView.setBackgroundResource(R.drawable.opera_11);
+                paintingView.setImageResource(R.drawable.opera_11);
                 break;
             case 2:
                 titleText.setText(R.string.title_painting_12);
                 authorText.setText(R.string.location_painting_12);
                 songText.setText(R.string.song_painting_12);
                 descriptionText.setText(getDetailsString(paintingIndex, resources));
-                paintingView.setBackgroundResource(R.drawable.opera_12);
+                paintingView.setImageResource(R.drawable.opera_12);
                 break;
             case 3:
                 titleText.setText(R.string.title_painting_13);
                 authorText.setText(R.string.location_painting_13);
                 songText.setText(R.string.song_painting_13);
                 descriptionText.setText(getDetailsString(paintingIndex, resources));
-                paintingView.setBackgroundResource(R.drawable.opera_13);
+                paintingView.setImageResource(R.drawable.opera_13);
                 break;
             case 4:
                 titleText.setText(R.string.title_painting_14);
                 authorText.setText(R.string.location_painting_14);
                 songText.setText(R.string.song_painting_14);
                 descriptionText.setText(getDetailsString(paintingIndex, resources));
-                paintingView.setBackgroundResource(R.drawable.opera_14);
+                paintingView.setImageResource(R.drawable.opera_14);
                 break;
             case 5:
                 titleText.setText(R.string.title_painting_15);
                 authorText.setText(R.string.location_painting_15);
                 songText.setText(R.string.song_painting_15);
                 descriptionText.setText(getDetailsString(paintingIndex, resources));
-                paintingView.setBackgroundResource(R.drawable.opera_15);
+                paintingView.setImageResource(R.drawable.opera_15);
                 break;
             case 6:
                 titleText.setText(R.string.title_painting_16);
                 authorText.setText(R.string.location_painting_16);
                 songText.setText(R.string.song_painting_16);
                 descriptionText.setText(getDetailsString(paintingIndex, resources));
-                paintingView.setBackgroundResource(R.drawable.opera_16);
+                paintingView.setImageResource(R.drawable.opera_16);
                 break;
             case 7:
                 titleText.setText(R.string.title_painting_17);
                 authorText.setText(R.string.location_painting_17);
                 songText.setText(R.string.song_painting_17);
                 descriptionText.setText(getDetailsString(paintingIndex, resources));
-                paintingView.setBackgroundResource(R.drawable.opera_17);
+                paintingView.setImageResource(R.drawable.opera_17);
                 break;
             case 8:
                 titleText.setText(R.string.title_painting_18);
                 authorText.setText(R.string.location_painting_18);
                 songText.setText(R.string.song_painting_18);
                 descriptionText.setText(getDetailsString(paintingIndex, resources));
-                paintingView.setBackgroundResource(R.drawable.opera_18);
+                paintingView.setImageResource(R.drawable.opera_18);
                 break;
         }
     }

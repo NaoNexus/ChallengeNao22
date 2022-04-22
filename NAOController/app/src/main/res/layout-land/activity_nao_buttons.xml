@@ -17,12 +17,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias=".958"
         app:layout_constraintVertical_bias=".07">
+
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:contentDescription="@string/btn_settings"
             android:src="@drawable/ic_settings"
             android:layout_gravity="center"/>
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -110,7 +112,7 @@
                     android:layout_height="40dp"
                     android:layout_width="match_parent"
                     android:gravity="center"
-                    android:text="@string/title_painting_12"
+                    android:text="@string/title_painting_11"
                     android:textSize="23sp"
                     android:layout_weight="1"
                     app:layout_constraintTop_toBottomOf="@+id/image_view_1"
@@ -277,7 +279,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/title_painting_15"
                 android:scaleType="centerCrop"
-                android:src="@drawable/opera_12"
+                android:src="@drawable/opera_15"
                 app:layout_constraintDimensionRatio="25:18"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

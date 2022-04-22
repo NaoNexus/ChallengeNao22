@@ -13,15 +13,23 @@
         <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/drawable/ic_launcher_background.xml" value="0.346" />
         <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/drawable/image_recognised_border.xml" value="0.3445" />
         <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/drawable/painting_button_background.xml" value="0.263" />
+        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout-land/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout-land/activity_nao_buttons.xml" value="0.17" />
         <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout-land/activity_nao_description.xml" value="0.22" />
         <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout-port/activity_nao_description.xml" value="0.18333333333333332" />
-        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/activity_main.xml" value="0.1008557457212714" />
-        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/activity_nao_buttons.xml" value="0.18333333333333332" />
+        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/activity_ar_description.xml" value="0.18333333333333332" />
+        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/activity_nao_buttons.xml" value="0.25" />
+        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/activity_nao_description.xml" value="0.1" />
         <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/activity_settings.xml" value="0.18333333333333332" />
         <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/ar_description.xml" value="0.18333333333333332" />
+        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/popup_settings.xml" value="0.22" />
+        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/popup_settings_advanced.xml" value="0.18333333333333332" />
         <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/popup_settings_menu.xml" value="0.14" />
+        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/popup_stats.xml" value="0.25" />
         <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/layout/settings_dialog.xml" value="0.18333333333333332" />
+        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/mipmap-anydpi-v26/appicon.xml" value="0.346" />
+        <entry key="..\:/Users/Riccardo/Documents/Stimate/4 SSA/Challenge robotica 2021-2022/ChallengeNao22/NAOController/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.346" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable-v24/button_bg.xml" value="0.23796296296296296" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/background_layout_buttons.xml" value="0.3158974358974359" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/buttons_activity_background.xml" value="0.3158974358974359" />
@@ -29,20 +37,16 @@
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.171" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/ic_camera.xml" value="0.1245" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/ic_launcher_background.xml" value="0.23703703703703705" />
-        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/ic_stats.xml" value="0.1245" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/drawable/ic_wifi.xml" value="0.104" />
-        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout-land/activity_main.xml" value="0.22864583333333333" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout-land/activity_nao_buttons.xml" value="0.13333333333333333" />
-        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout-land/activity_nao_description.xml" value="0.22" />
+        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout-land/activity_nao_description.xml" value="0.13333333333333333" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout-port/activity_nao_description.xml" value="0.14817629179331307" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout-sw600dp/activity_nao_buttons.xml" value="0.16666666666666666" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/activity_main.xml" value="0.2667572463768116" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/activity_nao_buttons.xml" value="0.16666666666666666" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/activity_nao_description.xml" value="0.14666666666666667" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/activity_settings.xml" value="0.22" />
-        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/popup_settings.xml" value="0.22" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/popup_settings_menu.xml" value="0.16666666666666666" />
-        <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/layout/popup_stats.xml" value="0.22" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/mipmap-anydpi-v26/appicon.xml" value="0.1245" />
         <entry key="..\:/projects/app-projects/ChallengeNao22/NAOController/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1245" />
       </map>

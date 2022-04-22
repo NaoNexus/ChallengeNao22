@@ -9,7 +9,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="500dp"
-        android:layout_height="wrap_content"
+        android:layout_height="320dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,37 +23,43 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="65dp"
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_back_to_settings"
-                    android:layout_width="15dp"
-                    android:layout_height="40dp"
+                    android:id="@+id/btn_back"
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:layout_gravity="start|top"
                     android:backgroundTint="@color/background_gradient_start"
-                    android:text="@string/text_backToSettings"
+                    app:icon="@drawable/ic_back"
+                    android:foregroundGravity="center"
                     android:textColor="@color/white"
-                    app:cornerRadius="20dp"
-                    android:layout_marginStart="20sp"/>
+                    app:cornerRadius="20dp"/>
 
                 <TextView
                     style="@style/TitleTextStyle"
-                    android:layout_height="55dp"
+                    android:layout_height="50dp"
                     android:layout_width="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:textAlignment="textStart"
-                    android:gravity="start|center_vertical"
-                    android:layout_gravity="start|center_vertical"
+                    android:gravity="start|top"
+                    android:layout_gravity="start|top"
                     android:layout_weight="3"
                     android:text="@string/btn_stats"
                     android:textColor="@color/main_color" />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_marginVertical="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -62,25 +68,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_arDescriptionStats"
-                    android:layout_marginStart="20sp"
-                    style="@style/SmallTextStyle"
-                    android:textStyle="normal"
-                    android:textSize="16sp"
-                    android:textColor="@color/background_gradient_start"/>
-
-                <TextView
-                    android:id="@+id/text_NumArDescripted"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     style="@style/SmallTextStyle"
                     android:textStyle="normal"
                     android:textSize="16sp"
-                    android:textColor="@color/background_gradient_start"
+                    android:textColor="@color/background_gradient_end"/>
+
+                <TextView
+                    android:id="@+id/text_num_ar_described"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    style="@style/SmallTextStyle"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/main_color"
                     android:text="@null"/>
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_marginVertical="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -89,28 +99,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_normalDescriptionStats"
-                    android:layout_marginStart="20sp"
-                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
                     style="@style/SmallTextStyle"
                     android:textStyle="normal"
                     android:textSize="16sp"
-                    android:textColor="@color/background_gradient_start"/>
+                    android:textColor="@color/background_gradient_end"/>
 
                 <TextView
-                    android:id="@+id/text_NumNormalDescripted"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/text_num_normal_described"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     style="@style/SmallTextStyle"
-                    android:textStyle="normal"
-                    android:textSize="16sp"
-                    android:textColor="@color/background_gradient_start"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/main_color"
                     android:text="@null"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_marginVertical="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -119,29 +130,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_recognisedPaintingsStats"
-                    android:layout_marginStart="20sp"
-                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
                     style="@style/SmallTextStyle"
                     android:textStyle="normal"
                     android:textSize="16sp"
-                    android:textColor="@color/background_gradient_start" />
+                    android:textColor="@color/background_gradient_end"/>
 
                 <TextView
-                    android:id="@+id/text_NumPaintingsRecognised"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/text_num_paintings_recognised"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20sp"
+                    android:layout_marginEnd="10dp"
                     style="@style/SmallTextStyle"
-                    android:textStyle="normal"
-                    android:textSize="16sp"
-                    android:textColor="@color/background_gradient_start"
-                    android:text="@null" />
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/main_color"
+                    android:text="@null"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

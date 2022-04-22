@@ -214,44 +214,45 @@ class QuadRenderer {
 
         quadCoords = new float[]{
                 /* X    Y      Z  */
-                -halfWidth, 0.0f, -halfHeight,
-                -halfWidth, 0.0f, +halfHeight,
-                +halfWidth, 0.0f, -halfHeight,
-                +halfWidth, 0.0f, +halfHeight,
+                        -halfWidth, 0.0f, -halfHeight,
+                        -halfWidth, 0.0f, +halfHeight,
+                        +halfWidth, 0.0f, -halfHeight,
+                        +halfWidth, 0.0f, +halfHeight,
         };
 
         switch (rotation) {
             case 0:
                 quadTexCoords = new float[]
-                    /*X     Y */
+                    /*X    Y */
                     {0.0f, 0.0f,
-                    1.0f, 0.0f,
                     0.0f, 1.0f,
+                    1.0f, 0.0f,
                     1.0f, 1.0f,};
                 break;
             case 1:
                 quadTexCoords = new float[]
                     /*X     Y */
-                    {1.0f, 0.0f,
+                    {0.0f, 1.0f,
                     1.0f, 1.0f,
                     0.0f, 0.0f,
-                    0.0f, 1.0f,};
+                    1.0f, 0.0f,};
                 break;
             case 2:
                 quadTexCoords = new float[]
                     /*X     Y */
                     {1.0f, 1.0f,
-                    0.0f, 1.0f,
                     1.0f, 0.0f,
+                    0.0f, 1.0f,
                     0.0f, 0.0f,};
+
                 break;
             case 3:
                 quadTexCoords = new float[]
                     /*X     Y */
-                    {0.0f, 1.0f,
+                    {1.0f, 0.0f,
                     0.0f, 0.0f,
                     1.0f, 1.0f,
-                    1.0f, 0.0f,};
+                    0.0f, 1.0f,};
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + rotation);

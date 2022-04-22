@@ -1,10 +1,12 @@
 package com.example.naocontroller;
 
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.graphics.Color;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
@@ -102,11 +104,9 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
         recognisePainting = b.getBoolean("recognisePainting");
         port = b.getInt("port");
 
-        messageReceiver();
-
         if (!recognisePainting) {
             paintingIndex = b.getInt("painting");
-            augmentedImageRenderer.setupPaintingDetails(this, paintingIndex);
+            messageReceiver();
         }
         setup();
     }
@@ -144,10 +144,16 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
         speakButton.setOnClickListener(v -> {
             if (paintingRecognisedCard.getTranslationY() == 0 && recognisePainting) {
                 paintingIndex = Utilities.getPaintingIndexFromTitle(paintingRecognisedTitle.getText().toString());
-                augmentedImageRenderer.setupPaintingDetails(this, paintingIndex);
                 recognisePainting = false;
                 StatsManager.increaseARPaintings();
                 cardSlideDownAnimation.start();
+                Intent intent = getIntent();
+                intent.putExtra("recognisePainting", false);
+                intent.putExtra("painting", 2);
+                new Handler().postDelayed(() -> {
+                    finish();
+                    startActivity(intent);
+                }, 200); //Wait for animation to finish
             }
         });
 
@@ -285,6 +291,11 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
             // Create the texture and pass it to ARCore session to be filled during update().
             backgroundRenderer.createOnGlThread(/*context=*/ this);
             augmentedImageRenderer.createOnGlThread(/*context=*/ this);
+
+            if (!recognisePainting) {
+                Log.i(TAG, "onSurfaceCreated: creation");
+                augmentedImageRenderer.setupPaintingDetails(this, paintingIndex);
+            }
         } catch (IOException e) {
             Log.e(TAG, "Failed to read an asset file", e);
         }
@@ -417,9 +428,10 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
             AugmentedImage augmentedImage = pair.first;
             Anchor centerAnchor = Objects.requireNonNull(augmentedImageMap.get(augmentedImage.getIndex())).second;
             if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
-                augmentedImageRenderer.drawBorder(viewmtx, projmtx, augmentedImage, centerAnchor);
                 if (!recognisePainting) {
                     augmentedImageRenderer.drawPaintingDetails(paintingIndex, viewmtx, projmtx, augmentedImage, centerAnchor);
+                } else {
+                    augmentedImageRenderer.drawBorder(viewmtx, projmtx, augmentedImage, centerAnchor);
                 }
             }
         }

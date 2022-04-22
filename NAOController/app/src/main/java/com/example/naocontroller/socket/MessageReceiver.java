@@ -2,17 +2,15 @@ package com.example.naocontroller.socket;
 
 import android.os.AsyncTask;
 
-import com.example.naocontroller.NaoDescription;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class MessageReceiver extends AsyncTask<String, Void, String> {
+    private final static String TAG = MessageReceiver.class.getSimpleName();
 
     String messageReceived = "";
-
 
     public interface AsyncResponse {
         void processFinish(String messageReceived);
@@ -36,7 +34,11 @@ public class MessageReceiver extends AsyncTask<String, Void, String> {
             BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
             while (!this.messageReceived.contains("stop")) {
-                this.messageReceived = reader.readLine();
+                String line = reader.readLine();
+
+                if (line != null) {
+                    this.messageReceived = line;
+                }
             }
 
             s.close();

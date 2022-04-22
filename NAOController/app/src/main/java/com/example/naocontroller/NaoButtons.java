@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +22,8 @@ import java.util.Objects;
 
 
 public class NaoButtons extends AppCompatActivity {
-
+    private final static String TAG = NaoButtons.class.getSimpleName();
+    
     CardView painting1Button,
              painting2Button,
              painting3Button,
@@ -35,11 +36,11 @@ public class NaoButtons extends AppCompatActivity {
              cameraRecognitionButton;
 
 
-    AlertDialog dialogSettings, dialogStats;
-    AlertDialog.Builder dialogBuilderSettings, dialogBuilderStats;
+    AlertDialog dialogSettings;
+    AlertDialog.Builder dialogBuilderSettings;
 
-    String ip = "";
-    String port = "";
+    String ip = "192.168.0.105";
+    String port = "5050";
 
     private final SnackbarHelper messageSnackbarHelper = new SnackbarHelper();
 
@@ -81,7 +82,7 @@ public class NaoButtons extends AppCompatActivity {
 
                 Intent intent = new Intent(NaoButtons.this, ArNaoDescription.class);
                 intent.putExtra("recognisePainting", true);
-                intent.putExtra("port", port);
+                intent.putExtra("port", Integer.parseInt(port));
                 startActivity(intent);
             } else
                 CameraPermissionHelper.requestCameraPermission(this);
@@ -140,6 +141,7 @@ public class NaoButtons extends AppCompatActivity {
         dialogBuilderSettings = new AlertDialog.Builder(this);
 
         final View settingsPopupView = getLayoutInflater().inflate(R.layout.popup_settings, null);
+        final View statsPopupView = getLayoutInflater().inflate(R.layout.popup_stats, null);
 
 
         TextInputEditText ipEditText = settingsPopupView.findViewById(R.id.ip_edit_text);
@@ -147,7 +149,7 @@ public class NaoButtons extends AppCompatActivity {
         Button okButton = settingsPopupView.findViewById(R.id.btn_ok);
         Button cancelButton = settingsPopupView.findViewById(R.id.btn_annulla);
         Button followButton = settingsPopupView.findViewById(R.id.btn_follow_mode);
-        ImageButton statsButton = settingsPopupView.findViewById(R.id.btn_stats);
+        Button statsButton = settingsPopupView.findViewById(R.id.btn_stats);
 
         ipEditText.setText(this.ip);
         portEditText.setText(this.port);
@@ -180,21 +182,18 @@ public class NaoButtons extends AppCompatActivity {
 
 
         statsButton.setOnClickListener(view -> {
-            dialogBuilderStats = new AlertDialog.Builder(this);
-            final View statsPopupView = getLayoutInflater().inflate(R.layout.popup_stats, null);
+            ((ViewGroup)settingsPopupView.getParent()).removeView(settingsPopupView);
+            dialogSettings.setContentView(statsPopupView);
 
-            Button backButton = statsPopupView.findViewById(R.id.btn_back_to_settings);
-            TextView arPaintingsDescribed = statsPopupView.findViewById(R.id.text_NumArDescripted);
-            TextView PaintingsDescribed = statsPopupView.findViewById(R.id.text_NumNormalDescripted);
-            TextView numPaintingsRecognised = statsPopupView.findViewById(R.id.text_NumPaintingsRecognised);
+            Button backButton = statsPopupView.findViewById(R.id.btn_back);
+            TextView arPaintingsDescribed = statsPopupView.findViewById(R.id.text_num_ar_described);
+            TextView PaintingsDescribed = statsPopupView.findViewById(R.id.text_num_normal_described);
+            TextView numPaintingsRecognised = statsPopupView.findViewById(R.id.text_num_paintings_recognised);
 
-            dialogBuilderStats.setView(statsPopupView);
-            dialogStats = dialogBuilderStats.create();
-            dialogStats.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            dialogStats.getWindow().setBackgroundDrawableResource(R.color.transparent);
-            dialogStats.show();
-
-            backButton.setOnClickListener(view1 -> dialogStats.dismiss());
+            backButton.setOnClickListener(view1 -> {
+                ((ViewGroup)statsPopupView.getParent()).removeView(statsPopupView);
+                dialogSettings.setContentView(settingsPopupView);
+            });
 
             arPaintingsDescribed.setText(String.valueOf(StatsManager.getNARPaintings()));
             PaintingsDescribed.setText(String.valueOf(StatsManager.getNNormalPaintings()));

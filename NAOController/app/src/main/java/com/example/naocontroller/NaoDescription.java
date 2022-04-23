@@ -20,12 +20,11 @@ import java.util.Objects;
 public class NaoDescription extends AppCompatActivity {
     private final static String TAG = NaoDescription.class.getSimpleName();
 
-    private TextView authorText,
-             descriptionText,
-             titleText,
-             songText;
+    private TextView authorText, descriptionText, titleText, songText;
 
     private ImageView paintingView;
+
+    private Button btnFollow, btnWait;
 
     private int paintingIndex;
     private String port;
@@ -48,16 +47,19 @@ public class NaoDescription extends AppCompatActivity {
 
         setContentView(R.layout.activity_nao_description);
 
-        Button btnFollow = findViewById(R.id.btn_follow_mode_description);
-        Button btnWait = findViewById(R.id.btn_wait_description);
+        btnFollow = findViewById(R.id.btn_follow);
+        btnWait = findViewById(R.id.btn_wait);
 
-        btnFollow.setOnClickListener(view -> {
-            new MessageSender().execute("app_error_nao", this.ip, this.port);
+        btnFollow.setVisibility(View.VISIBLE);
+        btnWait.setVisibility(View.VISIBLE);
+
+        btnFollow.setOnClickListener(view -> new MessageSender().execute("app_error_nao", this.ip, this.port));
+
+        btnWait.setOnClickListener(view -> {
+            btnFollow.setVisibility(View.GONE);
+            btnWait.setVisibility(View.GONE);
             messageReceiver();
         });
-
-        btnWait.setOnClickListener(view -> messageReceiver());
-
 
         setupGraphics();
         Utilities.setTextsAndCardsImages(paintingIndex, getResources(), titleText, authorText, songText, descriptionText, paintingView);
@@ -78,6 +80,5 @@ public class NaoDescription extends AppCompatActivity {
             finish();
         });
         message_Receiver.execute(String.valueOf(port));
-
     }
 }

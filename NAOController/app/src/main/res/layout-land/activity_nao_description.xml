@@ -9,14 +9,15 @@
     android:background="@drawable/buttons_activity_background">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_follow_mode_description"
+        android:id="@+id/btn_follow"
         android:layout_width="120dp"
-        android:layout_height="55dp"
+        android:layout_height="60dp"
         android:layout_gravity="end|center_vertical"
         android:layout_weight="1"
         android:backgroundTint="@color/main_color"
         android:text="@string/btn_follow"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:cornerRadius="20dp"
         app:layout_constraintVertical_bias=".45"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,14 +26,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_wait_description"
+        android:id="@+id/btn_wait"
         android:layout_width="120dp"
-        android:layout_height="55dp"
+        android:layout_height="60dp"
         android:layout_gravity="end|center_vertical"
         android:layout_weight="1"
         android:backgroundTint="@color/background_gradient_start"
         android:text="@string/btn_wait"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:cornerRadius="20dp"
         app:layout_constraintVertical_bias=".55"
         app:layout_constraintBottom_toBottomOf="parent"

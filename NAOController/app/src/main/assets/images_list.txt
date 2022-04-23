@@ -1,8 +1,8 @@
-painting_11|painting_11.png
-painting_12|painting_12.png
-painting_13|painting_13.png
-painting_14|painting_14.png
-painting_15|painting_15.png
-painting_16|painting_16.png
-painting_17|painting_17.png
-painting_18|painting_18.png
+painting_11|painting_11.jpg
+painting_12|painting_12.jpg
+painting_13|painting_13.jpg
+painting_14|painting_14.jpg
+painting_15|painting_15.jpg
+painting_16|painting_16.jpg
+painting_17|painting_17.jpg
+painting_18|painting_18.jpg

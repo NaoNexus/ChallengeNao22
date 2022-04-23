@@ -41,7 +41,7 @@
                     android:textColor="@color/main_color" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_follow_mode"
+                    android:id="@+id/btn_follow"
                     android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"

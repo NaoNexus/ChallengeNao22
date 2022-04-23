@@ -4,6 +4,32 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_wait"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_gravity="end|top"
+        android:backgroundTint="@color/background_gradient_start"
+        android:text="@string/btn_wait"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="160dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_follow"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_gravity="end|top"
+        android:backgroundTint="@color/main_color"
+        android:text="@string/btn_follow"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"/>
+
     <android.opengl.GLSurfaceView
         android:id="@+id/surface_view"
         android:layout_width="fill_parent"

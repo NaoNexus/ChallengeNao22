@@ -13,6 +13,7 @@ import android.util.Pair;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import com.example.naocontroller.ar.rendering.AugmentedImageRenderer;
 import com.example.naocontroller.ar.rendering.BackgroundRenderer;
 
 import com.example.naocontroller.socket.MessageReceiver;
+import com.example.naocontroller.socket.MessageSender;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.ArCoreApk;
 import com.google.ar.core.AugmentedImage;
@@ -62,20 +64,24 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
     private static final String TAG = ArNaoDescription.class.getSimpleName();
 
     // SOCKET
-    
-    private int port;
+
+    private String ip, port;
     
     // GRAPHICS AND LOGIC
 
     private boolean recognisePainting;
     private int paintingIndex;
-    private float animationDownDP;
+    private float animationDownDP, firstButtonAnimationDP, secondButtonAnimationDP;
 
     private CardView paintingRecognisedCard, speakButton;
     private TextView paintingRecognisedTitle, paintingRecognisedLocation;
 
-    private ObjectAnimator cardSlideUpAnimation;
-    private ObjectAnimator cardSlideDownAnimation;
+    private Button followButton, waitButton;
+
+    private ObjectAnimator cardSlideUpAnimation,
+            cardSlideDownAnimation,
+            firstButtonSlideOutAnimation,
+            secondButtonSlideOutAnimation;
 
     // AR
 
@@ -102,11 +108,11 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
         setContentView(R.layout.activity_ar_description);
         Bundle b = getIntent().getExtras();
         recognisePainting = b.getBoolean("recognisePainting");
-        port = b.getInt("port");
+        port = b.getString("port");
+        ip = b.getString("ip");
 
         if (!recognisePainting) {
             paintingIndex = b.getInt("painting");
-            messageReceiver();
         }
         setup();
     }
@@ -137,9 +143,22 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
                 getResources().getDisplayMetrics()
         );
 
+        firstButtonAnimationDP = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 280,
+                getResources().getDisplayMetrics()
+        );
+
+        secondButtonAnimationDP = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 420,
+                getResources().getDisplayMetrics()
+        );
+
         surfaceView = findViewById(R.id.surface_view);
         speakButton = findViewById(R.id.btn_speak);
         paintingRecognisedCard = findViewById(R.id.painting_recognised_card);
+
+        waitButton = findViewById(R.id.btn_wait);
+        followButton = findViewById(R.id.btn_follow);
 
         speakButton.setOnClickListener(v -> {
             if (paintingRecognisedCard.getTranslationY() == 0 && recognisePainting) {
@@ -148,8 +167,9 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
                 StatsManager.increaseARPaintings();
                 cardSlideDownAnimation.start();
                 Intent intent = getIntent();
+                intent.removeExtra("recognisePainting");
                 intent.putExtra("recognisePainting", false);
-                intent.putExtra("painting", 2);
+                intent.putExtra("painting", paintingIndex);
                 new Handler().postDelayed(() -> {
                     finish();
                     startActivity(intent);
@@ -157,17 +177,39 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
             }
         });
 
+        if (recognisePainting) {
+            followButton.setVisibility(View.GONE);
+            waitButton.setVisibility(View.GONE);
+        } else {
+            followButton.setVisibility(View.VISIBLE);
+            waitButton.setVisibility(View.VISIBLE);
+
+            followButton.setOnClickListener(view -> new MessageSender().execute("app_error_nao", ip, port));
+
+            waitButton.setOnClickListener(view -> {
+                firstButtonSlideOutAnimation.start();
+                secondButtonSlideOutAnimation.start();
+                messageReceiver();
+            });
+        }
+
         cardSlideUpAnimation = ObjectAnimator.ofFloat(paintingRecognisedCard, "translationY", 0f);
         cardSlideDownAnimation = ObjectAnimator.ofFloat(paintingRecognisedCard, "translationY", animationDownDP);
+        firstButtonSlideOutAnimation = ObjectAnimator.ofFloat(waitButton, "translationX", firstButtonAnimationDP);
+        secondButtonSlideOutAnimation = ObjectAnimator.ofFloat(followButton, "translationX", secondButtonAnimationDP);
 
         paintingRecognisedLocation = findViewById(R.id.painting_recognised_location_text);
         paintingRecognisedTitle = findViewById(R.id.painting_recognised_title_text);
 
         cardSlideDownAnimation.setDuration(200);
         cardSlideUpAnimation.setDuration(200);
+        firstButtonSlideOutAnimation.setDuration(200);
+        secondButtonSlideOutAnimation.setDuration(200);
 
         cardSlideDownAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
         cardSlideUpAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        firstButtonSlideOutAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        secondButtonSlideOutAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
     }
 
     @Override
@@ -401,7 +443,7 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
                                 StatsManager.increasePaintingsRecognised();
                                 this.runOnUiThread(() -> {
                                     cardSlideUpAnimation.start();
-                                    Utilities.setTexts(augmentedImage.getIndex() + 1,
+                                    Utilities.setTexts(augmentedImage.getIndex() + 3,
                                             paintingRecognisedTitle,
                                             paintingRecognisedLocation);
                                 });
@@ -428,8 +470,10 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
             AugmentedImage augmentedImage = pair.first;
             Anchor centerAnchor = Objects.requireNonNull(augmentedImageMap.get(augmentedImage.getIndex())).second;
             if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
+                Log.e(TAG, "paintingIndex: " + paintingIndex);
                 if (!recognisePainting) {
-                    augmentedImageRenderer.drawPaintingDetails(paintingIndex, viewmtx, projmtx, augmentedImage, centerAnchor);
+                    if (augmentedImage.getIndex() == paintingIndex - 3)
+                        augmentedImageRenderer.drawPaintingDetails(paintingIndex, viewmtx, projmtx, augmentedImage, centerAnchor);
                 } else {
                     augmentedImageRenderer.drawBorder(viewmtx, projmtx, augmentedImage, centerAnchor);
                 }

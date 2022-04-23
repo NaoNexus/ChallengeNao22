@@ -82,7 +82,8 @@ public class NaoButtons extends AppCompatActivity {
 
                 Intent intent = new Intent(NaoButtons.this, ArNaoDescription.class);
                 intent.putExtra("recognisePainting", true);
-                intent.putExtra("port", Integer.parseInt(port));
+                intent.putExtra("port", port);
+                intent.putExtra("ip", ip);
                 startActivity(intent);
             } else
                 CameraPermissionHelper.requestCameraPermission(this);
@@ -138,19 +139,21 @@ public class NaoButtons extends AppCompatActivity {
 
 
     private void createSettingsDialog() {
+        Button okButton, cancelButton, followButton, statsButton;
+        TextInputEditText ipEditText, portEditText;
+
         dialogBuilderSettings = new AlertDialog.Builder(this);
 
         final View settingsPopupView = getLayoutInflater().inflate(R.layout.popup_settings, null);
         final View statsPopupView = getLayoutInflater().inflate(R.layout.popup_stats, null);
 
 
-        TextInputEditText ipEditText = settingsPopupView.findViewById(R.id.ip_edit_text);
-        TextInputEditText portEditText = settingsPopupView.findViewById(R.id.port_edit_text);
-        Button okButton = settingsPopupView.findViewById(R.id.btn_ok);
-        Button cancelButton = settingsPopupView.findViewById(R.id.btn_annulla);
-        Button followButton = settingsPopupView.findViewById(R.id.btn_follow_mode);
-        Button statsButton = settingsPopupView.findViewById(R.id.btn_stats);
-        Button resetStatsButton = statsPopupView.findViewById(R.id.btn_reset_stats);
+        ipEditText = settingsPopupView.findViewById(R.id.ip_edit_text);
+        portEditText = settingsPopupView.findViewById(R.id.port_edit_text);
+        okButton = settingsPopupView.findViewById(R.id.btn_ok);
+        cancelButton = settingsPopupView.findViewById(R.id.btn_annulla);
+        followButton = settingsPopupView.findViewById(R.id.btn_follow);
+        statsButton = settingsPopupView.findViewById(R.id.btn_stats);
 
         ipEditText.setText(this.ip);
         portEditText.setText(this.port);
@@ -187,25 +190,26 @@ public class NaoButtons extends AppCompatActivity {
             dialogSettings.setContentView(statsPopupView);
 
             Button backButton = statsPopupView.findViewById(R.id.btn_back);
+            Button resetStatsButton = statsPopupView.findViewById(R.id.btn_reset_stats);
             TextView arPaintingsDescribed = statsPopupView.findViewById(R.id.text_num_ar_described);
-            TextView PaintingsDescribed = statsPopupView.findViewById(R.id.text_num_normal_described);
-            TextView numPaintingsRecognised = statsPopupView.findViewById(R.id.text_num_paintings_recognised);
+            TextView paintingsDescribed = statsPopupView.findViewById(R.id.text_num_normal_described);
+            TextView paintingsRecognised = statsPopupView.findViewById(R.id.text_num_paintings_recognised);
 
             backButton.setOnClickListener(view1 -> {
                 ((ViewGroup)statsPopupView.getParent()).removeView(statsPopupView);
                 dialogSettings.setContentView(settingsPopupView);
             });
 
+            resetStatsButton.setOnClickListener(view1 -> {
+                StatsManager.resetARPaintings();
+                StatsManager.resetNormalPaintings();
+                StatsManager.resetPaintingsRecognised();
+            });
+
             arPaintingsDescribed.setText(String.valueOf(StatsManager.getARPaintings()));
-            PaintingsDescribed.setText(String.valueOf(StatsManager.getNormalPaintings()));
-            numPaintingsRecognised.setText(String.valueOf(StatsManager.getPaintingsRecognised()));
+            paintingsDescribed.setText(String.valueOf(StatsManager.getNormalPaintings()));
+            paintingsRecognised.setText(String.valueOf(StatsManager.getPaintingsRecognised()));
 
-        });
-
-        resetStatsButton.setOnClickListener(view -> {
-            StatsManager.resetARPaintings();
-            StatsManager.resetNormalPaintings();
-            StatsManager.resetPaintingsRecognised();
         });
     }
 }

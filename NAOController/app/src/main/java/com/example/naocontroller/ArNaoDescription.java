@@ -398,7 +398,7 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
                         if (Utilities.isInScreen(objmtx, viewmtx, projmtx, displayMetrics)) {
                             if (paintingRecognisedCard.getTranslationY() == animationDownDP) {
                                 Log.i(TAG, "Image tracked: " + augmentedImage.getIndex());
-                                StatsManager.increaseNPaintingsRecognised();
+                                StatsManager.increasePaintingsRecognised();
                                 this.runOnUiThread(() -> {
                                     cardSlideUpAnimation.start();
                                     Utilities.setTexts(augmentedImage.getIndex() + 1,

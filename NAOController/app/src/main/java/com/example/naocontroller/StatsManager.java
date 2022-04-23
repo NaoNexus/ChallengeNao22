@@ -11,23 +11,23 @@ public class StatsManager {
 
     public static void increaseARPaintings() {nARPaintingsDescribed ++;}
 
-    public static short getNARPaintings() {return nARPaintingsDescribed;}
+    public static short getARPaintings() {return nARPaintingsDescribed;}
 
     public static void resetARPaintings() {nARPaintingsDescribed = 0;}
 
     public static void increaseNormalPaintings() {nPaintingsDescribed ++;}
 
-    public static short getNNormalPaintings() {return nPaintingsDescribed;}
+    public static short getNormalPaintings() {return nPaintingsDescribed;}
 
     public static void resetNormalPaintings() {nPaintingsDescribed = 0;}
 
-    public static int getTotNOfPaintingsDescribed() {
+    public static int getTotPaintingsDescribed() {
         return nPaintingsDescribed + nARPaintingsDescribed;
     }
 
-    public static void increaseNPaintingsRecognised () {nPaintingsRecognised++;}
+    public static void increasePaintingsRecognised() {nPaintingsRecognised++;}
 
-    public static short getNPaintingsRecognised () {return nPaintingsRecognised;}
+    public static short getPaintingsRecognised() {return nPaintingsRecognised;}
 
-    public static void resetNPaintingsRecognised () {nPaintingsRecognised = 0;}
+    public static void resetPaintingsRecognised() {nPaintingsRecognised = 0;}
 }

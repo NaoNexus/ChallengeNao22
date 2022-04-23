@@ -18,7 +18,7 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -32,7 +32,7 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:layout_gravity="start|top"
@@ -49,10 +49,10 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:textAlignment="textStart"
-                    android:gravity="start|top"
+                    android:gravity="start|center_vertical"
                     android:layout_gravity="start|top"
                     android:layout_weight="3"
-                    android:text="@string/btn_stats"
+                    android:text="@string/stats"
                     android:textColor="@color/main_color" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -67,7 +67,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_arDescriptionStats"
+                    android:text="@string/text_ar_description_stats"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     style="@style/SmallTextStyle"
@@ -98,7 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_normalDescriptionStats"
+                    android:text="@string/text_normal_description_stats"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     style="@style/SmallTextStyle"
@@ -129,7 +129,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_recognisedPaintingsStats"
+                    android:text="@string/text_recognised_paintings_stats"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     style="@style/SmallTextStyle"
@@ -150,6 +150,22 @@
                     android:text="@null"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_reset_stats"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:backgroundTint="@color/main_color"
+                android:text="@string/btn_reset_stats"
+                android:foregroundGravity="center"
+                android:textColor="@color/white"
+                app:cornerRadius="20dp"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

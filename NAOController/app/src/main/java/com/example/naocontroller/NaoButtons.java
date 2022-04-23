@@ -150,6 +150,7 @@ public class NaoButtons extends AppCompatActivity {
         Button cancelButton = settingsPopupView.findViewById(R.id.btn_annulla);
         Button followButton = settingsPopupView.findViewById(R.id.btn_follow_mode);
         Button statsButton = settingsPopupView.findViewById(R.id.btn_stats);
+        Button resetStatsButton = statsPopupView.findViewById(R.id.btn_reset_stats);
 
         ipEditText.setText(this.ip);
         portEditText.setText(this.port);
@@ -195,10 +196,16 @@ public class NaoButtons extends AppCompatActivity {
                 dialogSettings.setContentView(settingsPopupView);
             });
 
-            arPaintingsDescribed.setText(String.valueOf(StatsManager.getNARPaintings()));
-            PaintingsDescribed.setText(String.valueOf(StatsManager.getNNormalPaintings()));
-            numPaintingsRecognised.setText(String.valueOf(StatsManager.getNPaintingsRecognised()));
+            arPaintingsDescribed.setText(String.valueOf(StatsManager.getARPaintings()));
+            PaintingsDescribed.setText(String.valueOf(StatsManager.getNormalPaintings()));
+            numPaintingsRecognised.setText(String.valueOf(StatsManager.getPaintingsRecognised()));
 
+        });
+
+        resetStatsButton.setOnClickListener(view -> {
+            StatsManager.resetARPaintings();
+            StatsManager.resetNormalPaintings();
+            StatsManager.resetPaintingsRecognised();
         });
     }
 }

@@ -14,7 +14,7 @@
         android:layout_height="55dp"
         android:layout_gravity="end|center_vertical"
         android:layout_weight="1"
-        android:backgroundTint="@color/background_gradient_start"
+        android:backgroundTint="@color/main_color"
         android:text="@string/btn_follow"
         android:textColor="@color/white"
         app:cornerRadius="20dp"
@@ -30,7 +30,7 @@
         android:layout_height="55dp"
         android:layout_gravity="end|center_vertical"
         android:layout_weight="1"
-        android:backgroundTint="@color/main_color"
+        android:backgroundTint="@color/background_gradient_start"
         android:text="@string/btn_wait"
         android:textColor="@color/white"
         app:cornerRadius="20dp"
@@ -120,7 +120,7 @@
                 android:layout_weight="2"
                 android:contentDescription="@string/title_painting_11"
                 android:scaleType="centerCrop"
-                android:src="@drawable/opera_11"/>
+                android:src="@drawable/painting_11"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/details_layout"

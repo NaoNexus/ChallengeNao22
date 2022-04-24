@@ -12,7 +12,11 @@ ChallengeNao22
 ```
 
 ## NAOController
-La cartella [NAOController](https://github.com/NaoNexus/ChallengeNao22/tree/main/NAOController) presenta l'app usata per comunicare con il NAO attraverso il socket. La grafica presenta 8 bottoni che rappresentano le opere presenti nella stanza, il NAO procede quindi a descrivere l'opera muovendosi 
+La cartella [NAOController](https://github.com/NaoNexus/ChallengeNao22/tree/main/NAOController) presenta l'app usata per comunicare con il NAO attraverso il socket. La grafica presenta 8 bottoni che rappresentano le opere presenti nella stanza, il NAO procede quindi a descrivere l'opera muovendosi.
+
+## Presentazione
+
+[Link](https://prezi.com/view/JCXqwu2kiO8rEDcvFwbF/)
 
 
 ## Autori

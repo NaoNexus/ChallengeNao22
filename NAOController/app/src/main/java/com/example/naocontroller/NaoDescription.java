@@ -1,15 +1,18 @@
 package com.example.naocontroller;
 
+import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.naocontroller.socket.MessageReceiver;
 import com.example.naocontroller.socket.MessageSender;
@@ -25,6 +28,10 @@ public class NaoDescription extends AppCompatActivity {
     private ImageView paintingView;
 
     private Button btnFollow, btnWait;
+
+    private CardView cardPaintingActions;
+
+    private ObjectAnimator cardPaintingActionsAnimation;
 
     private int paintingIndex;
     private String port;
@@ -47,21 +54,8 @@ public class NaoDescription extends AppCompatActivity {
 
         setContentView(R.layout.activity_nao_description);
 
-        btnFollow = findViewById(R.id.btn_follow);
-        btnWait = findViewById(R.id.btn_wait);
-
-        btnFollow.setVisibility(View.VISIBLE);
-        btnWait.setVisibility(View.VISIBLE);
-
-        btnFollow.setOnClickListener(view -> new MessageSender().execute("app_error_nao", this.ip, this.port));
-
-        btnWait.setOnClickListener(view -> {
-            btnFollow.setVisibility(View.GONE);
-            btnWait.setVisibility(View.GONE);
-            messageReceiver();
-        });
-
         setupGraphics();
+
         Utilities.setTextsAndCardsImages(paintingIndex, getResources(), titleText, authorText, songText, descriptionText, paintingView);
 
     }
@@ -72,6 +66,26 @@ public class NaoDescription extends AppCompatActivity {
         songText = findViewById(R.id.txt_painting_song);
         descriptionText = findViewById(R.id.txt_painting_description);
         paintingView = findViewById(R.id.painting_image);
+        cardPaintingActions = findViewById(R.id.painting_actions_card);
+
+        cardPaintingActionsAnimation = ObjectAnimator.ofFloat(cardPaintingActions, "translationX", Utilities.getDP(this, 300));
+
+        cardPaintingActionsAnimation.setDuration(200);
+
+        cardPaintingActionsAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        btnFollow = findViewById(R.id.btn_follow);
+        btnWait = findViewById(R.id.btn_wait);
+
+        btnFollow.setVisibility(View.VISIBLE);
+        btnWait.setVisibility(View.VISIBLE);
+
+        btnFollow.setOnClickListener(view -> new MessageSender().execute("app_error_nao", this.ip, this.port));
+
+        btnWait.setOnClickListener(view -> {
+            messageReceiver();
+            cardPaintingActionsAnimation.start();
+        });
     }
 
     private void messageReceiver() {

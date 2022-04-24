@@ -1,5 +1,6 @@
 package com.example.naocontroller;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.opengl.Matrix;
@@ -9,6 +10,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -167,6 +169,7 @@ public class Utilities {
         int index = 0;
         String paragraph;
         for (int i = 0; i < paragraphs.length; i ++) {
+            if (paragraphs[i].equals("")) {continue;}
             paragraph = paragraphs[i];
             stringBuilder.append(paragraph);
             if (i%2 == 0) {
@@ -253,5 +256,9 @@ public class Utilities {
 
         return 0 < anchor_2d[0] && anchor_2d[0] < width
                 && 0 < anchor_2d[1] && anchor_2d[1] < height;
+    }
+
+    static public float getDP(Context context, float dp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 }

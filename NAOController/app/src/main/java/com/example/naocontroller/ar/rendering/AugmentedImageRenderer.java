@@ -28,60 +28,41 @@ public class AugmentedImageRenderer {
   }
 
   public void setupPaintingDetails (Context context, int paintingIndex) throws IOException {
+    imageLocationMap = new QuadRenderer(0.5f, 0.5f, 0);
+    imageDetailsText = new QuadRenderer(1.84f, 1.38f, 0);
+
     switch (paintingIndex) {
       case 1:
-        imageLocationMap = new QuadRenderer(1.0f, 1.0f, 0);
-        imageDetailsText = new QuadRenderer(0.64f, 0.48f, 0);
-
         imageLocationMap.createOnGlThread(context, "images/painting_11_location.png");
         imageDetailsText.createOnGlThread(context, "images/painting_11_description.png");
         break;
       case 2:
-        imageLocationMap = new QuadRenderer(1.0f, 1.0f, 0);
-        imageDetailsText = new QuadRenderer(0.64f, 0.48f, 0);
+        imageDetailsText = new QuadRenderer(1.6f, 1.2f, 0);
 
         imageLocationMap.createOnGlThread(context, "images/painting_12_location.png");
         imageDetailsText.createOnGlThread(context, "images/painting_12_description.png");
         break;
       case 3:
-        imageLocationMap = new QuadRenderer(1.0f, 1.0f, 0);
-        imageDetailsText = new QuadRenderer(0.64f, 0.48f, 0);
-
         imageLocationMap.createOnGlThread(context, "images/painting_13_location.png");
         imageDetailsText.createOnGlThread(context, "images/painting_13_description.png");
         break;
       case 4:
-        imageLocationMap = new QuadRenderer(1.0f, 1.0f, 0);
-        imageDetailsText = new QuadRenderer(0.64f, 0.48f, 0);
-
         imageLocationMap.createOnGlThread(context, "images/painting_14_location.png");
         imageDetailsText.createOnGlThread(context, "images/painting_14_description.png");
         break;
       case 5:
-        imageLocationMap = new QuadRenderer(1.0f, 1.0f, 0);
-        imageDetailsText = new QuadRenderer(0.64f, 0.48f, 0);
-
         imageLocationMap.createOnGlThread(context, "images/painting_14_location.png");
         imageDetailsText.createOnGlThread(context, "images/painting_15_description.png");
         break;
       case 6:
-        imageLocationMap = new QuadRenderer(1.0f, 1.0f, 0);
-        imageDetailsText = new QuadRenderer(0.64f, 0.48f, 0);
-
         imageLocationMap.createOnGlThread(context, "images/painting_14_location.png");
         imageDetailsText.createOnGlThread(context, "images/painting_16_description.png");
         break;
       case 7:
-        imageLocationMap = new QuadRenderer(1.0f, 1.0f, 0);
-        imageDetailsText = new QuadRenderer(0.64f, 0.48f, 0);
-
         imageLocationMap.createOnGlThread(context, "images/painting_14_location.png");
         imageDetailsText.createOnGlThread(context, "images/painting_17_description.png");
         break;
       case 8:
-        imageLocationMap = new QuadRenderer(1.0f, 1.0f, 0);
-        imageDetailsText = new QuadRenderer(0.64f, 0.48f, 0);
-
         imageLocationMap.createOnGlThread(context, "images/painting_18_location.png");
         imageDetailsText.createOnGlThread(context, "images/painting_18_description.png");
         break;
@@ -97,28 +78,67 @@ public class AugmentedImageRenderer {
 
     Pose[] localBoundaryPoses;
 
-    if (paintingIndex == 1) {
-      localBoundaryPoses = new Pose[]{
+    switch (paintingIndex) {
+      case 1:
+        localBoundaryPoses = new Pose[]{
               Pose.makeTranslation(
-                      -1.1f * augmentedImage.getExtentX(),
+                      -1.3f * augmentedImage.getExtentX(),
                       0.0f,
                       0.0f * augmentedImage.getExtentZ()),
               Pose.makeTranslation(
-                      0.8f * augmentedImage.getExtentX(),
+                      1.0f * augmentedImage.getExtentX(),
                       0.0f,
-                      0.0f * augmentedImage.getExtentZ()),
-      };
-    } else {
-      localBoundaryPoses = new Pose[]{
-              Pose.makeTranslation(
-                      -1.1f * augmentedImage.getExtentX(),
-                      0.0f,
-                      0.0f * augmentedImage.getExtentZ()),
-              Pose.makeTranslation(
-                      0.0f * augmentedImage.getExtentX(),
-                      0.0f,
-                      0.0f * augmentedImage.getExtentZ()),
-      };
+                      -0.1f * augmentedImage.getExtentZ()),
+        };
+        break;
+      case 2:
+        localBoundaryPoses = new Pose[]{
+                Pose.makeTranslation(
+                        -1.3f * augmentedImage.getExtentX(),
+                        0.0f,
+                        -0.5f * augmentedImage.getExtentZ()),
+                Pose.makeTranslation(
+                        0.1f * augmentedImage.getExtentX(),
+                        0.0f,
+                        0.0f * augmentedImage.getExtentZ()),
+        };
+        break;
+      case 3:
+        localBoundaryPoses = new Pose[]{
+                Pose.makeTranslation(
+                        1.3f * augmentedImage.getExtentX(),
+                        0.0f,
+                        0.0f * augmentedImage.getExtentZ()),
+                Pose.makeTranslation(
+                        -0.1f * augmentedImage.getExtentX(),
+                        0.0f,
+                        0.0f * augmentedImage.getExtentZ()),
+        };
+        break;
+      case 8:
+        localBoundaryPoses = new Pose[]{
+                Pose.makeTranslation(
+                        -1.3f * augmentedImage.getExtentX(),
+                        0.0f,
+                        0.0f * augmentedImage.getExtentZ()),
+                Pose.makeTranslation(
+                        0.01f * augmentedImage.getExtentX(),
+                        0.0f,
+                        -0.1f * augmentedImage.getExtentZ()),
+        };
+        break;
+      default:
+        localBoundaryPoses = new Pose[]{
+                Pose.makeTranslation(
+                        -1.3f * augmentedImage.getExtentX(),
+                        0.0f,
+                        0.0f * augmentedImage.getExtentZ()),
+                Pose.makeTranslation(
+                        0.0f * augmentedImage.getExtentX(),
+                        0.0f,
+                        0.0f * augmentedImage.getExtentZ()),
+        };
+        break;
     }
 
     Pose anchorPose = centerAnchor.getPose();

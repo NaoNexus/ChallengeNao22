@@ -71,17 +71,15 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
 
     private boolean recognisePainting;
     private int paintingIndex;
-    private float animationDownDP, firstButtonAnimationDP, secondButtonAnimationDP;
 
-    private CardView paintingRecognisedCard, speakButton;
+    private CardView paintingRecognisedCard, paintingActionsCard, speakButton;
     private TextView paintingRecognisedTitle, paintingRecognisedLocation;
 
     private Button followButton, waitButton;
 
     private ObjectAnimator cardSlideUpAnimation,
             cardSlideDownAnimation,
-            firstButtonSlideOutAnimation,
-            secondButtonSlideOutAnimation;
+            cardPaintingActionsSlideOutAnimation;
 
     // AR
 
@@ -138,24 +136,10 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
         Objects.requireNonNull(getSupportActionBar()).hide();
         //ACTION BAR CUSTOMISATION\\
 
-        animationDownDP = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 140,
-                getResources().getDisplayMetrics()
-        );
-
-        firstButtonAnimationDP = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 280,
-                getResources().getDisplayMetrics()
-        );
-
-        secondButtonAnimationDP = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 420,
-                getResources().getDisplayMetrics()
-        );
-
         surfaceView = findViewById(R.id.surface_view);
         speakButton = findViewById(R.id.btn_speak);
         paintingRecognisedCard = findViewById(R.id.painting_recognised_card);
+        paintingActionsCard = findViewById(R.id.painting_actions_card);
 
         waitButton = findViewById(R.id.btn_wait);
         followButton = findViewById(R.id.btn_follow);
@@ -187,29 +171,25 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
             followButton.setOnClickListener(view -> new MessageSender().execute("app_error_nao", ip, port));
 
             waitButton.setOnClickListener(view -> {
-                firstButtonSlideOutAnimation.start();
-                secondButtonSlideOutAnimation.start();
+                cardPaintingActionsSlideOutAnimation.start();
                 messageReceiver();
             });
         }
 
         cardSlideUpAnimation = ObjectAnimator.ofFloat(paintingRecognisedCard, "translationY", 0f);
-        cardSlideDownAnimation = ObjectAnimator.ofFloat(paintingRecognisedCard, "translationY", animationDownDP);
-        firstButtonSlideOutAnimation = ObjectAnimator.ofFloat(waitButton, "translationX", firstButtonAnimationDP);
-        secondButtonSlideOutAnimation = ObjectAnimator.ofFloat(followButton, "translationX", secondButtonAnimationDP);
+        cardSlideDownAnimation = ObjectAnimator.ofFloat(paintingRecognisedCard, "translationY", Utilities.getDP(this, 140));
+        cardPaintingActionsSlideOutAnimation = ObjectAnimator.ofFloat(paintingActionsCard, "translationX", Utilities.getDP(this, 320));
 
         paintingRecognisedLocation = findViewById(R.id.painting_recognised_location_text);
         paintingRecognisedTitle = findViewById(R.id.painting_recognised_title_text);
 
         cardSlideDownAnimation.setDuration(200);
         cardSlideUpAnimation.setDuration(200);
-        firstButtonSlideOutAnimation.setDuration(200);
-        secondButtonSlideOutAnimation.setDuration(200);
+        cardPaintingActionsSlideOutAnimation.setDuration(200);
 
         cardSlideDownAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
         cardSlideUpAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-        firstButtonSlideOutAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-        secondButtonSlideOutAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        cardPaintingActionsSlideOutAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
     }
 
     @Override
@@ -397,11 +377,11 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
             camera.getViewMatrix(viewmtx, 0);
 
             // Compute lighting from average intensity of the image.
-            final float[] colorCorrectionRgba = new float[4];
-            frame.getLightEstimate().getColorCorrection(colorCorrectionRgba, 0);
+            //final float[] colorCorrectionRgba = new float[4];
+            //frame.getLightEstimate().getColorCorrection(colorCorrectionRgba, 0);
 
             // Visualize augmented images.
-            drawAugmentedImages(frame, projmtx, viewmtx, colorCorrectionRgba);
+            drawAugmentedImages(frame, projmtx, viewmtx);
         } catch (Throwable t) {
             // Avoid crashing the application due to unhandled exceptions.
             Log.e(TAG, "Exception on the OpenGL thread", t);
@@ -409,7 +389,7 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
     }
 
     private void drawAugmentedImages(
-            Frame frame, float[] projmtx, float[] viewmtx, float[] colorCorrectionRgba) {
+            Frame frame, float[] projmtx, float[] viewmtx) {
         Collection<AugmentedImage> updatedAugmentedImages =
                 frame.getUpdatedTrackables(AugmentedImage.class);
 
@@ -438,12 +418,12 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
 
                     if (recognisePainting) {
                         if (Utilities.isInScreen(objmtx, viewmtx, projmtx, displayMetrics)) {
-                            if (paintingRecognisedCard.getTranslationY() == animationDownDP) {
+                            if (paintingRecognisedCard.getTranslationY() == Utilities.getDP(this, 140)) {
                                 Log.i(TAG, "Image tracked: " + augmentedImage.getIndex());
                                 StatsManager.increasePaintingsRecognised();
                                 this.runOnUiThread(() -> {
                                     cardSlideUpAnimation.start();
-                                    Utilities.setTexts(augmentedImage.getIndex() + 3,
+                                    Utilities.setTexts(augmentedImage.getIndex() + 1,
                                             paintingRecognisedTitle,
                                             paintingRecognisedLocation);
                                 });
@@ -472,7 +452,7 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
             if (augmentedImage.getTrackingState() == TrackingState.TRACKING) {
                 Log.e(TAG, "paintingIndex: " + paintingIndex);
                 if (!recognisePainting) {
-                    if (augmentedImage.getIndex() == paintingIndex - 3)
+                    if (augmentedImage.getIndex() == paintingIndex - 1)
                         augmentedImageRenderer.drawPaintingDetails(paintingIndex, viewmtx, projmtx, augmentedImage, centerAnchor);
                 } else {
                     augmentedImageRenderer.drawBorder(viewmtx, projmtx, augmentedImage, centerAnchor);

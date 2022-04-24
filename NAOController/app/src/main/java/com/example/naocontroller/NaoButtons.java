@@ -1,12 +1,15 @@
 package com.example.naocontroller;
 
-import android.app.AlertDialog;
+import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -36,8 +39,9 @@ public class NaoButtons extends AppCompatActivity {
              cameraRecognitionButton;
 
 
-    AlertDialog dialogSettings;
-    AlertDialog.Builder dialogBuilderSettings;
+    Dialog dialogSettings;
+
+    ObjectAnimator statsViewSlideInAnimation, statsViewSlideOutAnimation;
 
     String ip = "192.168.0.105";
     String port = "5050";
@@ -139,14 +143,12 @@ public class NaoButtons extends AppCompatActivity {
 
 
     private void createSettingsDialog() {
-        Button okButton, cancelButton, followButton, statsButton;
+        Button okButton, cancelButton, followButton, statsButton, backButton, resetStatsButton;
         TextInputEditText ipEditText, portEditText;
-
-        dialogBuilderSettings = new AlertDialog.Builder(this);
+        TextView arPaintingsDescribed, paintingsDescribed, paintingsRecognised;
+        CardView statsCardView, settingsCardView;
 
         final View settingsPopupView = getLayoutInflater().inflate(R.layout.popup_settings, null);
-        final View statsPopupView = getLayoutInflater().inflate(R.layout.popup_stats, null);
-
 
         ipEditText = settingsPopupView.findViewById(R.id.ip_edit_text);
         portEditText = settingsPopupView.findViewById(R.id.port_edit_text);
@@ -154,13 +156,32 @@ public class NaoButtons extends AppCompatActivity {
         cancelButton = settingsPopupView.findViewById(R.id.btn_annulla);
         followButton = settingsPopupView.findViewById(R.id.btn_follow);
         statsButton = settingsPopupView.findViewById(R.id.btn_stats);
+        backButton = settingsPopupView.findViewById(R.id.btn_back);
+        resetStatsButton = settingsPopupView.findViewById(R.id.btn_reset_stats);
+        arPaintingsDescribed = settingsPopupView.findViewById(R.id.text_num_ar_described);
+        paintingsDescribed = settingsPopupView.findViewById(R.id.text_num_normal_described);
+        paintingsRecognised = settingsPopupView.findViewById(R.id.text_num_paintings_recognised);
+        statsCardView = settingsPopupView.findViewById(R.id.card_view_stats);
+        settingsCardView = settingsPopupView.findViewById(R.id.card_view_settings);
+
+        statsCardView.setVisibility(View.GONE);
+
+        statsViewSlideInAnimation = ObjectAnimator.ofFloat(statsCardView, "translationX", 0);
+        statsViewSlideOutAnimation = ObjectAnimator.ofFloat(statsCardView, "translationX", Utilities.getDP(this, 500));
+
+        statsViewSlideInAnimation.setDuration(300);
+        statsViewSlideOutAnimation.setDuration(300);
+
+        statsViewSlideInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        statsViewSlideOutAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 
         ipEditText.setText(this.ip);
         portEditText.setText(this.port);
 
-        dialogBuilderSettings.setView(settingsPopupView);
-        dialogSettings = dialogBuilderSettings.create();
-        dialogSettings.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogSettings = new Dialog(this);
+
+        dialogSettings.setContentView(settingsPopupView);
+        dialogSettings.getWindow().setLayout((int) Utilities.getDP(this, 500), WindowManager.LayoutParams.WRAP_CONTENT);
         dialogSettings.getWindow().setBackgroundDrawableResource(R.color.transparent);
         dialogSettings.show();
 
@@ -184,32 +205,33 @@ public class NaoButtons extends AppCompatActivity {
 
         followButton.setOnClickListener(view -> dataSender("error", ip, port));
 
+        backButton.setOnClickListener(v -> {
+            settingsCardView.setVisibility(View.VISIBLE);
+            statsViewSlideOutAnimation.start();
 
-        statsButton.setOnClickListener(view -> {
-            ((ViewGroup)settingsPopupView.getParent()).removeView(settingsPopupView);
-            dialogSettings.setContentView(statsPopupView);
+            new Handler().postDelayed(() -> statsCardView.setVisibility(View.GONE), 300);
+        });
 
-            Button backButton = statsPopupView.findViewById(R.id.btn_back);
-            Button resetStatsButton = statsPopupView.findViewById(R.id.btn_reset_stats);
-            TextView arPaintingsDescribed = statsPopupView.findViewById(R.id.text_num_ar_described);
-            TextView paintingsDescribed = statsPopupView.findViewById(R.id.text_num_normal_described);
-            TextView paintingsRecognised = statsPopupView.findViewById(R.id.text_num_paintings_recognised);
-
-            backButton.setOnClickListener(view1 -> {
-                ((ViewGroup)statsPopupView.getParent()).removeView(statsPopupView);
-                dialogSettings.setContentView(settingsPopupView);
-            });
-
-            resetStatsButton.setOnClickListener(view1 -> {
-                StatsManager.resetARPaintings();
-                StatsManager.resetNormalPaintings();
-                StatsManager.resetPaintingsRecognised();
-            });
+        resetStatsButton.setOnClickListener(v -> {
+            StatsManager.resetARPaintings();
+            StatsManager.resetNormalPaintings();
+            StatsManager.resetPaintingsRecognised();
 
             arPaintingsDescribed.setText(String.valueOf(StatsManager.getARPaintings()));
             paintingsDescribed.setText(String.valueOf(StatsManager.getNormalPaintings()));
             paintingsRecognised.setText(String.valueOf(StatsManager.getPaintingsRecognised()));
+        });
 
+
+        statsButton.setOnClickListener(view -> {
+            statsCardView.setVisibility(View.VISIBLE);
+            statsViewSlideInAnimation.start();
+
+            new Handler().postDelayed(() -> settingsCardView.setVisibility(View.GONE), 300);
+
+            arPaintingsDescribed.setText(String.valueOf(StatsManager.getARPaintings()));
+            paintingsDescribed.setText(String.valueOf(StatsManager.getNormalPaintings()));
+            paintingsRecognised.setText(String.valueOf(StatsManager.getPaintingsRecognised()));
         });
     }
 }

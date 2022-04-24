@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="500dp"
     android:layout_height="wrap_content"
     tools:context=".NaoButtons"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:maxWidth="500dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_settings"
         android:layout_width="500dp"
         android:layout_height="320dp"
         app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -154,25 +154,29 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_ok"
                     android:layout_width="120dp"
-                    android:layout_height="55dp"
-                    android:layout_marginHorizontal="20sp"
+                    android:layout_height="50dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:layout_marginHorizontal="25dp"
                     android:backgroundTint="@color/main_color"
                     android:text="@string/btn_ok"
                     android:textColor="@color/white"
-                    app:cornerRadius="20dp" />
+                    app:cornerRadius="20dp"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_annulla"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="120dp"
-                    android:layout_height="55dp"
-                    android:layout_marginHorizontal="20sp"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="25dp"
                     android:text="@string/btn_cancel"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
                     android:textAllCaps="true"
                     android:textColor="@color/main_color"
                     app:cornerRadius="20dp"
                     app:strokeColor="@color/main_color"
-                    app:strokeWidth="2dp" />
+                    app:strokeWidth="2dp"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -180,4 +184,169 @@
 
     </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_stats"
+        android:layout_width="500dp"
+        android:layout_height="320dp"
+        app:cardCornerRadius="20dp"
+        android:translationX="600dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_back"
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="start|top"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@color/background_gradient_start"
+                    android:foregroundGravity="center"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:textColor="@color/white"
+                    app:cornerRadius="20dp"
+                    app:icon="@drawable/ic_back" />
+
+                <TextView
+                    style="@style/TitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="start|top"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="3"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/stats"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/main_color" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/SmallTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/text_ar_description_stats"
+                    android:textColor="@color/background_gradient_end"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/text_num_ar_described"
+                    style="@style/SmallTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="@null"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/main_color"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/SmallTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/text_normal_description_stats"
+                    android:textColor="@color/background_gradient_end"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/text_num_normal_described"
+                    style="@style/SmallTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="@null"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/main_color"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/SmallTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/text_recognised_paintings_stats"
+                    android:textColor="@color/background_gradient_end"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/text_num_paintings_recognised"
+                    style="@style/SmallTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="@null"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/main_color"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_reset_stats"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/main_color"
+                android:foregroundGravity="center"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/btn_reset_stats"
+                android:textColor="@color/white"
+                app:cornerRadius="20dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

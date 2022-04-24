@@ -4,31 +4,50 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_wait"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_gravity="end|top"
-        android:backgroundTint="@color/background_gradient_start"
-        android:text="@string/btn_wait"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:cornerRadius="20dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/painting_actions_card"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="160dp"/>
+        android:layout_marginEnd="20dp"
+        android:translationX="0dp"
+        android:layout_gravity="top|end"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_follow"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_gravity="end|top"
-        android:backgroundTint="@color/main_color"
-        android:text="@string/btn_follow"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:cornerRadius="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_wait"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/background_gradient_start"
+                android:text="@string/btn_wait"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:cornerRadius="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginVertical="10dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_follow"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/main_color"
+                android:text="@string/btn_follow"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:cornerRadius="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <android.opengl.GLSurfaceView
         android:id="@+id/surface_view"

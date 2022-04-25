@@ -14,6 +14,7 @@
         <File name="eto9" src="behavior_1/sounds/eto9.wav" />
         <File name="interested4" src="behavior_1/sounds/interested4.wav" />
         <File name="popup" src="behavior_1/sounds/popup.ogg" />
+        <File name="mikhael-landscape-paisaje" src="behavior_1/sounds/mikhael-landscape-paisaje.ogg" />
     </Resources>
     <Topics>
         <Topic name="AskRestart_enu" src="behavior_1/AskRestart/AskRestart_enu.top" topicName="AskRestart" language="en_US" nuance="enu" />

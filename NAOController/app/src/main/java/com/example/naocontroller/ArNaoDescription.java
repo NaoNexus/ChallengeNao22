@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
@@ -150,6 +149,7 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
                 recognisePainting = false;
                 StatsManager.increaseARPaintings();
                 cardSlideDownAnimation.start();
+                dataSender(String.valueOf(paintingIndex), ip, port);
                 Intent intent = getIntent();
                 intent.removeExtra("recognisePainting");
                 intent.putExtra("recognisePainting", false);
@@ -475,5 +475,10 @@ public class ArNaoDescription extends AppCompatActivity implements GLSurfaceView
     private void messageReceiver() {
         MessageReceiver messageReceiver = new MessageReceiver(messageReceived -> finish());
         messageReceiver.execute(String.valueOf(port));
+    }
+
+    private void dataSender(String paintingIndex, String ip, String port) {
+        MessageSender sender = new MessageSender();
+        sender.execute("app_" + paintingIndex + "_nao", ip, port);
     }
 }

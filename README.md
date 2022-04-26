@@ -3,7 +3,6 @@
 ![alt text](https://github.com/NaoNexus/ChallengeNao22/blob/main/images/logo_con_scritta.png)
 
 ## Cartelle progetto
----
 
 ### NAOController
 
@@ -24,8 +23,6 @@ La cartella [NAOProject](https://github.com/NaoNexus/ChallengeNao22/tree/main/NA
 ### NAOWebsite
 
 La cartella [NAOWebsite](https://github.com/NaoNexus/ChallengeNao22/tree/main/NAOWebsite) contiene il [sito ufficiale](https://naonexus.altervista.org) del team NaoNexus.
-
----
 
 ## Presentazione
 

@@ -24,6 +24,11 @@ La cartella [NAOProject](https://github.com/NaoNexus/ChallengeNao22/tree/main/NA
 
 La cartella [NAOWebsite](https://github.com/NaoNexus/ChallengeNao22/tree/main/NAOWebsite) contiene il [sito ufficiale](https://naonexus.altervista.org) del team NaoNexus.
 
+## Video
+
+* [Presentazione team](https://www.youtube.com/watch?v=LpX-JTWP7Zk&ab_channel=NaoNexus).
+* [Presentazione progetto](https://www.youtube.com/watch?v=pdLvACyw1PE&ab_channel=NaoNexus).
+
 ## Presentazione
 
 * [Presentazione progetto](https://prezi.com/view/JCXqwu2kiO8rEDcvFwbF/).
